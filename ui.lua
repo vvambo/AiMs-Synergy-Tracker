@@ -36,7 +36,7 @@ function U.TopLevelControl()
     tlw:SetMouseEnabled(true)
     tlw:SetHandler("OnMoveStop", function(control)
         AST.SV.left = ASTGrid:GetLeft()
-	    AST.SV.top = ASTGrid:GetTop()
+	    AST.SV.top  = ASTGrid:GetTop()
     end)
 end
 
@@ -51,10 +51,10 @@ end
 
 function U.TrackerElements()
     local windowscale   = AST.SV.windowscale
-    local fontSize = 18
-    local fontStyle = "MEDIUM_FONT"        
-    local fontWeight = "thick-outline" 
-    local astFont = string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSize, fontWeight)
+    local fontSize      = 18
+    local fontStyle     = "MEDIUM_FONT"        
+    local fontWeight    = "thick-outline" 
+    local astFont       = string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSize, fontWeight)
 
     for k, v in ipairs(AST.Data.TrackerTimer) do
         local SynergyIcon = wm:CreateControl("$(parent)SynergyIcon"..k, tlw, CT_TEXTURE)
@@ -91,7 +91,8 @@ function U.UpdateElements()
         [14] = AST.SV.sol
     }
     local windowscale   = AST.SV.windowscale
-    local counter = 0
+    local counter       = 0
+    
     for k, v in ipairs(check) do
         if v then
             ASTGrid:GetNamedChild("SynergyIcon"..k):SetHidden(false)
@@ -128,8 +129,6 @@ function U.SetIconSize(TopLevelControl, windowscale, counter, updated, SynergyIc
 end
 
 function U.SetTimerSize(TopLevelControl, windowscale, counter, updated, SynergyTimer, SynergyIcon)
-
-    --checking timers if they have already been created
     if updated then
         SynergyIcon         = TopLevelControl:GetNamedChild(SynergyIcon)
         SynergyTimer        = TopLevelControl:GetNamedChild(SynergyTimer)
@@ -158,47 +157,11 @@ function U.SetBackgroundOrientation(TopLevelControl, windowscale, counter, updat
     end
 end
 
---[[ function U.BuildHealerUI(enabled)
+
+----------------------
+-- Healer UI
+----------------------
+
+function U.HealerUI(enabled)
     if not enabled then return; end
-    local getPlayerClass    = GetClassName(0, GetUnitClassId("player"))
-    local getPlayerRole     = GetGroupMemberAssignedRole("player")
-    local setDDRole         = 1
-    local setHealerRole     = 4
-    local classRelevantSkill = nil
-
-    --checking if player is DD or Healer
-    if getPlayerClass == "Sorcerer" then
-
-    elseif getPlayerClass == "Warden" then
-
-    end
-
-    local fontSize = 18
-    local fontStyle = "MEDIUM_FONT"        
-    local fontWeight = "thick-outline" 
-    local astFont = string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSize, fontWeight)
-    --create toplevel
-    hui = wm:CreateTopLevelWindow("HealerUI")
-    hui:SetResizeToFitDescendents(true)
-    hui:SetAnchor(CENTER, GuiRoot, CENTER, 0,0)
-    hui:SetMovable(true)
-    hui:SetMouseEnabled(true)
-    hui:SetHandler("OnMoveStop", function(control)
-        AST.SV.left = ASTGrid:GetLeft()
-        AST.SV.top = ASTGrid:GetTop()
-    end)
-
-    --create backdrop
-    local bdBackdrop = wm:CreateControl("$(parent)bdBackDrop", hui, CT_BACKDROP)
-    bdBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
-    bdBackdrop:SetCenterColor(0, 0, 0)
-    bdBackdrop:SetAnchor(TOPLEFT, hui, TOPLEFT, 0, 0)
-    bdBackdrop:SetAlpha(0.8)
-    bdBackdrop:SetDrawLayer(0)
-    bdBackdrop:SetDimensions(200, 200)
-
-    for k, v in ipairs(AST.updateTimers) do
-
-
-    end
-end ]]
+end

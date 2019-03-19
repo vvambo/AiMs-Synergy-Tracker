@@ -23,8 +23,8 @@ function AST.LoadSettings()
         },
         [2] = {
             type = "dropdown",
-            name = "Alignment",
-            tooltip = "Various options to display the synergies",
+            name = "Alignment of Synergies",
+            tooltip = "Different ways to display synergies",
             choices = {"horizontal", "vertical", "compact"},
             getFunc = function() return AST.SV.orientation end,
             setFunc = function(var) 
@@ -37,7 +37,7 @@ function AST.LoadSettings()
         [3] = {
             type = "slider",
             name = "Background Transparency",
-            tooltip = "Sets the Transparency of the tracker windows background",
+            tooltip = "Defines the transparency of the tracker background.",
             min = 0,
             max = 100,
             step = 1,

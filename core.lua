@@ -25,7 +25,7 @@ local em            = EVENT_MANAGER
 ----------------------
 local combat        = IsUnitInCombat("player")
 local windowstate   = true
-local wrapper       = nil
+local wrapper       = ASTGrid
 local fragment      = nil
 
 ----------------------
@@ -62,26 +62,21 @@ AST.default = {
 -- AddOn Initialize
 ----------------------
 function AST:Initialize()
-
-    -- Register new Event
     em:RegisterForEvent(AST.name.."Synergy", EVENT_COMBAT_EVENT , AST.synergyCheck)
     em:RegisterForEvent(AST.name.."Combat", EVENT_PLAYER_COMBAT_STATE, AST.combatState)
 
-    -- Load savedVariables
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
     windowstate = AST.SV.windowstate
 
-    -- build UI and stuff
     AST.UI.TrackerUI(true)
-    --AST.UI.BuildHealerUI()
+    AST.UI.HealerUI(false)
+
     AST.RestorePosition()
     AST.LoadSettings()
     AST.LoadAlpha(AST.SV.alpha)
     AST.LockWindow(AST.SV.lockwindow)
 
-    --adding window to HUD
-    wrapper = ASTGrid 
     fragment = ZO_SimpleSceneFragment:New(wrapper)
     AST.combatState()
 end
@@ -91,13 +86,16 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, _, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
+    if abilityName == nil or abilityName == '' and abilityId < 100000 then return; end
+
     local start = GetFrameTimeSeconds()
-    if abilityName == nil or abilityName == '' then return; end
+
     if AST.Data.SynergyData[abilityId] then
         if AST.Data.SynergyData[abilityId].group == 1 then --orb and shard cd
             if result == 2240 then
-                AST.Data.TrackerTimer[1] = start + 20     
+                AST.Data.TrackerTimer[1] = start + 20
             end
+        end
         else
             AST.Data.TrackerTimer[AST.Data.SynergyData[abilityId].group] = start + AST.Data.SynergyData[abilityId].cooldown
         end
@@ -111,7 +109,7 @@ function AST.countDown()
     local countAll  = 0
 
     for k, v in ipairs(AST.Data.TrackerTimer) do
-        local element   = ASTGrid:GetNamedChild("SynergyTimer"..k)
+        local element   = wrapper:GetNamedChild("SynergyTimer"..k)
 
         if AST.time(v) <= 0.1 then
             element:SetText("0.0")
@@ -137,15 +135,15 @@ function AST.windowState()
     if windowstate then
         AST.SV.windowstate = false
         windowstate = false
-        ASTGrid:SetHidden(true)
+        wrapper:SetHidden(true)
         HUD_SCENE:RemoveFragment(fragment)
         HUD_UI_SCENE:RemoveFragment(fragment)
-        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffThe tracker is now hidden outside fights|r")
+        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now |cdc143chidden|r outside of combat|r")
     else
         AST.SV.windowstate = true
         windowstate = true
-        ASTGrid:SetHidden(false)
-        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffThe tracker is now visible outside fights|r")
+        wrapper:SetHidden(false)
+        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now |c32cd32visible|r outside of combat|r")
         HUD_SCENE:AddFragment(fragment)
         HUD_UI_SCENE:AddFragment(fragment)
     end
@@ -160,9 +158,9 @@ function AST.combatState(event, inCombat)
         if inCombat ~= combat then
             combat = inCombat
             if inCombat then
-                ASTGrid:SetHidden(false)
+                wrapper:SetHidden(false)
             else
-                ASTGrid:SetHidden(true)
+                wrapper:SetHidden(true)
             end
         end
         HUD_SCENE:RemoveFragment(fragment)
@@ -176,9 +174,9 @@ end
 
 function AST.LockWindow(value)
     if not value then
-        ASTGrid:SetMovable(true)
+        wrapper:SetMovable(true)
     else
-        ASTGrid:SetMovable(false)
+        wrapper:SetMovable(false)
     end
 end
 
@@ -192,8 +190,8 @@ end
 function AST.RestorePosition()
     local left = AST.SV.left
     local top = AST.SV.top
-    ASTGrid:ClearAnchors()
-    ASTGrid:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
+    wrapper:ClearAnchors()
+    wrapper:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
 ----------------------
