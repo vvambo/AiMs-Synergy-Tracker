@@ -87,7 +87,7 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, _, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    if abilityName == nil or abilityName == '' and abilityId < 100000 then return; end
+    if abilityName == nil or abilityName == '' or abilityId < 100000 then return; end
 
     local start = GetFrameTimeSeconds()
 
