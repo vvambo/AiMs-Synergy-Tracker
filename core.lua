@@ -62,12 +62,11 @@ AST.default = {
 -- AddOn Initialize
 ----------------------
 function AST:Initialize()
-    em:RegisterForEvent(AST.name.."Synergy", EVENT_COMBAT_EVENT , AST.synergyCheck)
     em:RegisterForEvent(AST.name.."Combat", EVENT_PLAYER_COMBAT_STATE, AST.combatState)
 
-    --Still has to be tested
     for k, v in pairs(AST.Data.SynergyData) do
-        em:AddFilterForEvent(AST.name.."SynergyFilter"..k, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, k)
+        em:RegisterForEvent(AST.name.."Synergy"..k, EVENT_COMBAT_EVENT , AST.synergyCheck)
+        em:AddFilterForEvent(AST.name.."Synergy"..k, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, k)
     end
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
@@ -91,13 +90,9 @@ end
 -- Main Functions
 ----------------------
 
-function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, _, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    -- muss noch getestet werden
-    -- sollte die sourceUnitId nicht nil ausgeben, kann man die Cooldowns von anderen Spielern tracken
-    if abilityName = '' or abilityName = nil then
-        d("Synergy: "..abilityId.." used by "..sourceUnitId)
-        return;
-    end
+function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
+    --d("Synergy: "..abilityId.." used by "..targetUnitId)
+    if sourceType ~= 1 then return; end
 
     local start = GetFrameTimeSeconds()
 
