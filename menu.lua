@@ -18,13 +18,13 @@ function AST.LoadSettings()
     local optionsTable = {
         [1] = {
             type = "header",
-            name = "Window Settings",
+            name = "Tracker Settings",
             width = "full",
         },
         [2] = {
             type = "dropdown",
             name = "Alignment of Synergies",
-            tooltip = "Different ways to display synergies",
+            tooltip = "Allows the alignment of synergies to be adjusted",
             choices = {"horizontal", "vertical", "compact"},
             getFunc = function() return AST.SV.orientation end,
             setFunc = function(var) 
@@ -57,7 +57,7 @@ function AST.LoadSettings()
         [4] = {
             type = "slider",
             name = "Window Scale",
-            tooltip = "Adjusts the size of the tracker window",
+            tooltip = "Adjusts the scale of the tracker",
             min = 50,
             max = 200,
             step = 1,
@@ -76,8 +76,8 @@ function AST.LoadSettings()
         },
         [5] = {
             type = "checkbox",
-            name = "Combat",
-            tooltip = "Hides/Shows the tracker window outside of fights",
+            name = "Show Tracker outside of Combat",
+            tooltip = "Toggles the tracker outside of fights",
             getFunc = function() return AST.SV.windowstate end,
             setFunc = function(value) 
                 AST.SV.windowstate = value

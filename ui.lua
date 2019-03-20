@@ -11,6 +11,7 @@ local wm            = WINDOW_MANAGER
 local tlw           = nil
 local hui           = nil
 
+
 ----------------------
 -- Main Functions
 ----------------------
@@ -27,6 +28,11 @@ function U.TrackerBuildElements()
     U.BackdropControl()
     U.TrackerElements()
 end
+
+
+----------------------
+-- Creating Elements
+----------------------
 
 function U.TopLevelControl()
     tlw = wm:CreateTopLevelWindow("ASTGrid")
@@ -65,7 +71,7 @@ function U.TrackerElements()
 
         local SynergyTimer = wm:CreateControl("$(parent)SynergyTimer"..k, tlw, CT_LABEL)
         SynergyTimer:SetColor(255, 255, 255, 1)
-        SynergyTimer:SetFont(astFont)  --ZoFontConversationOption
+        SynergyTimer:SetFont(astFont)
         SynergyTimer:SetScale(1.0)
         SynergyTimer:SetWrapMode(TEX_MODE_CLAMP)
         SynergyTimer:SetDrawLayer(1)
@@ -97,8 +103,8 @@ function U.UpdateElements()
         if v then
             ASTGrid:GetNamedChild("SynergyIcon"..k):SetHidden(false)
             ASTGrid:GetNamedChild("SynergyTimer"..k):SetHidden(false)
-            U.SetIconSize(ASTGrid, windowscale, counter, true, "SynergyIcon"..k)
-            U.SetTimerSize(ASTGrid, windowscale, counter, true, "SynergyTimer"..k, "SynergyIcon"..k)
+            U.SetIconSize(ASTGrid, windowscale, counter, "SynergyIcon"..k)
+            U.SetTimerSize(ASTGrid, windowscale, counter, "SynergyTimer"..k, "SynergyIcon"..k)
             counter = counter + 1
         else 
             ASTGrid:GetNamedChild("SynergyIcon"..k):SetHidden(true)
@@ -106,17 +112,13 @@ function U.UpdateElements()
         end
     end
 
-    U.SetBackgroundOrientation(ASTGrid, windowscale, counter, true, "bdBackDrop")
+    U.SetBackgroundOrientation(ASTGrid, windowscale, counter, "bdBackDrop")
 end
 
-function U.SetIconSize(TopLevelControl, windowscale, counter, updated, SynergyIcon)
-    --checking if the ui is being updated or created
-    if updated then
-        SynergyIcon = TopLevelControl:GetNamedChild(SynergyIcon)
-        local bdBackDrop = TopLevelControl:GetNamedChild("bdBackDrop")
-    end
+function U.SetIconSize(TopLevelControl, windowscale, counter, SynergyIcon)
+    SynergyIcon = TopLevelControl:GetNamedChild(SynergyIcon)
+    local bdBackDrop = TopLevelControl:GetNamedChild("bdBackDrop")
 
-    --select in which form our icon is displayed
     if AST.SV.orientation == "vertical" then
         SynergyIcon:SetAnchor(TOPLEFT, bdBackDrop, TOPLEFT, 5 * windowscale, ( 5 + 45 * (counter) ) * windowscale )
     elseif AST.SV.orientation == "compact" then
@@ -128,14 +130,11 @@ function U.SetIconSize(TopLevelControl, windowscale, counter, updated, SynergyIc
     SynergyIcon:SetDimensions(40 * windowscale, 40 * windowscale)
 end
 
-function U.SetTimerSize(TopLevelControl, windowscale, counter, updated, SynergyTimer, SynergyIcon)
-    if updated then
-        SynergyIcon         = TopLevelControl:GetNamedChild(SynergyIcon)
-        SynergyTimer        = TopLevelControl:GetNamedChild(SynergyTimer)
-        local bdBackDrop    = TopLevelControl:GetNamedChild("bdBackDrop")
-    end
+function U.SetTimerSize(TopLevelControl, windowscale, counter, SynergyTimer, SynergyIcon)
+    SynergyIcon         = TopLevelControl:GetNamedChild(SynergyIcon)
+    SynergyTimer        = TopLevelControl:GetNamedChild(SynergyTimer)
+    local bdBackDrop    = TopLevelControl:GetNamedChild("bdBackDrop")
 
-    -- select in which form our timer is displayed
     if AST.SV.orientation == "vertical" then
         SynergyTimer:SetAnchor(CENTER, SynergyIcon, CENTER, 45 * windowscale, 0)
     elseif AST.SV.orientation == "compact" then
@@ -147,7 +146,7 @@ function U.SetTimerSize(TopLevelControl, windowscale, counter, updated, SynergyT
     SynergyTimer:SetScale(windowscale)
 end
 
-function U.SetBackgroundOrientation(TopLevelControl, windowscale, counter, updated, bdBackDrop)
+function U.SetBackgroundOrientation(TopLevelControl, windowscale, counter, bdBackDrop)
     if AST.SV.orientation == "vertical" then
         ASTGridbdBackDrop:SetDimensions(90 * windowscale,(5 + 45 * counter) * windowscale)
     elseif AST.SV.orientation == "compact" then
