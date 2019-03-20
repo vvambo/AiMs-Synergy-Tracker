@@ -6,7 +6,7 @@ AST.UI = {}
 ----------------------
 -- variables
 ----------------------
-local U = AST.UI
+local U             = AST.UI
 local wm            = WINDOW_MANAGER
 local tlw           = nil
 local hui           = nil

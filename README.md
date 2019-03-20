@@ -19,7 +19,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 - fortunately none yet
 
 <br><br>
-#### Version 3.9
+#### Version 3.9 (estimated: cw 13-14)
 ##### Changes:
 - Removed some more unnecessary code
 - Added an option to control the time intervals of update events

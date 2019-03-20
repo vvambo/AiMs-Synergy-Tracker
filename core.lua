@@ -67,7 +67,7 @@ function AST:Initialize()
 
     --Still has to be tested
     for k, v in pairs(AST.Data.SynergyData) do
-        em:AddFilterForEvent(AST.name.."Synergy", EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, k)
+        em:AddFilterForEvent(AST.name.."SynergyFilter"..k, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, k)
     end
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
@@ -92,6 +92,13 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, _, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
+    -- muss noch getestet werden
+    -- sollte die sourceUnitId nicht nil ausgeben, kann man die Cooldowns von anderen Spielern tracken
+    if abilityName = '' or abilityName = nil then
+        d("Synergy: "..abilityId.." used by "..sourceUnitId)
+        return;
+    end
+
     local start = GetFrameTimeSeconds()
 
     if AST.Data.SynergyData[abilityId].group == 1 then --orb and shard cd
@@ -103,21 +110,6 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, _, _, _, _
     end
 
     em:RegisterForUpdate(AST.name.."Update", 50, AST.countDown)
-    --[[ if abilityName == nil or abilityName == '' or abilityId < 100000 then return; end --will be removed with version 4.0 as it blocks useful abilities for the healer frame
-
-    local start = GetFrameTimeSeconds()
-
-    if AST.Data.SynergyData[abilityId] then
-        if AST.Data.SynergyData[abilityId].group == 1 then --orb and shard cd
-            if result == 2240 then --otherwise it sets the cooldown back to 20 after 1-2 seconds
-                AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown
-            end
-        else
-            AST.Data.TrackerTimer[AST.Data.SynergyData[abilityId].group] = start + AST.Data.SynergyData[abilityId].cooldown
-        end
-
-        em:RegisterForUpdate(AST.name.."Update", 50, AST.countDown)
-    end ]]
 end
 
 function AST.countDown()
