@@ -125,8 +125,8 @@ function AST.LoadSettings()
         },
         [10] = {
             type = "checkbox",
-            name = "Combustion",
-            tooltip = "Synergy of Energy Orb",
+            name = "Combustion/Blessed Shard",
+            tooltip = "Synergy of Energy Orb/Spear Shard",
             getFunc = function() return AST.SV.orb end,
             setFunc = function(value) 
                 AST.SV.orb = value

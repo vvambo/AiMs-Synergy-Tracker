@@ -2,7 +2,7 @@
 -- AST namespace and settings related variables
 ----------------------
 AST                 = {}
-AST.name            ="AiMs-Synergy-Tracker"
+AST.name            = "AiMs-Synergy-Tracker"
 AST.author          = "AiMPlAyEr [EU]"
 AST.version         = "3.8"
 AST.website         = "http://www.esoui.com/downloads/info2084-AiMsSynergyTracker.html"
@@ -91,13 +91,12 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    --d("Synergy: "..abilityId.." used by "..targetUnitId)
     if sourceType ~= 1 then return; end
 
     local start = GetFrameTimeSeconds()
 
-    if AST.Data.SynergyData[abilityId].group == 1 then --orb and shard cd
-        if result == 2240 then --otherwise it sets the cooldown back to 20 after 1-2 seconds
+    if AST.Data.SynergyData[abilityId].group == 1 then
+        if result == 2240 then
             AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown
         end
     else
