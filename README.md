@@ -9,22 +9,22 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 #### Synergies
 | Synergy        | Status       |
 | ------------- |:-------------:|
-| Combustion (Orbs) | <span style="color: #4CAF50;">Added</span> |
-| Blessed Shard (Shards) | <span style="color: #4CAF50;">Added</span> |
-| Conduit (Liquid Lightning) | <span style="color: #4CAF50;">Added</span> |
-| Purify (Extended Ritual) | <span style="color: #4CAF50;">Added</span> |
-| Harvest (Healing Seed) | <span style="color: #4CAF50;">Added</span> |
-| Bone Wall (Bone Shield) | <span style="color: #4CAF50;">Added</span> |
-| Blood Funnel (Blood Altar) | <span style="color: #4CAF50;">Added</span> |
-| Spawn Broodlings (Trapping Webs) | <span style="color: #4CAF50;">Added</span> |
-| Radiate (Inner Fire) | <span style="color: #4CAF50;">Added</span> |
-| Charged Lightning (Summon Storm Atronach) | <span style="color: #4CAF50;">Added</span> |
-| Shackle (Dragonknight Standard) | <span style="color: #4CAF50;">Added</span> |
-| Impale (Dark Talon) | <span style="color: #4CAF50;">Added</span> |
-| Supernova (Nova) | <span style="color: #4CAF50;">Added</span> |
-| Hidden Refresh (Consuming Darkness) | <span style="color: #4CAF50;">Added</span> |
-| Soul Leech (Soul Shred) | <span style="color: #4CAF50;">Added</span> |
-| Icy escape (Frozen Retreat) | <span style="color: #F44336;">Probably won't be added</span> |
+| **Combustion** (Orbs) | Added |
+| **Blessed Shard** (Shards) | Added |
+| **Conduit** (Liquid Lightning) | Added |
+| **Purify** (Extended Ritual) | Added |
+| **Harvest** (Healing Seed) | Added |
+| **Bone Wall** (Bone Shield) | Added |
+| **Blood Funnel** (Blood Altar) | Added |
+| **Spawn Broodlings** (Trapping Webs) | Added |
+| **Radiate** (Inner Fire) | Added |
+| **Charged Lightning** (Summon Storm Atronach) | Added |
+| **Shackle** (Dragonknight Standard) | Added |
+| **Impale** (Dark Talon) | Added |
+| **Supernova** (Nova) | Added |
+| **Hidden Refresh** (Consuming Darkness) | Added |
+| **Soul Leech** (Soul Shred) | Added |
+| **Icy escape** (Frozen Retreat) | Probably won't be added |
 
 
 <br><br>
