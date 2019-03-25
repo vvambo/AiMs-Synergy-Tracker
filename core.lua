@@ -111,7 +111,7 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
     end
 
     if sourceType == COMBAT_UNIT_TYPE_GROUP then
-        --healerui
+        --healerui 
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
