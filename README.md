@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v3.9.0-yellow.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v3.9.1-yellow.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.
@@ -29,7 +29,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 
 <br><br>
 #### Version 3.9
-##### Changes:
+##### Changes (not tested yet):
 - Textures are now affected by the transparency slider
 - Renamed "Background Transparency" to "Tracker Transparency"
 - Adjusted the tooltip of "Tracker Transparency"

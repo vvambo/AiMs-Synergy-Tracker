@@ -55,7 +55,8 @@ AST.default = {
     ["alpha"]       = 0.8,
     ["lockwindow"]  = false,
     ["trackerui"]   = true,
-    ["healerui"]    = true
+    ["healerui"]    = true,
+    ["interval"]    = 50
 }
 
 ----------------------
@@ -91,19 +92,29 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    if sourceType ~= 1 then return; end
+    if sourceType == COMBAT_UNIT_TYPE_NONE or 
+        sourceType == COMBAT_UNIT_TYPE_PLAYER_PET or 
+        sourceType == COMBAT_UNIT_TYPE_OTHER then 
+            return;
+    end
 
     local start = GetFrameTimeSeconds()
 
-    if AST.Data.SynergyData[abilityId].group == 1 then
-        if result == 2240 then
-            AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown
+    if sourceType == COMBAT_UNIT_TYPE_PLAYER then
+        if AST.Data.SynergyData[abilityId].group == 1 then
+            if result == 2240 then
+                AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown
+            end
+        else
+            AST.Data.TrackerTimer[AST.Data.SynergyData[abilityId].group] = start + AST.Data.SynergyData[abilityId].cooldown
         end
-    else
-        AST.Data.TrackerTimer[AST.Data.SynergyData[abilityId].group] = start + AST.Data.SynergyData[abilityId].cooldown
     end
 
-    em:RegisterForUpdate(AST.name.."Update", 50, AST.countDown)
+    if sourceType == COMBAT_UNIT_TYPE_GROUP then
+        --healerui
+    end
+
+    em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
 end
 
 function AST.countDown()

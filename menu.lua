@@ -56,6 +56,22 @@ function AST.LoadSettings()
         },
         [4] = {
             type = "slider",
+            name = "Update Interval",
+            tooltip = "Defines the refresh rate in ms",
+            min = 50,
+            max = 1000,
+            step = 50,
+            getFunc = function() 
+                return AST.SV.interval
+            end,
+            setFunc = function(var) 
+                AST.SV.interval = var
+            end,
+            width = "full",
+            default = 50
+        },
+        [5] = {
+            type = "slider",
             name = "Window Scale",
             tooltip = "Adjusts the scale of the tracker",
             min = 50,
@@ -74,7 +90,7 @@ function AST.LoadSettings()
             width = "full",
             default = 5
         },
-        [5] = {
+        [6] = {
             type = "checkbox",
             name = "Show Tracker outside of Combat",
             tooltip = "Toggles the tracker outside of fights",
@@ -86,7 +102,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [6] = {
+        [7] = {
             type = "checkbox",
             name = "Lock Tracker Window",
             getFunc = function() return AST.SV.lockwindow end,
@@ -96,12 +112,12 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [7] = {
+        [8] = {
             type = "header",
             name = "Synergy Settings",
             width = "full",
         },
-        [8] = {
+        [9] = {
             type = "checkbox",
             name = "Conduit",
             tooltip = "Synergy of Liquid Lightning",
@@ -112,7 +128,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [9] = {
+        [10] = {
             type = "checkbox",
             name = "Purify",
             tooltip = "Synergy of Cleansing Ritual",
@@ -123,7 +139,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [10] = {
+        [11] = {
             type = "checkbox",
             name = "Combustion/Blessed Shard",
             tooltip = "Synergy of Energy Orb/Spear Shard",
@@ -134,7 +150,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [11] = {
+        [12] = {
             type = "checkbox",
             name = "Bone Wall",
             tooltip = "Synergy of Bone Shield",
@@ -145,7 +161,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [12] = {
+        [13] = {
             type = "checkbox",
             name = "Harvest",
             tooltip = "Synergy of Healing Seed",
@@ -156,7 +172,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [13] = {
+        [14] = {
             type = "checkbox",
             name = "Blood Funnel",
             tooltip = "Synergy of Blood Altar",
@@ -167,7 +183,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [14] = {
+        [15] = {
             type = "checkbox",
             name = "Spawn Broodlings",
             tooltip = "Synergy of Trapping Webs",
@@ -178,7 +194,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [15] = {
+        [16] = {
             type = "checkbox",
             name = "Charged Lightning",
             tooltip = "Synergy of Summon Storm Atronach",
@@ -189,7 +205,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [16] = {
+        [17] = {
             type = "checkbox",
             name = "Radiate",
             tooltip = "Synergy of Inner Fire",
@@ -200,7 +216,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [17] = {
+        [18] = {
             type = "checkbox",
             name = "Shackle",
             tooltip = "Synergy of Dragonknight Standard",
@@ -211,7 +227,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [18] = {
+        [19] = {
             type = "checkbox",
             name = "Impale",
             tooltip = "Synergy of Dark Talons",
@@ -222,7 +238,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [19] = {
+        [20] = {
             type = "checkbox",
             name = "Supernova",
             tooltip = "Synergy of Nova",
@@ -233,7 +249,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [20] = {
+        [21] = {
             type = "checkbox",
             name = "Hidden Refresh",
             tooltip = "Synergy of Consuming Darkness",
@@ -244,7 +260,7 @@ function AST.LoadSettings()
             end,
             width = "full"
         },
-        [21] = {
+        [22] = {
             type = "checkbox",
             name = "Soul Leech",
             tooltip = "Synergy of Soul Shred",

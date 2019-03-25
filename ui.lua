@@ -103,8 +103,8 @@ function U.UpdateElements()
         if v then
             ASTGrid:GetNamedChild("SynergyIcon"..k):SetHidden(false)
             ASTGrid:GetNamedChild("SynergyTimer"..k):SetHidden(false)
-            U.SetIconSize(ASTGrid, windowscale, counter, "SynergyIcon"..k)
-            U.SetTimerSize(ASTGrid, windowscale, counter, "SynergyTimer"..k, "SynergyIcon"..k)
+            U.SetIconPosition(ASTGrid, windowscale, counter, "SynergyIcon"..k)
+            U.SetTimerPosition(ASTGrid, windowscale, counter, "SynergyTimer"..k, "SynergyIcon"..k)
             counter = counter + 1
         else 
             ASTGrid:GetNamedChild("SynergyIcon"..k):SetHidden(true)
@@ -112,10 +112,10 @@ function U.UpdateElements()
         end
     end
 
-    U.SetBackgroundOrientation(ASTGrid, windowscale, counter, "bdBackDrop")
+    U.SetBackgroundDimensions(ASTGrid, windowscale, counter, "bdBackDrop")
 end
 
-function U.SetIconSize(TopLevelControl, windowscale, counter, SynergyIcon)
+function U.SetIconPosition(TopLevelControl, windowscale, counter, SynergyIcon)
     SynergyIcon = TopLevelControl:GetNamedChild(SynergyIcon)
     local bdBackDrop = TopLevelControl:GetNamedChild("bdBackDrop")
 
@@ -130,7 +130,7 @@ function U.SetIconSize(TopLevelControl, windowscale, counter, SynergyIcon)
     SynergyIcon:SetDimensions(40 * windowscale, 40 * windowscale)
 end
 
-function U.SetTimerSize(TopLevelControl, windowscale, counter, SynergyTimer, SynergyIcon)
+function U.SetTimerPosition(TopLevelControl, windowscale, counter, SynergyTimer, SynergyIcon)
     SynergyIcon         = TopLevelControl:GetNamedChild(SynergyIcon)
     SynergyTimer        = TopLevelControl:GetNamedChild(SynergyTimer)
     local bdBackDrop    = TopLevelControl:GetNamedChild("bdBackDrop")
@@ -146,7 +146,7 @@ function U.SetTimerSize(TopLevelControl, windowscale, counter, SynergyTimer, Syn
     SynergyTimer:SetScale(windowscale)
 end
 
-function U.SetBackgroundOrientation(TopLevelControl, windowscale, counter, bdBackDrop)
+function U.SetBackgroundDimensions(TopLevelControl, windowscale, counter, bdBackDrop)
     if AST.SV.orientation == "vertical" then
         ASTGridbdBackDrop:SetDimensions(90 * windowscale,(5 + 45 * counter) * windowscale)
     elseif AST.SV.orientation == "compact" then
