@@ -128,13 +128,15 @@ function AST.countDown()
         if AST.time(v) <= 0.1 then
             element:SetText("0.0")
             element:SetColor(255, 255, 255, 1)
-            icon:SetAlpha(AST.SV.alpha/2)
+            icon:SetColor(1, 1, 1, 1)
+            icon:SetAlpha(AST.SV.alpha)
 
             counter = counter + 1
         else
             element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
             element:SetColor(255, 0, 0, 1)
             icon:SetAlpha(AST.SV.alpha)
+            icon:SetColor(0.5, 0.5, 0.5, 1)
 
         end
 
@@ -186,7 +188,10 @@ end
 
 function AST.LoadAlpha(value)
     ASTGridbdBackDrop:SetAlpha(value)
-    ASTGridSynergyIcon:SetAlpha(value)
+
+    for k, v in ipairs(AST.Data.TrackerTimer) do
+        ASTGrid:GetNamedChild("SynergyIcon"..k):SetAlpha(value)
+    end
 end
 
 function AST.LockWindow(value)
