@@ -4,7 +4,7 @@
 AST                 = {}
 AST.name            = "AiMs-Synergy-Tracker"
 AST.author          = "AiMPlAyEr [EU]"
-AST.version         = "3.8"
+AST.version         = "3.9"
 AST.website         = "http://www.esoui.com/downloads/info2084-AiMsSynergyTracker.html"
 AST.menuname        = "AiMs Synergy Tracker"
 
@@ -112,15 +112,18 @@ function AST.countDown()
 
     for k, v in ipairs(AST.Data.TrackerTimer) do
         local element   = ASTGrid:GetNamedChild("SynergyTimer"..k)
+        local icon      = ASTGrid:GetNamedChild("SynergyIcon"..k)
 
         if AST.time(v) <= 0.1 then
             element:SetText("0.0")
             element:SetColor(255, 255, 255, 1)
+            icon:SetAlpha(AST.SV.alpha/2)
 
             counter = counter + 1
         else
             element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
             element:SetColor(255, 0, 0, 1)
+            icon:SetAlpha(AST.SV.alpha)
 
         end
 
@@ -172,6 +175,7 @@ end
 
 function AST.LoadAlpha(value)
     ASTGridbdBackDrop:SetAlpha(value)
+    ASTGridSynergyIcon:SetAlpha(value)
 end
 
 function AST.LockWindow(value)

@@ -36,8 +36,8 @@ function AST.LoadSettings()
         },
         [3] = {
             type = "slider",
-            name = "Background Transparency",
-            tooltip = "Defines the transparency of the tracker background.",
+            name = "Tracker Transparency",
+            tooltip = "Defines the transparency of the tracker's background and textures.",
             min = 0,
             max = 100,
             step = 1,
