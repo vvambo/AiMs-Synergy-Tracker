@@ -56,7 +56,8 @@ AST.default = {
     ["lockwindow"]  = false,
     ["trackerui"]   = true,
     ["healerui"]    = true,
-    ["interval"]    = 50
+    ["interval"]    = 50,
+    ["textures"]    = false
 }
 
 ----------------------
@@ -111,7 +112,7 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
     end
 
     if sourceType == COMBAT_UNIT_TYPE_GROUP then
-        --healerui 
+        --healerui
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
@@ -129,13 +130,11 @@ function AST.countDown()
             element:SetText("0.0")
             element:SetColor(255, 255, 255, 1)
             icon:SetColor(1, 1, 1, 1)
-            icon:SetAlpha(AST.SV.alpha)
 
             counter = counter + 1
         else
             element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
             element:SetColor(255, 0, 0, 1)
-            icon:SetAlpha(AST.SV.alpha)
             icon:SetColor(0.5, 0.5, 0.5, 1)
 
         end
@@ -189,8 +188,10 @@ end
 function AST.LoadAlpha(value)
     ASTGridbdBackDrop:SetAlpha(value)
 
-    for k, v in ipairs(AST.Data.TrackerTimer) do
-        ASTGrid:GetNamedChild("SynergyIcon"..k):SetAlpha(value)
+    if AST.SV.textures then
+        ASTGridSynergyIcon:SetAlpha(value)
+    else
+        ASTGridSynergyIcon:SetAlpha(1.0)
     end
 end
 
