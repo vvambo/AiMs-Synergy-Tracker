@@ -56,7 +56,7 @@ function AST.LoadSettings()
         },
         [4] = {
             type = "checkbox",
-            name = "Texture Transparency"
+            name = "Texture Transparency",
             tooltip = "Makes the textures transparent as well",
             getFunc = function() return AST.SV.textures end,
             setFunc = function(value) 

@@ -189,9 +189,15 @@ function AST.LoadAlpha(value)
     ASTGridbdBackDrop:SetAlpha(value)
 
     if AST.SV.textures then
-        ASTGridSynergyIcon:SetAlpha(value)
+        for k, v in ipairs(AST.Data.TrackerTimer) do
+            local icon = ASTGrid:GetNamedChild("SynergyIcon"..k)
+            icon:SetAlpha(value)
+        end
     else
-        ASTGridSynergyIcon:SetAlpha(1.0)
+        for k, v in ipairs(AST.Data.TrackerTimer) do
+            local icon = ASTGrid:GetNamedChild("SynergyIcon"..k)
+            icon:SetAlpha(1.0)
+        end
     end
 end
 
