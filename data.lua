@@ -11,50 +11,53 @@ D = AST.Data
 ----------------------
 -- group variables
 ----------------------
-local COMBUSTION_SYNERGY     = 1     -- orb and shard
-local CONDUIT_SYNERGY        = 2     -- liquid lightning
-local PURGE_SYNERGY          = 3     -- extended ritual
-local HEALING_SYNERGY        = 4     -- healing seed
-local BONE_SYNERGY           = 5     -- bone shield
-local BLOOD_SYNERGY          = 6     -- blood altar
-local TRAPPING_SYNERGY       = 7     -- trapping webs
-local RADIATE_SYNERGY        = 8     -- radiate
-local ATRONACH_SYNERGY       = 9     -- summon storm atronach
-local SHACKLE_SYNERGY        = 10    -- Dragonknight Standard
-local IGNITE_SYNERGY         = 11    -- Dark Talons
-local NOVA_SYNERGY           = 12    -- Nova and Supernova
-local HIDDEN_REFRESH_SYNERGY = 13    -- Consuming Darkness
-local SOUL_LEECH_SYNERGY     = 14    -- Soul Shred
+local COMBUSTION_SYNERGY        = 1     -- orb and shard
+local CONDUIT_SYNERGY           = 2     -- liquid lightning
+local PURGE_SYNERGY             = 3     -- extended ritual
+local HEALING_SYNERGY           = 4     -- healing seed
+local BONE_SYNERGY              = 5     -- bone shield
+local BLOOD_SYNERGY             = 6     -- blood altar
+local TRAPPING_SYNERGY          = 7     -- trapping webs
+local RADIATE_SYNERGY           = 8     -- radiate
+local ATRONACH_SYNERGY          = 9     -- summon storm atronach
+local SHACKLE_SYNERGY           = 10    -- Dragonknight Standard
+local IGNITE_SYNERGY            = 11    -- Dark Talons
+local NOVA_SYNERGY              = 12    -- Nova and Supernova
+local HIDDEN_REFRESH_SYNERGY    = 13    -- Consuming Darkness
+local SOUL_LEECH_SYNERGY        = 14    -- Soul Shred
+local GRAVE_ROBBER_SYNGERY      = 15
+local PURE_AGONY_SYNERGY        = 16
 
 ----------------------
 -- tables
 ----------------------
 
---cooldown and visible are also going to be removed as they never had a real use
 D.SynergyData = {
-    [108782]    = { cooldown = 20,  visible = true, group = BLOOD_SYNERGY },                -- Blood Funnel Synergy     (Blood Altar)
-    [108787]    = { cooldown = 20,  visible = true, group = BLOOD_SYNERGY },                -- Blood Feast Synergy      (Overflowing Altar)
-    [108788]    = { cooldown = 20,  visible = true, group = TRAPPING_SYNERGY },             -- Spawn Broodlings Synergy (Trapping Webs)
-    [108791]    = { cooldown = 20,  visible = true, group = TRAPPING_SYNERGY },             -- Black Widows Synergy     (Shadow Silk)
-    [108792]    = { cooldown = 20,  visible = true, group = TRAPPING_SYNERGY },             -- Arachnophobia Synergy    (Tangling Webs)
-    [108793]    = { cooldown = 20,  visible = true, group = RADIATE_SYNERGY },              -- Radiate Synergy          (Inner Fire)
-    [108794]    = { cooldown = 20,  visible = true, group = BONE_SYNERGY },                 -- Bone Wall Synergy        (Bone Shield)
-    [108797]    = { cooldown = 20,  visible = true, group = BONE_SYNERGY },                 -- Spinal Surge Synergy     (Bone Surge)
-    [108799]    = { cooldown = 20,  visible = true, group = COMBUSTION_SYNERGY },           -- Combustion Synergy       (Necrotic Orb)
-    [108802]    = { cooldown = 20,  visible = true, group = COMBUSTION_SYNERGY },           -- Combustion Synergy       (Energy Orb)
-    [108821]    = { cooldown = 20,  visible = true, group = COMBUSTION_SYNERGY },           -- Holy Shards Synergy      (Luminous Shards)
-    [108924]    = { cooldown = 20,  visible = true, group = COMBUSTION_SYNERGY },           -- Blessed Shards Synergy   (Spear Shards)
-    [108607]    = { cooldown = 20,  visible = true, group = CONDUIT_SYNERGY },              -- Conduit Synergy          (Lightning Splash)
-    [108826]    = { cooldown = 20,  visible = true, group = HEALING_SYNERGY },              -- Harvest Synergy          (Healing Seed)
-    [108824]    = { cooldown = 20,  visible = true, group = PURGE_SYNERGY },                -- Purge Synergy            (Extended Ritual)
-    [102321]    = { cooldown = 20,  visible = true, group = ATRONACH_SYNERGY },             -- Charged Lightning        (Summon Storm Atronach)
-    [108805]    = { cooldown = 20,  visible = true, group = SHACKLE_SYNERGY },              -- Shackle Synergy          (Dragonknight Standard)
-    [108807]    = { cooldown = 20,  visible = true, group = IGNITE_SYNERGY },               -- Ignite Synergy           (Dark Talons)
-    [108822]    = { cooldown = 20,  visible = true, group = NOVA_SYNERGY },                 -- Supernova Synergy        (Nova)
-    [108823]    = { cooldown = 20,  visible = true, group = NOVA_SYNERGY },                 -- Gravity Crush Synergy    (Supernova)
-    [108808]    = { cooldown = 20,  visible = true, group = HIDDEN_REFRESH_SYNERGY },       -- Hidden Refresh Synergy   (Consuming Darkness)
-    [108814]    = { cooldown = 20,  visible = true, group = SOUL_LEECH_SYNERGY }            -- Soul Leech Synergy       (Soul Shred)
-    --[61927]     = { cooldown = 20,  visible = true }    -- for testing purposes
+    [108782]    = { cooldown = 20,   group = BLOOD_SYNERGY },                -- Blood Funnel Synergy     (Blood Altar)
+    [108787]    = { cooldown = 20,   group = BLOOD_SYNERGY },                -- Blood Feast Synergy      (Overflowing Altar)
+    [108788]    = { cooldown = 20,   group = TRAPPING_SYNERGY },             -- Spawn Broodlings Synergy (Trapping Webs)
+    [108791]    = { cooldown = 20,   group = TRAPPING_SYNERGY },             -- Black Widows Synergy     (Shadow Silk)
+    [108792]    = { cooldown = 20,   group = TRAPPING_SYNERGY },             -- Arachnophobia Synergy    (Tangling Webs)
+    [108793]    = { cooldown = 20,   group = RADIATE_SYNERGY },              -- Radiate Synergy          (Inner Fire)
+    [108794]    = { cooldown = 20,   group = BONE_SYNERGY },                 -- Bone Wall Synergy        (Bone Shield)
+    [108797]    = { cooldown = 20,   group = BONE_SYNERGY },                 -- Spinal Surge Synergy     (Bone Surge)
+    [108799]    = { cooldown = 20,   group = COMBUSTION_SYNERGY },           -- Combustion Synergy       (Necrotic Orb)
+    [108802]    = { cooldown = 20,   group = COMBUSTION_SYNERGY },           -- Combustion Synergy       (Energy Orb)
+    [108821]    = { cooldown = 20,   group = COMBUSTION_SYNERGY },           -- Holy Shards Synergy      (Luminous Shards)
+    [108924]    = { cooldown = 20,   group = COMBUSTION_SYNERGY },           -- Blessed Shards Synergy   (Spear Shards)
+    [108607]    = { cooldown = 20,   group = CONDUIT_SYNERGY },              -- Conduit Synergy          (Lightning Splash)
+    [108826]    = { cooldown = 20,   group = HEALING_SYNERGY },              -- Harvest Synergy          (Healing Seed)
+    [108824]    = { cooldown = 20,   group = PURGE_SYNERGY },                -- Purge Synergy            (Extended Ritual)
+    [102321]    = { cooldown = 20,   group = ATRONACH_SYNERGY },             -- Charged Lightning        (Summon Storm Atronach)
+    [108805]    = { cooldown = 20,   group = SHACKLE_SYNERGY },              -- Shackle Synergy          (Dragonknight Standard)
+    [108807]    = { cooldown = 20,   group = IGNITE_SYNERGY },               -- Ignite Synergy           (Dark Talons)
+    [108822]    = { cooldown = 20,   group = NOVA_SYNERGY },                 -- Supernova Synergy        (Nova)
+    [108823]    = { cooldown = 20,   group = NOVA_SYNERGY },                 -- Gravity Crush Synergy    (Supernova)
+    [108808]    = { cooldown = 20,   group = HIDDEN_REFRESH_SYNERGY },       -- Hidden Refresh Synergy   (Consuming Darkness)
+    [108814]    = { cooldown = 20,   group = SOUL_LEECH_SYNERGY },           -- Soul Leech Synergy       (Soul Shred)
+    --[000000]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNGERY },
+    --[000000]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },
+
 }
 
 D.SynergyTexture = {
@@ -71,24 +74,28 @@ D.SynergyTexture = {
     [IGNITE_SYNERGY]         = "/esoui/art/icons/ability_dragonknight_010.dds",
     [NOVA_SYNERGY]           = "/esoui/art/icons/ability_templar_solar_disturbance.dds",
     [HIDDEN_REFRESH_SYNERGY] = "/esoui/art/icons/ability_nightblade_015.dds",
-    [SOUL_LEECH_SYNERGY]     = "/esoui/art/icons/ability_nightblade_018.dds"
+    [SOUL_LEECH_SYNERGY]     = "/esoui/art/icons/ability_nightblade_018.dds",
+    --[GRAVE_ROBBER_SYNGERY]   = "",
+    --[PURE_AGONY_SYNERGY]     = "",
 }
 
 
 --this table holds all the timers
 D.TrackerTimer = {
-    [1] = 0,
-    [2] = 0,
-    [3] = 0,
-    [4] = 0,
-    [5] = 0,
-    [6] = 0,
-    [7] = 0,
-    [8] = 0,
-    [9] = 0,
-    [10] = 0,
-    [11] = 0,
-    [12] = 0,
-    [13] = 0,
-    [14] = 0
+    [COMBUSTION_SYNERGY]        = 0,
+    [CONDUIT_SYNERGY]           = 0,
+    [PURGE_SYNERGY]             = 0,
+    [HEALING_SYNERGY]           = 0,
+    [BONE_SYNERGY]              = 0,
+    [BLOOD_SYNERGY]             = 0,
+    [TRAPPING_SYNERGY]          = 0,
+    [RADIATE_SYNERGY]           = 0,
+    [ATRONACH_SYNERGY]          = 0,
+    [SHACKLE_SYNERGY]           = 0,
+    [IGNITE_SYNERGY]            = 0,
+    [NOVA_SYNERGY]              = 0,
+    [HIDDEN_REFRESH_SYNERGY]    = 0,
+    [SOUL_LEECH_SYNERGY]        = 0,
+    --[GRAVE_ROBBER_SYNGERY]      = 0,
+    --[PURE_AGONY_SYNERGY]        = 0,
 }

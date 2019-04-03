@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v3.9.2-yellow.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v3.9.3-yellow.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.
@@ -25,15 +25,17 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 | **Hidden Refresh** (Consuming Darkness) | Added |
 | **Soul Leech** (Soul Shred) | Added |
 | **Icy escape** (Frozen Retreat) | Probably won't be added |
+| **Grave Robber** (Boneyard) | As soon as pts drops |
+| **Pure Agony** (Agony Totem) | As soon as pts drops  |
 
 
 <br><br>
 #### Version 3.9
 ##### Changes (not tested yet):
-- Textures are now affected by the transparency slider
-- Renamed "Background Transparency" to "Tracker Transparency"
 - Adjusted the tooltip of "Tracker Transparency"
 - Added an option to control the time intervals of update events
+- Added a checkbox to let the slider "Tracker Transparency" affect Textures aswell
+- Rewrote some files to make future changes easier
 
 ##### Bugs known:
 - fortunately none yet
