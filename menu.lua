@@ -268,5 +268,187 @@ function AST.LoadSettings()
         },
     })
 
+    table.insert(optionsTable, {
+        type = "submenu",
+        name = "Healer Settings",
+        controls = {
+            [1] = {
+                type = "description",
+                text = [[Future Healer Frame Description
+                For now enjoy the lorem ipsum text!
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.]],               
+            },
+            [2] = {
+                type = "checkbox",
+                name = "Healer Frame",
+                tooltip = "Enables/Disables Healer Frame",
+                getFunc = function() return AST.SV.healerui end,
+                setFunc = function(value)
+                    AST.SV.healerui = value
+                    AST.UI.UpdateHealerElements()
+                end,
+            }
+            [3] = {
+                type = "divider",
+                height = 15,
+                alpha = 1,
+            }
+            [4] = {
+                type = "checkbox",
+                name = "Conduit",
+                tooltip = "Synergy of Liquid Lightning",
+                getFunc = function() return AST.SV.healer.liq end,
+                setFunc = function(value) 
+                    AST.SV.healer.liq = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [5] = {
+                type = "checkbox",
+                name = "Purify",
+                tooltip = "Synergy of Cleansing Ritual",
+                getFunc = function() return AST.SV.healer.pur end,
+                setFunc = function(value) 
+                    AST.SV.healer.pur = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [6] = {
+                type = "checkbox",
+                name = "Combustion/Blessed Shard",
+                tooltip = "Synergy of Energy Orb/Spear Shard",
+                getFunc = function() return AST.SV.healer.orb end,
+                setFunc = function(value) 
+                    AST.SV.healer.orb = value
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [7] = {
+                type = "checkbox",
+                name = "Bone Wall",
+                tooltip = "Synergy of Bone Shield",
+                getFunc = function() return AST.SV.healer.bon end,
+                setFunc = function(value) 
+                    AST.SV.healer.bon = value
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [8] = {
+                type = "checkbox",
+                name = "Harvest",
+                tooltip = "Synergy of Healing Seed",
+                getFunc = function() return AST.SV.healer.hea end,
+                setFunc = function(value) 
+                    AST.SV.healer.hea = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [9] = {
+                type = "checkbox",
+                name = "Blood Funnel",
+                tooltip = "Synergy of Blood Altar",
+                getFunc = function() return AST.SV.healer.blo end,
+                setFunc = function(value) 
+                    AST.SV.healer.blo = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [10] = {
+                type = "checkbox",
+                name = "Spawn Broodlings",
+                tooltip = "Synergy of Trapping Webs",
+                getFunc = function() return AST.SV.healer.tra end,
+                setFunc = function(value) 
+                    AST.SV.healer.tra = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [11] = {
+                type = "checkbox",
+                name = "Charged Lightning",
+                tooltip = "Synergy of Summon Storm Atronach",
+                getFunc = function() return AST.SV.healer.cha end,
+                setFunc = function(value) 
+                    AST.SV.healer.cha = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [12] = {
+                type = "checkbox",
+                name = "Radiate",
+                tooltip = "Synergy of Inner Fire",
+                getFunc = function() return AST.SV.healer.rad end,
+                setFunc = function(value) 
+                    AST.SV.healer.rad = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [13] = {
+                type = "checkbox",
+                name = "Shackle",
+                tooltip = "Synergy of Dragonknight Standard",
+                getFunc = function() return AST.SV.healer.sha end,
+                setFunc = function(value) 
+                    AST.SV.healer.sha = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [14] = {
+                type = "checkbox",
+                name = "Impale",
+                tooltip = "Synergy of Dark Talons",
+                getFunc = function() return AST.SV.healer.imp end,
+                setFunc = function(value) 
+                    AST.SV.healer.imp = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [15] = {
+                type = "checkbox",
+                name = "Supernova",
+                tooltip = "Synergy of Nova",
+                getFunc = function() return AST.SV.healer.gra end,
+                setFunc = function(value) 
+                    AST.SV.healer.gra = value 
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [16] = {
+                type = "checkbox",
+                name = "Hidden Refresh",
+                tooltip = "Synergy of Consuming Darkness",
+                getFunc = function() return AST.SV.healer.hir end,
+                setFunc = function(value) 
+                    AST.SV.healer.hir = value
+                    AST.UI.UpdateElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [17] = {
+                type = "checkbox",
+                name = "Soul Leech",
+                tooltip = "Synergy of Soul Shred",
+                getFunc = function() return AST.SV.healer.sol end,
+                setFunc = function(value) 
+                    AST.SV.healer.sol = value
+                    AST.UI.UpdateElements() 
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+        },
+    })
+
     LAM:RegisterOptionControls(AST.menuname, optionsTable)
 end

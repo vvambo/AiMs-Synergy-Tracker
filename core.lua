@@ -57,7 +57,23 @@ AST.default = {
     ["trackerui"]   = true,
     ["healerui"]    = true,
     ["interval"]    = 50,
-    ["textures"]    = false
+    ["textures"]    = false,
+    ["healer"]      = {
+        ["orb"] = true,
+        ["liq"] = true,
+        ["pur"] = true,
+        ["hea"] = true,
+        ["bon"] = false,
+        ["blo"] = false,
+        ["tra"] = false,
+        ["rad"] = false,
+        ["cha"] = false,
+        ["sha"] = false,
+        ["imp"] = false,
+        ["gra"] = false,
+        ["hir"] = false,
+        ["sol"] = false,
+    }
 }
 
 ----------------------
@@ -65,6 +81,8 @@ AST.default = {
 ----------------------
 function AST:Initialize()
     em:RegisterForEvent(AST.name.."Combat", EVENT_PLAYER_COMBAT_STATE, AST.combatState)
+
+    --local LibUnit = LibStub:GetLibrary("LibUnits")
 
     for k, v in pairs(AST.Data.SynergyData) do
         em:RegisterForEvent(AST.name.."Synergy"..k, EVENT_COMBAT_EVENT , AST.synergyCheck)
@@ -99,7 +117,12 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
             return;
     end
 
+
     local start = GetFrameTimeSeconds()
+
+    if sourceType == COMBAT_UNIT_TYPE_GROUP then
+
+    end
 
     if sourceType == COMBAT_UNIT_TYPE_PLAYER then
         if AST.Data.SynergyData[abilityId].group == 1 then

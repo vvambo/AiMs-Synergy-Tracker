@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v3.9.3-yellow.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.0.0_alpha-yellow.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.
@@ -9,24 +9,24 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 #### Synergies
 | Synergy        | Status       |
 | ------------- |:-------------:|
-| **Combustion** (Orbs) | Added |
-| **Blessed Shard** (Shards) | Added |
-| **Conduit** (Liquid Lightning) | Added |
-| **Purify** (Extended Ritual) | Added |
-| **Harvest** (Healing Seed) | Added |
-| **Bone Wall** (Bone Shield) | Added |
-| **Blood Funnel** (Blood Altar) | Added |
-| **Spawn Broodlings** (Trapping Webs) | Added |
-| **Radiate** (Inner Fire) | Added |
-| **Charged Lightning** (Summon Storm Atronach) | Added |
-| **Shackle** (Dragonknight Standard) | Added |
-| **Impale** (Dark Talon) | Added |
-| **Supernova** (Nova) | Added |
-| **Hidden Refresh** (Consuming Darkness) | Added |
-| **Soul Leech** (Soul Shred) | Added |
-| **Icy escape** (Frozen Retreat) | Probably won't be added |
-| **Grave Robber** (Boneyard) | As soon as pts drops |
-| **Pure Agony** (Agony Totem) | As soon as pts drops  |
+| **Combustion** (Orbs) | ✔️ |
+| **Blessed Shard** (Shards) | ✔️ |
+| **Conduit** (Liquid Lightning) | ✔️ |
+| **Purify** (Extended Ritual) | ✔️ |
+| **Harvest** (Healing Seed) | ✔️ |
+| **Bone Wall** (Bone Shield) | ✔️ |
+| **Blood Funnel** (Blood Altar) | ✔️ |
+| **Spawn Broodlings** (Trapping Webs) | ✔️ |
+| **Radiate** (Inner Fire) | ✔️ |
+| **Charged Lightning** (Summon Storm Atronach) | ✔️ |
+| **Shackle** (Dragonknight Standard) | ✔️ |
+| **Impale** (Dark Talon) | ✔️ |
+| **Supernova** (Nova) | ✔️ |
+| **Hidden Refresh** (Consuming Darkness) | ✔️ |
+| **Soul Leech** (Soul Shred) | ✔️ |
+| **Icy escape** (Frozen Retreat) | ❌ |
+| **Grave Robber** (Boneyard) | ❌ |
+| **Pure Agony** (Agony Totem) | ❌ |
 
 
 <br><br>
@@ -48,4 +48,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 #### Version 4.0
 ##### Changes:
 - Adding a frame for healers showing them the synergy cooldowns of their tanks.
+
+
+#### Future Update
 - The possibility to move each element independently from each other (not sure wether I'm going to implement this one or not)
