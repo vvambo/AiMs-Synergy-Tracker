@@ -31,11 +31,15 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 
 <br><br>
 #### Version 3.9
-##### Changes (not tested yet):
+##### Changes:
 - Adjusted the tooltip of "Tracker Transparency"
 - Added an option to control the time intervals of update events
 - Added a checkbox to let the slider "Tracker Transparency" affect Textures aswell
 - Rewrote some files to make future changes easier
+- Shifted the "Synergy Settings" into a separate container, I will probably do the same for the "Synergy Settings" and the new "Healer Frame"
+
+##### Untested Changes:
+
 
 ##### Bugs known:
 - fortunately none yet

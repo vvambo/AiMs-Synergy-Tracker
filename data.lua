@@ -25,7 +25,7 @@ local IGNITE_SYNERGY            = 11    -- Dark Talons
 local NOVA_SYNERGY              = 12    -- Nova and Supernova
 local HIDDEN_REFRESH_SYNERGY    = 13    -- Consuming Darkness
 local SOUL_LEECH_SYNERGY        = 14    -- Soul Shred
-local GRAVE_ROBBER_SYNGERY      = 15
+local GRAVE_ROBBER_SYNERGY      = 15
 local PURE_AGONY_SYNERGY        = 16
 
 ----------------------
@@ -55,7 +55,7 @@ D.SynergyData = {
     [108823]    = { cooldown = 20,   group = NOVA_SYNERGY },                 -- Gravity Crush Synergy    (Supernova)
     [108808]    = { cooldown = 20,   group = HIDDEN_REFRESH_SYNERGY },       -- Hidden Refresh Synergy   (Consuming Darkness)
     [108814]    = { cooldown = 20,   group = SOUL_LEECH_SYNERGY },           -- Soul Leech Synergy       (Soul Shred)
-    --[000000]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNGERY },
+    --[000000]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },
     --[000000]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },
 
 }
@@ -75,7 +75,7 @@ D.SynergyTexture = {
     [NOVA_SYNERGY]           = "/esoui/art/icons/ability_templar_solar_disturbance.dds",
     [HIDDEN_REFRESH_SYNERGY] = "/esoui/art/icons/ability_nightblade_015.dds",
     [SOUL_LEECH_SYNERGY]     = "/esoui/art/icons/ability_nightblade_018.dds",
-    --[GRAVE_ROBBER_SYNGERY]   = "",
+    --[GRAVE_ROBBER_SYNERGY]   = "",
     --[PURE_AGONY_SYNERGY]     = "",
 }
 
@@ -96,6 +96,6 @@ D.TrackerTimer = {
     [NOVA_SYNERGY]              = 0,
     [HIDDEN_REFRESH_SYNERGY]    = 0,
     [SOUL_LEECH_SYNERGY]        = 0,
-    --[GRAVE_ROBBER_SYNGERY]      = 0,
+    --[GRAVE_ROBBER_SYNERGY]      = 0,
     --[PURE_AGONY_SYNERGY]        = 0,
 }
