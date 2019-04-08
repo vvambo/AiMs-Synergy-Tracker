@@ -4,7 +4,7 @@
 AST                 = {}
 AST.name            = "AiMs-Synergy-Tracker"
 AST.author          = "AiMPlAyEr [EU]"
-AST.version         = "3.9"
+AST.version         = "4.0"
 AST.website         = "http://www.esoui.com/downloads/info2084-AiMsSynergyTracker.html"
 AST.menuname        = "AiMs Synergy Tracker"
 
