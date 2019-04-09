@@ -79,8 +79,6 @@ D.SynergyTexture = {
     --[PURE_AGONY_SYNERGY]     = "",
 }
 
-
---this table holds all the timers
 D.TrackerTimer = {
     [COMBUSTION_SYNERGY]        = 0,
     [CONDUIT_SYNERGY]           = 0,

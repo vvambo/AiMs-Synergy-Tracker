@@ -24,7 +24,6 @@ local em            = EVENT_MANAGER
 -- other variables
 ----------------------
 local combat        = IsUnitInCombat("player")
-local windowstate   = true
 local wrapper       = nil
 local fragment      = nil
 
@@ -91,8 +90,6 @@ function AST:Initialize()
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
-    windowstate = AST.SV.windowstate
-
     AST.UI.TrackerUI(true)
     AST.UI.HealerUI(false)
 
@@ -117,15 +114,12 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
             return;
     end
 
-
     local start = GetFrameTimeSeconds()
 
-    if sourceType == COMBAT_UNIT_TYPE_GROUP then
-
-    end
-
     if sourceType == COMBAT_UNIT_TYPE_PLAYER then
+
         if AST.Data.SynergyData[abilityId].group == 1 then
+
             if result == 2240 then
                 AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown
             end
@@ -170,28 +164,24 @@ function AST.countDown()
     end
 end
 
--- Toggle Window
 function AST.windowState()
-    if windowstate then
+    if AST.SV.windowstate then
         AST.SV.windowstate = false
-        windowstate = false
         ASTGrid:SetHidden(true)
         HUD_SCENE:RemoveFragment(fragment)
         HUD_UI_SCENE:RemoveFragment(fragment)
-        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now |cdc143chidden|r outside of combat|r")
+        d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now <<1>> outside of combat|r", "|cdc143chidden|r"))
     else
         AST.SV.windowstate = true
-        windowstate = true
         ASTGrid:SetHidden(false)
-        d("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now |c32cd32visible|r outside of combat|r")
         HUD_SCENE:AddFragment(fragment)
         HUD_UI_SCENE:AddFragment(fragment)
+        d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now <<1>> outside of combat|r", "|c32cd32visible|r"))
     end
 end
 
--- Combat State
 function AST.combatState(event, inCombat)
-    if windowstate then
+    if AST.SV.windowstate then
         HUD_SCENE:AddFragment(fragment)
         HUD_UI_SCENE:AddFragment(fragment)
     else
