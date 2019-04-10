@@ -287,12 +287,12 @@ function AST.LoadSettings()
                     AST.SV.healerui = value
                     AST.UI.UpdateHealerElements()
                 end,
-            }
+            },
             [3] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
-            }
+            },
             [4] = {
                 type = "checkbox",
                 name = "Conduit",

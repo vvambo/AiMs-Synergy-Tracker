@@ -4,7 +4,7 @@
 ## Version: 3.9
 ## APIVersion: 100026
 ## SavedVariables: ASTSaved
-## DependsOn: LibAddonMenu-2.0 LibStub LibUnits
+## DependsOn: LibAddonMenu-2.0 LibStub
 
 core.lua
 menu.lua
