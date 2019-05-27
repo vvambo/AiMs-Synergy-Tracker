@@ -6,6 +6,9 @@
 ## SavedVariables: ASTSaved
 ## DependsOn: LibAddonMenu-2.0 LibStub
 
+libs/LibStub/LibStub.lua
+libs/LibUnits/LibUnits.lua
+
 core.lua
 menu.lua
 ui.lua

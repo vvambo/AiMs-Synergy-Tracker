@@ -19,6 +19,7 @@ AST.varName         = "ASTSaved"
 -- Managing Events and Stuff
 ----------------------
 local em            = EVENT_MANAGER
+local LibUnit       = LibStub:GetLibrary("LibUnits")
 
 ----------------------
 -- other variables
@@ -84,38 +85,7 @@ function AST:Initialize()
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
     if AST.SV.healerui then
-        local gSize = GetGroupSize()
-
-        if gSize > 0 then
-
-            for i = 1, gSize do
-                local accName = string.lower(GetUnitDisplayName("group" .. i))
-                local role = GetGroupMemberAssignedRole("group" .. i)
-
-                if role == LFG_ROLE_TANK and AST.Data.HealerTimer[accName] == nil then
-                    local tankTable = {
-                        [accName] = {
-                            [1] = 0,
-                            [2] = 0,
-                            [3] = 0,
-                            [4] = 0,
-                            [5] = 0,
-                            [6] = 0,
-                            [7] = 0,
-                            [8] = 0,
-                            [9] = 0,
-                            [10] = 0,
-                            [11] = 0,
-                            [12] = 0,
-                            [13] = 0,
-                            [14] = 0,
-                        }
-                    }
-
-                    table.insert(AST.Data.HealerTimer, tankTable)
-                end
-            end
-        end
+        AST.UpdateGroup()
     end
 
     AST.UI.TrackerUI(true)
@@ -157,7 +127,10 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
     end
 
     if targetType == COMBAT_UNIT_TYPE_GROUP then
-        d("Synergy activated! ID: "..abilityId.." Name: "..abilityName.." From: "..targetUnitId)
+        local usedBy = AST.GetUnitName(targetUnitId)
+        local aName = GetAbilityName(abilityId)
+
+        d("Synergy activated! ID: "..abilityId.." Name: "..aName.." From: "..usedBy)
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
@@ -224,6 +197,8 @@ function AST.combatState(event, inCombat)
         HUD_SCENE:RemoveFragment(fragment)
         HUD_UI_SCENE:RemoveFragment(fragment)
     end
+
+    AST.UpdateGroup()
 end
 
 function AST.LoadAlpha(value)
@@ -247,6 +222,36 @@ function AST.LockWindow(value)
         ASTGrid:SetMovable(true)
     else
         ASTGrid:SetMovable(false)
+    end
+end
+
+function AST.UpdateGroup()
+    local group = AST.Data.HealerTimer
+    group = nil --because we don't want to add people who left the group to our frame
+    local gSize = GetGroupSize()
+
+    if gSize > 0 then
+
+        for i = 1, gSize do
+            local accName = string.lower(GetUnitDisplayName("group" .. i))
+            local role = GetGroupMemberAssignedRole("group" .. i)
+
+            if role ~= LFG_ROLE_HEAL and group[accName] == nil then --Player is not a healer and just joined the group
+                group[accName].firstsynergy = 0
+                group[accName].secondsynergy = 0
+                group[accName].thirdsynergy = 0
+            end
+        end
+    end
+end
+
+function AST.GetUnitName(unitId)
+    local unit = LibUnit:GetNameForUnitId(unitId)
+
+    if unit ~= "" or unit ~= nil then
+        return zo_strformat("<<1>>", unit)
+    else
+        return ""
     end
 end
 
