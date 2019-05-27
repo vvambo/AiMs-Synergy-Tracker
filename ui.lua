@@ -94,7 +94,9 @@ function U.UpdateElements()
         [11] = AST.SV.imp,
         [12] = AST.SV.gra,
         [13] = AST.SV.hir,
-        [14] = AST.SV.sol
+        [14] = AST.SV.sol,
+        [15] = AST.SV.rob,
+        [16] = AST.SV.ago,
     }
     local windowscale   = AST.SV.windowscale
     local counter       = 0
@@ -153,6 +155,14 @@ function U.SetBackgroundDimensions(TopLevelControl, windowscale, counter, bdBack
         ASTGridbdBackDrop:SetDimensions(5 + (45 * counter) * windowscale, 50 * windowscale)
     else
         ASTGridbdBackDrop:SetDimensions((10 + 90 * counter) * windowscale, 50 * windowscale)
+    end
+end
+
+function U.EnableTracker(enabled)
+    if not enabled then
+        ASTGrid:SetHidden(enabled)
+    else
+        ASTGrid:SetHidden(not enabled) --not entirely sure if this works or not
     end
 end
 

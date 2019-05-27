@@ -25,29 +25,33 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 | **Hidden Refresh** (Consuming Darkness) | ✔️ |
 | **Soul Leech** (Soul Shred) | ✔️ |
 | **Icy escape** (Frozen Retreat) | ❌ |
-| **Grave Robber** (Boneyard) | ❌ |
-| **Pure Agony** (Agony Totem) | ❌ |
+| **Grave Robber** (Boneyard) | ✔️ |
+| **Pure Agony** (Agony Totem) | ✔️ |
 
 
 <br><br>
-#### Version 3.9
+#### Version 4.0 Alpha2
 ##### Changes:
-- Adjusted the tooltip of "Tracker Transparency"
-- Added an option to control the time intervals of update events
-- Added a checkbox to let the slider "Tracker Transparency" affect Textures aswell
-- Rewrote some files to make future changes easier
-- Shifted the "Synergy Settings" into a separate container, I will probably do the same for the "Synergy Settings" and the new "Healer Frame"
+- Updated APIVersion to 100027 (Elsweyr)
+- Added Grave Robber and Pure Agony Synergies
+- Added a UI for healers
+- Adjusted a lot of tooltips
+- Added an option to control time interval of update events
+- Added an option to let the slider "Tracker Transparency" affect Textures aswell
+- Added Checkboxes for Grave Robber and Pure Agony
+- Separated Tracker Settings and Healer Settings to ensure a better overview
+- Added Checkboxes to deactivate/hide Tracker and Healer UI
+
+##### ToDo-List
+- Rounding the remaining time of cooldowns correctly. e.g. 1000ms should display 18 seconds and not 11.9 or 9.0 seconds
+- Creating a Healer UI where your healers won't get eye cancer after a few minutes
+- Probably some additional adjustments to the menu
 
 ##### Untested Changes:
-
+- Everything apart from the menu settings
 
 ##### Bugs known:
 - fortunately none yet
-
-<br><br>
-#### Version 4.0
-##### Changes:
-- Adding a frame for healers showing them the synergy cooldowns of their tanks.
 
 
 #### Future Update

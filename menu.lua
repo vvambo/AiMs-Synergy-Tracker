@@ -24,18 +24,6 @@ function AST.LoadSettings()
     })
 
     table.insert(optionsTable, {
-        type = "dropdown",
-        name = "Alignment of Synergies",
-        tooltip = "Allows the alignment of synergies to be adjusted",
-        choices = {"horizontal", "vertical", "compact"},
-        getFunc = function() return AST.SV.orientation end,
-        setFunc = function(var) 
-            AST.SV.orientation = var 
-            AST.UI.UpdateElements()
-        end,
-    })
-
-    table.insert(optionsTable, {
         type = "slider",
         name = "Tracker Transparency",
         tooltip = "Defines the transparency of the tracker's background.",
@@ -51,17 +39,6 @@ function AST.LoadSettings()
             local newAlpha = var / 100
             AST.SV.alpha =newAlpha
             AST.LoadAlpha(newAlpha);
-        end,
-    })
-
-    table.insert(optionsTable, {
-        type = "checkbox",
-        name = "Texture Transparency",
-        tooltip = "Makes the textures transparent as well",
-        getFunc = function() return AST.SV.textures end,
-        setFunc = function(value) 
-            AST.SV.textures = value
-            AST.LoadAlpha(AST.SV.alpha)
         end,
     })
 
@@ -101,6 +78,17 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
+        name = "Texture Transparency",
+        tooltip = "Makes the textures transparent as well",
+        getFunc = function() return AST.SV.textures end,
+        setFunc = function(value) 
+            AST.SV.textures = value
+            AST.LoadAlpha(AST.SV.alpha)
+        end,
+    })
+
+    table.insert(optionsTable, {
+        type = "checkbox",
         name = "Show Tracker outside of Combat",
         tooltip = "Toggles the tracker outside of fights",
         getFunc = function() return AST.SV.windowstate end,
@@ -126,6 +114,36 @@ function AST.LoadSettings()
         name = "Synergy Settings",
         controls = {
             [1] = {
+                type = "description",
+                text = [[The following settings only affect your own tracker and not your healer's.\n]],               
+            },
+            [2] = {
+                type = "checkbox",
+                name = "Tracker Frame",
+                tooltip = "Enables/Disables Tracker Frame",
+                getFunc = function() return AST.SV.trackerui end,
+                setFunc = function(value)
+                    AST.SV.trackerui = value
+                    AST.UI.EnableTracker(value)
+                end,
+            },
+            [3] = {
+                type = "dropdown",
+                name = "Alignment of Synergies",
+                tooltip = "Allows the alignment of synergies to be adjusted",
+                choices = {"horizontal", "vertical", "compact"},
+                getFunc = function() return AST.SV.orientation end,
+                setFunc = function(var) 
+                    AST.SV.orientation = var 
+                    AST.UI.UpdateElements()
+                end,
+            },
+            [4] = {
+                type = "divider",
+                height = 15,
+                alpha = 1,
+            },
+            [5] = {
                 type = "checkbox",
                 name = "Conduit",
                 tooltip = "Synergy of Liquid Lightning",
@@ -135,7 +153,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [2] = {
+            [6] = {
                 type = "checkbox",
                 name = "Purify",
                 tooltip = "Synergy of Cleansing Ritual",
@@ -145,7 +163,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [3] = {
+            [7] = {
                 type = "checkbox",
                 name = "Combustion/Blessed Shard",
                 tooltip = "Synergy of Energy Orb/Spear Shard",
@@ -155,7 +173,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [4] = {
+            [8] = {
                 type = "checkbox",
                 name = "Bone Wall",
                 tooltip = "Synergy of Bone Shield",
@@ -165,7 +183,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [5] = {
+            [9] = {
                 type = "checkbox",
                 name = "Harvest",
                 tooltip = "Synergy of Healing Seed",
@@ -175,7 +193,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [6] = {
+            [10] = {
                 type = "checkbox",
                 name = "Blood Funnel",
                 tooltip = "Synergy of Blood Altar",
@@ -185,7 +203,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [7] = {
+            [11] = {
                 type = "checkbox",
                 name = "Spawn Broodlings",
                 tooltip = "Synergy of Trapping Webs",
@@ -195,7 +213,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [8] = {
+            [12] = {
                 type = "checkbox",
                 name = "Charged Lightning",
                 tooltip = "Synergy of Summon Storm Atronach",
@@ -205,7 +223,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [9] = {
+            [13] = {
                 type = "checkbox",
                 name = "Radiate",
                 tooltip = "Synergy of Inner Fire",
@@ -215,7 +233,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [10] = {
+            [14] = {
                 type = "checkbox",
                 name = "Shackle",
                 tooltip = "Synergy of Dragonknight Standard",
@@ -225,7 +243,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [11] = {
+            [15] = {
                 type = "checkbox",
                 name = "Impale",
                 tooltip = "Synergy of Dark Talons",
@@ -235,7 +253,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [12] = {
+            [16] = {
                 type = "checkbox",
                 name = "Supernova",
                 tooltip = "Synergy of Nova",
@@ -245,7 +263,7 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [13] = {
+            [17] = {
                 type = "checkbox",
                 name = "Hidden Refresh",
                 tooltip = "Synergy of Consuming Darkness",
@@ -255,13 +273,33 @@ function AST.LoadSettings()
                     AST.UI.UpdateElements()
                 end,
             },
-            [14] = {
+            [18] = {
                 type = "checkbox",
                 name = "Soul Leech",
                 tooltip = "Synergy of Soul Shred",
                 getFunc = function() return AST.SV.sol end,
                 setFunc = function(value) 
                     AST.SV.sol = value
+                    AST.UI.UpdateElements() 
+                end,
+            },
+            [19] = {
+                type = "checkbox",
+                name = "Grave Robber",
+                tooltip = "Synergy of Boneyard",
+                getFunc = function() return AST.SV.rob end,
+                setFunc = function(value) 
+                    AST.SV.rob = value
+                    AST.UI.UpdateElements() 
+                end,
+            },
+            [20] = {
+                type = "checkbox",
+                name = "Pure Agony",
+                tooltip = "Synergy of Agony Totem",
+                getFunc = function() return AST.SV.ago end,
+                setFunc = function(value) 
+                    AST.SV.ago = value
                     AST.UI.UpdateElements() 
                 end,
             },
@@ -274,9 +312,7 @@ function AST.LoadSettings()
         controls = {
             [1] = {
                 type = "description",
-                text = [[Future Healer Frame Description
-                For now enjoy the lorem ipsum text!
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.]],               
+                text = [[The |c32cd32healer frame|r tracks Synergies being used by your tanks and dds. \nYour changes in this setting do not affect the ones above.]],               
             },
             [2] = {
                 type = "checkbox",
@@ -289,164 +325,58 @@ function AST.LoadSettings()
                 end,
             },
             [3] = {
+                type = "checkbox",
+                name = "Track tanks only",
+                tooltip = "DDs won't appear in the healer frame.",
+                getFunc = function() return AST.SV.healerui end,
+                setFunc = function(value)
+                    AST.SV.healerui = value
+                    AST.UI.UpdateHealerElements()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [4] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [4] = {
-                type = "checkbox",
-                name = "Conduit",
-                tooltip = "Synergy of Liquid Lightning",
-                getFunc = function() return AST.SV.healer.liq end,
-                setFunc = function(value) 
-                    AST.SV.healer.liq = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
             [5] = {
-                type = "checkbox",
-                name = "Purify",
-                tooltip = "Synergy of Cleansing Ritual",
-                getFunc = function() return AST.SV.healer.pur end,
-                setFunc = function(value) 
-                    AST.SV.healer.pur = value 
+                type = "dropdown",
+                name = "First Synergy",
+                tooltip = "First out of three synergies to track",
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
+                getFunc = function() return AST.SV.orientation end,
+                setFunc = function(var) 
+                    AST.SV.orientation = var 
                     AST.UI.UpdateElements()
                 end,
-                disabled = function() return not AST.SV.healerui end,
             },
             [6] = {
-                type = "checkbox",
-                name = "Combustion/Blessed Shard",
-                tooltip = "Synergy of Energy Orb/Spear Shard",
-                getFunc = function() return AST.SV.healer.orb end,
-                setFunc = function(value) 
-                    AST.SV.healer.orb = value
+                type = "dropdown",
+                name = "Second Synergy",
+                tooltip = "Second of out three synergies to track",
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
+                getFunc = function() return AST.SV.orientation end,
+                setFunc = function(var) 
+                    AST.SV.orientation = var 
                     AST.UI.UpdateElements()
                 end,
-                disabled = function() return not AST.SV.healerui end,
             },
-            [7] = {
-                type = "checkbox",
-                name = "Bone Wall",
-                tooltip = "Synergy of Bone Shield",
-                getFunc = function() return AST.SV.healer.bon end,
-                setFunc = function(value) 
-                    AST.SV.healer.bon = value
+            [6] = {
+                type = "dropdown",
+                name = "First Synergy",
+                tooltip = "Third snyergy to track",
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
+                getFunc = function() return AST.SV.orientation end,
+                setFunc = function(var) 
+                    AST.SV.orientation = var 
                     AST.UI.UpdateElements()
                 end,
-                disabled = function() return not AST.SV.healerui end,
             },
-            [8] = {
-                type = "checkbox",
-                name = "Harvest",
-                tooltip = "Synergy of Healing Seed",
-                getFunc = function() return AST.SV.healer.hea end,
-                setFunc = function(value) 
-                    AST.SV.healer.hea = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [9] = {
-                type = "checkbox",
-                name = "Blood Funnel",
-                tooltip = "Synergy of Blood Altar",
-                getFunc = function() return AST.SV.healer.blo end,
-                setFunc = function(value) 
-                    AST.SV.healer.blo = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [10] = {
-                type = "checkbox",
-                name = "Spawn Broodlings",
-                tooltip = "Synergy of Trapping Webs",
-                getFunc = function() return AST.SV.healer.tra end,
-                setFunc = function(value) 
-                    AST.SV.healer.tra = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [11] = {
-                type = "checkbox",
-                name = "Charged Lightning",
-                tooltip = "Synergy of Summon Storm Atronach",
-                getFunc = function() return AST.SV.healer.cha end,
-                setFunc = function(value) 
-                    AST.SV.healer.cha = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [12] = {
-                type = "checkbox",
-                name = "Radiate",
-                tooltip = "Synergy of Inner Fire",
-                getFunc = function() return AST.SV.healer.rad end,
-                setFunc = function(value) 
-                    AST.SV.healer.rad = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [13] = {
-                type = "checkbox",
-                name = "Shackle",
-                tooltip = "Synergy of Dragonknight Standard",
-                getFunc = function() return AST.SV.healer.sha end,
-                setFunc = function(value) 
-                    AST.SV.healer.sha = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [14] = {
-                type = "checkbox",
-                name = "Impale",
-                tooltip = "Synergy of Dark Talons",
-                getFunc = function() return AST.SV.healer.imp end,
-                setFunc = function(value) 
-                    AST.SV.healer.imp = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [15] = {
-                type = "checkbox",
-                name = "Supernova",
-                tooltip = "Synergy of Nova",
-                getFunc = function() return AST.SV.healer.gra end,
-                setFunc = function(value) 
-                    AST.SV.healer.gra = value 
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [16] = {
-                type = "checkbox",
-                name = "Hidden Refresh",
-                tooltip = "Synergy of Consuming Darkness",
-                getFunc = function() return AST.SV.healer.hir end,
-                setFunc = function(value) 
-                    AST.SV.healer.hir = value
-                    AST.UI.UpdateElements()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [17] = {
-                type = "checkbox",
-                name = "Soul Leech",
-                tooltip = "Synergy of Soul Shred",
-                getFunc = function() return AST.SV.healer.sol end,
-                setFunc = function(value) 
-                    AST.SV.healer.sol = value
-                    AST.UI.UpdateElements() 
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
+            --disabled = function() return not AST.SV.healerui end,
         },
     })
 

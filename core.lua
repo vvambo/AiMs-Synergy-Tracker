@@ -26,6 +26,7 @@ local em            = EVENT_MANAGER
 local combat        = IsUnitInCombat("player")
 local wrapper       = nil
 local fragment      = nil
+AST.tanks           = {}
 
 ----------------------
 -- default savedvariables table
@@ -46,6 +47,8 @@ AST.default = {
     ["gra"]         = false,
     ["hir"]         = false,
     ["sol"]         = false,
+    ["rob"]         = false,
+    ["ago"]         = false,
     ["windowstate"] = true,
     ["windowscale"] = 1,
     ["left"]        = 500,
@@ -58,20 +61,10 @@ AST.default = {
     ["interval"]    = 50,
     ["textures"]    = false,
     ["healer"]      = {
-        ["orb"] = true,
-        ["liq"] = true,
-        ["pur"] = true,
-        ["hea"] = true,
-        ["bon"] = false,
-        ["blo"] = false,
-        ["tra"] = false,
-        ["rad"] = false,
-        ["cha"] = false,
-        ["sha"] = false,
-        ["imp"] = false,
-        ["gra"] = false,
-        ["hir"] = false,
-        ["sol"] = false,
+        ["tanksonly"] = true,
+        ["firstsynergy"] = nil,
+        ["secondsynergy"] = nil,
+        ["thirdsynergy"] = nil,
     }
 }
 
@@ -90,6 +83,41 @@ function AST:Initialize()
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
+    if AST.SV.healerui then
+        local gSize = GetGroupSize()
+
+        if gSize > 0 then
+
+            for i = 1, gSize do
+                local accName = string.lower(GetUnitDisplayName("group" .. i))
+                local role = GetGroupMemberAssignedRole("group" .. i)
+
+                if role == LFG_ROLE_TANK and AST.Data.HealerTimer[accName] == nil then
+                    local tankTable = {
+                        [accName] = {
+                            [1] = 0,
+                            [2] = 0,
+                            [3] = 0,
+                            [4] = 0,
+                            [5] = 0,
+                            [6] = 0,
+                            [7] = 0,
+                            [8] = 0,
+                            [9] = 0,
+                            [10] = 0,
+                            [11] = 0,
+                            [12] = 0,
+                            [13] = 0,
+                            [14] = 0,
+                        }
+                    }
+
+                    table.insert(AST.Data.HealerTimer, tankTable)
+                end
+            end
+        end
+    end
+
     AST.UI.TrackerUI(true)
     AST.UI.HealerUI(false)
 
@@ -107,7 +135,7 @@ end
 -- Main Functions
 ----------------------
 
-function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, _, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
+function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, targetType, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
     if sourceType == COMBAT_UNIT_TYPE_NONE or 
         sourceType == COMBAT_UNIT_TYPE_PLAYER_PET or 
         sourceType == COMBAT_UNIT_TYPE_OTHER then 
@@ -128,8 +156,8 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
         end
     end
 
-    if sourceType == COMBAT_UNIT_TYPE_GROUP then
-        --healerui
+    if targetType == COMBAT_UNIT_TYPE_GROUP then
+        d("Synergy activated! ID: "..abilityId.." Name: "..abilityName.." From: "..targetUnitId)
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)

@@ -25,8 +25,8 @@ local IGNITE_SYNERGY            = 11    -- Dark Talons
 local NOVA_SYNERGY              = 12    -- Nova and Supernova
 local HIDDEN_REFRESH_SYNERGY    = 13    -- Consuming Darkness
 local SOUL_LEECH_SYNERGY        = 14    -- Soul Shred
-local GRAVE_ROBBER_SYNERGY      = 15
-local PURE_AGONY_SYNERGY        = 16
+local GRAVE_ROBBER_SYNERGY      = 15    -- Grave Robber
+local PURE_AGONY_SYNERGY        = 16    -- Pure Agony
 
 ----------------------
 -- tables
@@ -55,8 +55,9 @@ D.SynergyData = {
     [108823]    = { cooldown = 20,   group = NOVA_SYNERGY },                 -- Gravity Crush Synergy    (Supernova)
     [108808]    = { cooldown = 20,   group = HIDDEN_REFRESH_SYNERGY },       -- Hidden Refresh Synergy   (Consuming Darkness)
     [108814]    = { cooldown = 20,   group = SOUL_LEECH_SYNERGY },           -- Soul Leech Synergy       (Soul Shred)
-    --[000000]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },
-    --[000000]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },
+    [115567]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Boneyard Synergy         (Grave Robber)
+    [115571]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Avid Boneyard Synergy    (Grave Robber)
+    [118610]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },           -- Agony Totem Synergy      (Pure Agony)
 
 }
 
@@ -75,8 +76,8 @@ D.SynergyTexture = {
     [NOVA_SYNERGY]           = "/esoui/art/icons/ability_templar_solar_disturbance.dds",
     [HIDDEN_REFRESH_SYNERGY] = "/esoui/art/icons/ability_nightblade_015.dds",
     [SOUL_LEECH_SYNERGY]     = "/esoui/art/icons/ability_nightblade_018.dds",
-    --[GRAVE_ROBBER_SYNERGY]   = "",
-    --[PURE_AGONY_SYNERGY]     = "",
+    [GRAVE_ROBBER_SYNERGY]   = "/esoui/art/icons/ability_necromancer_004_b.dds",
+    [PURE_AGONY_SYNERGY]     = "/esoui/art/icons/ability_necromancer_010_b.dds",
 }
 
 D.TrackerTimer = {
@@ -94,6 +95,15 @@ D.TrackerTimer = {
     [NOVA_SYNERGY]              = 0,
     [HIDDEN_REFRESH_SYNERGY]    = 0,
     [SOUL_LEECH_SYNERGY]        = 0,
-    --[GRAVE_ROBBER_SYNERGY]      = 0,
-    --[PURE_AGONY_SYNERGY]        = 0,
+    [GRAVE_ROBBER_SYNERGY]      = 0,
+    [PURE_AGONY_SYNERGY]        = 0,
+}
+
+D.SynergyList = {"Blood Funnel", "Spawn Broodlings", "Bone Wall", "Combustion", "Conduit", "Harvest", "Purge", "Supernova"}
+D.SynergyListValues = {6, 7, 5, 1, 2, 4, 3, 12}
+
+D.HealerTimer = {
+    ["firstsynergy"] = 0,
+    ["secondsynergy"] = 0,
+    ["thirdsynergy"] = 0,
 }
