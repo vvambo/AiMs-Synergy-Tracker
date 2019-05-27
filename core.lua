@@ -89,7 +89,7 @@ function AST:Initialize()
     end
 
     AST.UI.TrackerUI(true)
-    AST.UI.HealerUI(false)
+    AST.UI.HealerUI(AST.SV.healerui)
 
     AST.RestorePosition()
     AST.LoadSettings()
@@ -106,10 +106,18 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, targetType, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    if sourceType == COMBAT_UNIT_TYPE_NONE or 
+    --[[if sourceType == COMBAT_UNIT_TYPE_NONE or 
         sourceType == COMBAT_UNIT_TYPE_PLAYER_PET or 
         sourceType == COMBAT_UNIT_TYPE_OTHER then 
             return;
+    end]]--
+
+    if result == ACTION_RESULT_EFFECT_GAINED then
+
+        local usedBy = AST.GetUnitName(targetUnitId)
+        local aName = GetAbilityName(abilityId)
+
+        d("Synergy activated! ID: "..abilityId.." Name: "..aName.." From: "..usedBy)
     end
 
     local start = GetFrameTimeSeconds()
@@ -198,7 +206,7 @@ function AST.combatState(event, inCombat)
         HUD_UI_SCENE:RemoveFragment(fragment)
     end
 
-    AST.UpdateGroup()
+    --AST.UpdateGroup()
 end
 
 function AST.LoadAlpha(value)
@@ -226,8 +234,6 @@ function AST.LockWindow(value)
 end
 
 function AST.UpdateGroup()
-    local group = AST.Data.HealerTimer
-    group = nil --because we don't want to add people who left the group to our frame
     local gSize = GetGroupSize()
 
     if gSize > 0 then
@@ -236,10 +242,11 @@ function AST.UpdateGroup()
             local accName = string.lower(GetUnitDisplayName("group" .. i))
             local role = GetGroupMemberAssignedRole("group" .. i)
 
-            if role ~= LFG_ROLE_HEAL and group[accName] == nil then --Player is not a healer and just joined the group
-                group[accName].firstsynergy = 0
-                group[accName].secondsynergy = 0
-                group[accName].thirdsynergy = 0
+            if role ~= 4 then
+                AST.Data.HealerTimer[i] = {}
+                AST.Data.HealerTimer[i].name = accName
+                AST.Data.HealerTimer[i].firstsynergy = "0"
+                AST.Data.HealerTimer[i].secondsynergy = "0"
             end
         end
     end

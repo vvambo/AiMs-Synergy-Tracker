@@ -115,7 +115,7 @@ function AST.LoadSettings()
         controls = {
             [1] = {
                 type = "description",
-                text = [[The following settings only affect your own tracker and not your healer's.\n]],               
+                text = [[The |cff0000Tracker UI|r shows you your synergies and their cooldown.]],               
             },
             [2] = {
                 type = "checkbox",
@@ -312,7 +312,8 @@ function AST.LoadSettings()
         controls = {
             [1] = {
                 type = "description",
-                text = [[The |c32cd32healer frame|r tracks Synergies being used by your tanks and dds. \nYour changes in this setting do not affect the ones above.]],               
+                text = [[The |c32cd32Healer UI|r tracks Synergies being used by your tanks and dds.
+These setting to not affect the ones above.]],               
             },
             [2] = {
                 type = "checkbox",
@@ -321,7 +322,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.healerui end,
                 setFunc = function(value)
                     AST.SV.healerui = value
-                    AST.UI.UpdateHealerElements()
+                    AST.UI.HealerUI(value)
                 end,
             },
             [3] = {
@@ -343,37 +344,25 @@ function AST.LoadSettings()
             [5] = {
                 type = "dropdown",
                 name = "First Synergy",
-                tooltip = "First out of three synergies to track",
+                tooltip = "First trackable Synergy",
                 choices = D.SynergyList,
                 choicesValues = D.SynergyListValues,
-                getFunc = function() return AST.SV.orientation end,
+                getFunc = function() return AST.SV.healer.firstsynergy end,
                 setFunc = function(var) 
-                    AST.SV.orientation = var 
-                    AST.UI.UpdateElements()
+                    AST.SV.healer.firstsynergy = var 
+                    --AST.UI.UpdateElements()
                 end,
             },
             [6] = {
                 type = "dropdown",
                 name = "Second Synergy",
-                tooltip = "Second of out three synergies to track",
+                tooltip = "Second trackable Synergy",
                 choices = D.SynergyList,
                 choicesValues = D.SynergyListValues,
-                getFunc = function() return AST.SV.orientation end,
+                getFunc = function() return AST.SV.healer.secondsynergy end,
                 setFunc = function(var) 
-                    AST.SV.orientation = var 
-                    AST.UI.UpdateElements()
-                end,
-            },
-            [6] = {
-                type = "dropdown",
-                name = "First Synergy",
-                tooltip = "Third snyergy to track",
-                choices = D.SynergyList,
-                choicesValues = D.SynergyListValues,
-                getFunc = function() return AST.SV.orientation end,
-                setFunc = function(var) 
-                    AST.SV.orientation = var 
-                    AST.UI.UpdateElements()
+                    AST.SV.healer.secondsynergy = var
+                    --AST.UI.UpdateElements()
                 end,
             },
             --disabled = function() return not AST.SV.healerui end,

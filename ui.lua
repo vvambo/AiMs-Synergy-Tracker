@@ -173,4 +173,84 @@ end
 
 function U.HealerUI(enabled)
     if not enabled then return; end
+
+    local tlw2 = wm:CreateTopLevelWindow("ASTHealerUI")
+    tlw2:SetResizeToFitDescendents(true)
+    tlw2:SetAnchor(CENTER, GuiRoot, CENTER, 0, 0)
+    tlw2:SetMovable(true)
+    tlw2:SetMouseEnabled(true)
+
+    local bdBackdrop = wm:CreateControl("$(parent)bdBackDrop", tlw2, CT_BACKDROP)
+    bdBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
+    bdBackdrop:SetCenterColor(0, 0, 0)
+    bdBackdrop:SetAnchor(TOPLEFT, tlw2, TOPLEFT, 0, 0)
+    bdBackdrop:SetAlpha(0.8)
+    bdBackdrop:SetDrawLayer(0)
+    bdBackdrop:SetDimensions(205, 275)
+
+    U.HealerUIGroup(tlw2, bdBackdrop)
+    U.HealerUISynergies(tlw2, bdBackdrop)
+    U.HealerUITimer(tlw2, bdBackdrop)
+    U.HealerUIUpdate()
+end
+
+function U.HealerUIUpdate()
+    U.HealerUIGroupUpdate()
+end
+
+function U.HealerUIGroup(tlw2, bdBackdrop)
+    for i = 1, 10 do
+        local SynergyTimer = wm:CreateControl("$(parent)UnitName"..i, tlw2, CT_LABEL)
+        SynergyTimer:SetColor(255, 255, 255, 1)
+        SynergyTimer:SetFont("ZoFontGameSmall")
+        SynergyTimer:SetScale(1.0)
+        SynergyTimer:SetWrapMode(TEX_MODE_CLAMP)
+        SynergyTimer:SetDrawLayer(1)
+        SynergyTimer:SetText("|t16:16:esoui/art/icons/ability_necromancer_004_b.dds|t Skaloria Tateri "..i)
+        SynergyTimer:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 5, 25 * i + 5)
+        SynergyTimer:SetDimensions(120, 20)
+        SynergyTimer:SetHidden(true)
+    end
+end
+
+function U.HealerUIGroupUpdate()
+    local group = AST.Data.HealerTimer
+
+    for x = 1, 10 do
+        
+        local unit = ASTHealerUI:GetNamedChild("UnitName"..x)
+        unit:SetText(group[x]["name"])
+        unit:SetHidden(false)
+    end
+end
+
+function U.HealerUISynergies(tlw2, bdBackdrop)
+    local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy}
+    for i = 1, 2 do
+        local SynergyIcon = wm:CreateControl("$(parent)HealerSynergy"..i, tlw2, CT_TEXTURE)
+        SynergyIcon:SetScale(1)
+        SynergyIcon:SetDrawLayer(1)
+        SynergyIcon:SetTexture(D.SynergyTexture[synergies[i]])
+        SynergyIcon:SetDimensions(24,24)
+        SynergyIcon:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 105 + (35 * i), 5)
+    end
+end
+
+function U.HealerUITimer(tlw2, bdBackdrop)
+    local counter = 1
+    for i = 1, 10 do
+        for z = 1, 2 do
+            local HealerTimer = wm:CreateControl("$(parent)HealerTimer"..counter, tlw2, CT_LABEL)
+            HealerTimer:SetColor(255, 255, 255, 1)
+            HealerTimer:SetFont("ZoFontGameSmall")
+            HealerTimer:SetScale(1.0)
+            HealerTimer:SetWrapMode(TEX_MODE_CLAMP)
+            HealerTimer:SetDrawLayer(1)
+            HealerTimer:SetText("0")
+            HealerTimer:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 114 + (35 * z), 25 * i + 5)
+            HealerTimer:SetHidden(true)
+
+            counter = counter + 1
+        end
+    end
 end

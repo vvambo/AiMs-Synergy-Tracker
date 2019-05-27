@@ -102,4 +102,4 @@ D.TrackerTimer = {
 D.SynergyList = {"Blood Funnel", "Spawn Broodlings", "Bone Wall", "Combustion", "Conduit", "Harvest", "Purge", "Supernova"}
 D.SynergyListValues = {6, 7, 5, 1, 2, 4, 3, 12}
 
-D.HealerTimer = nil
+D.HealerTimer = {}
