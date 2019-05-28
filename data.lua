@@ -124,10 +124,10 @@ D.SynergyListValues = {
 D.HealerTimer = {}
 
 D.UnitClasses = {
-    ["nightblade"]      = "art/icons/class/class_nightblade.dds",
-    ["templar"]         = "art/icons/class/class_templar.dds",
-    ["sorcerer"]        = "art/icons/class/class_sorcerer.dds",
-    ["dragonknight"]    = "art/icons/class/class_dragonknight.dds",
-    ["warden"]          = "art/icons/class/class_warden.dds",
-    ["necromancer"]     = "art/icons/class/class_necromancer.dds",
+    ["Nightblade"]      = "art/icons/class/class_nightblade.dds",
+    ["Templar"]         = "art/icons/class/class_templar.dds",
+    ["Sorcerer"]        = "art/icons/class/class_sorcerer.dds",
+    ["Dragonknight"]    = "art/icons/class/class_dragonknight.dds",
+    ["Warden"]          = "art/icons/class/class_warden.dds",
+    ["Necromancer"]     = "art/icons/class/class_necromancer.dds",
 }

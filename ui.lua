@@ -176,7 +176,7 @@ function U.HealerUI(enabled)
 
     local healerui = wm:CreateTopLevelWindow("ASTHealerUI")
     healerui:SetResizeToFitDescendents(true)
-    healerui:SetAnchor(CENTER, GuiRoot, CENTER, 0, 0)
+    healerui:SetAnchor(RIGHT, GuiRoot, RIGHT, 0, 0)
     healerui:SetMovable(true)
     healerui:SetMouseEnabled(true)
 
@@ -224,17 +224,22 @@ function U.HealerUIGroupUpdate()
     --unit labels
     for x = 1, 10 do
         local unit = ASTHealerUI:GetNamedChild("UnitName"..x)
+        unit:SetText("")
+        unit:SetHidden(true)
+    end
 
-        if AST.Data.HealerTimer[x].name then 
-            local unitclass = GetUnitClass(AST.Data.HealerTimer[x].name)
-            unit:SetText("|t16:16:"..AST.Data.UnitClasses[unitclass].."|t "..AST.Data.HealerTimer[x].name)
+    for k, v in pairs(AST.Data.HealerTimer) do
+        if k <= 10 then
+            local unit = ASTHealerUI:GetNamedChild("UnitName"..k)
+            unit:SetText("|t16:16:"..AST.Data.UnitClasses[v.unitclass].."|t "..v.name)
             unit:SetHidden(false)
             units = units + 1
-        else
-            unit:SetText("")
-            unit:SetHidden(true)
         end
     end
+
+    --backdrop
+    local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
+    backdrop:SetDimensions(205, 35 + (25 * units))
 
     units = units * 2
     
@@ -246,17 +251,16 @@ function U.HealerUIGroupUpdate()
         end
     end
 
-    local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy}
+    local synergies = {
+        [1] = AST.SV.healer.firstsynergy, 
+        [2] = AST.SV.healer.secondsynergy,
+    }
 
     --synergy textures
     for x = 1, 2 do
-        local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy")
-        healeruisynergy:SetTexture(D.SynergyTexture[synergies[x]])
+        local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy"..x)
+        healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[x]])
     end
-
-    --backdrop
-    local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
-    backdrop:SetDimensions(205, 40 + (20 * units))
 end
 
 function U.HealerUISynergies(healerui, healeruiBackdrop)
