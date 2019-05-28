@@ -65,7 +65,6 @@ AST.default = {
         ["tanksonly"] = true,
         ["firstsynergy"] = nil,
         ["secondsynergy"] = nil,
-        ["thirdsynergy"] = nil,
     }
 }
 
@@ -74,8 +73,6 @@ AST.default = {
 ----------------------
 function AST:Initialize()
     em:RegisterForEvent(AST.name.."Combat", EVENT_PLAYER_COMBAT_STATE, AST.combatState)
-
-    --local LibUnit = LibStub:GetLibrary("LibUnits")
 
     for k, v in pairs(AST.Data.SynergyData) do
         em:RegisterForEvent(AST.name.."Synergy"..k, EVENT_COMBAT_EVENT , AST.synergyCheck)
@@ -88,7 +85,7 @@ function AST:Initialize()
         AST.UpdateGroup()
     end
 
-    AST.UI.TrackerUI(true)
+    AST.UI.TrackerUI(AST.SV.trackerui)
     AST.UI.HealerUI(AST.SV.healerui)
 
     AST.RestorePosition()
@@ -106,23 +103,9 @@ end
 ----------------------
 
 function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, targetType, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
-    --[[if sourceType == COMBAT_UNIT_TYPE_NONE or 
-        sourceType == COMBAT_UNIT_TYPE_PLAYER_PET or 
-        sourceType == COMBAT_UNIT_TYPE_OTHER then 
-            return;
-    end]]--
-
-    if result == ACTION_RESULT_EFFECT_GAINED then
-
-        local usedBy = AST.GetUnitName(targetUnitId)
-        local aName = GetAbilityName(abilityId)
-
-        d("Synergy activated! ID: "..abilityId.." Name: "..aName.." From: "..usedBy)
-    end
-
     local start = GetFrameTimeSeconds()
 
-    if sourceType == COMBAT_UNIT_TYPE_PLAYER then
+    if sourceType == COMBAT_UNIT_TYPE_PLAYER and AST.SV.trackerui then
 
         if AST.Data.SynergyData[abilityId].group == 1 then
 
@@ -134,42 +117,97 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
         end
     end
 
-    if targetType == COMBAT_UNIT_TYPE_GROUP then
+    if result == ACTION_RESULT_EFFECT_GAINED and AST.SV.healerui then
         local usedBy = AST.GetUnitName(targetUnitId)
-        local aName = GetAbilityName(abilityId)
+        local role = GetGroupMemberAssignedRole(usedBy)
 
-        d("Synergy activated! ID: "..abilityId.." Name: "..aName.." From: "..usedBy)
+        if AST.SV.healer.tanksonly then
+            if role ~= LFG_GROUP_TANK then return; end
+        end
+
+        --d("Synergy activated! ID: "..abilityId.." From: "..usedBy)
+
+        for k, v in ipairs(AST.Data.HealerTimer) do
+            if v.name == usedBy then
+                if AST.Data.SynergyData[abilityId].group == AST.SV.healer.firstsynergy then
+                    AST.Data.Healertimer[k].firstsynergy = start + AST.Data.SynergyData[abilityId].cooldown
+                elseif AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy then
+                    AST.Data.Healertimer[k].secondsynergy = start + AST.Data.SynergyData[abilityId].cooldown
+                end
+            end
+        end
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
 end
 
 function AST.countDown()
-    local counter   = 0
-    local countAll  = 0
+    if AST.SV.trackerui then
+        local counter   = 0
+        local countAll  = 0
 
-    for k, v in ipairs(AST.Data.TrackerTimer) do
-        local element   = ASTGrid:GetNamedChild("SynergyTimer"..k)
-        local icon      = ASTGrid:GetNamedChild("SynergyIcon"..k)
+        for k, v in ipairs(AST.Data.TrackerTimer) do
+            local element   = ASTGrid:GetNamedChild("SynergyTimer"..k)
+            local icon      = ASTGrid:GetNamedChild("SynergyIcon"..k)
 
-        if AST.time(v) <= 0.1 then
-            element:SetText("0.0")
-            element:SetColor(255, 255, 255, 1)
-            icon:SetColor(1, 1, 1, 1)
+            if AST.time(v, 1) <= 0.1 then
+                element:SetText("0.0")
+                element:SetColor(255, 255, 255, 1)
+                icon:SetColor(1, 1, 1, 1)
 
-            counter = counter + 1
-        else
-            element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
-            element:SetColor(255, 0, 0, 1)
-            icon:SetColor(0.5, 0.5, 0.5, 1)
+                counter = counter + 1
+            else
+                --element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
+                element:SetText(AST.time(AST.Data.TrackerTimer[k], 1))
+                element:SetColor(255, 0, 0, 1)
+                icon:SetColor(0.5, 0.5, 0.5, 1)
 
+            end
+
+            countAll = countAll + 1
         end
 
-        countAll = countAll + 1
+        if counter == countAll then
+            em:UnregisterForUpdate(AST.name.."Update")
+        end
     end
 
-    if counter == countAll then
-        em:UnregisterForUpdate(AST.name.."Update")
+    if AST.SV.healerui then
+        local count = 0
+        local counttotal = 0
+        for k, v in ipairs(AST.Data.HealerTimer) do
+            if AST.time(v.firstsynergy, 1) <= 0.1 then
+                local element = ASTHealerUI:GetNamedChild("HealerTimer"..(k * 2 - 1))
+                element:SetText("0.0")
+                element:SetColor(255, 255, 255, 1)
+
+                count = count + 1
+            else
+                local element = ASTHealerUI:GetNamedChild("HealerTimer"..(k * 2 - 1))
+                element:SetText(AST.time(AST.Data.TrackerTimer[k], 0))
+                --element:SetText(string.format("%.0f", AST.time(AST.Data.TrackerTimer[k])))
+                element:SetColor(255, 0, 0, 1)
+            end
+
+            if AST.time(v.secondsynergy, 1) <= 0.1 then
+                local element = ASTHealerUI:GetNamedChild("HealerTimer"..(k * 2))
+                element:SetText("0.0")
+                element:SetColor(255, 255, 255, 1)
+
+                count = count + 1
+            else
+                local element = ASTHealerUI:GetNamedChild("HealerTimer"..(k * 2))
+                element:SetText(AST.time(AST.Data.TrackerTimer[k], 0))
+                --element:SetText(string.format("%.0f", AST.time(AST.Data.TrackerTimer[k])))
+                element:SetColor(255, 0, 0, 1)
+            end
+
+            counttotal = counttotal + 1
+
+            if count == counttotal then
+                em:UnregisterForUpdate(AST.name.."Update")
+            end
+        end
     end
 end
 
@@ -242,11 +280,18 @@ function AST.UpdateGroup()
             local accName = string.lower(GetUnitDisplayName("group" .. i))
             local role = GetGroupMemberAssignedRole("group" .. i)
 
-            if role ~= 4 then
-                AST.Data.HealerTimer[i] = {}
-                AST.Data.HealerTimer[i].name = accName
-                AST.Data.HealerTimer[i].firstsynergy = "0"
-                AST.Data.HealerTimer[i].secondsynergy = "0"
+            if role ~= 4 then --healers will always be ignored
+                if not AST.SV.healer.tanksonly then --add tanks and dds
+                    AST.Data.HealerTimer[i] = {}
+                    AST.Data.HealerTimer[i].name = accName
+                    AST.Data.HealerTimer[i].firstsynergy = "0"
+                    AST.Data.HealerTimer[i].secondsynergy = "0"
+                elseif AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --add only tanks
+                    AST.Data.HealerTimer[i] = {}
+                    AST.Data.HealerTimer[i].name = accName
+                    AST.Data.HealerTimer[i].firstsynergy = "0"
+                    AST.Data.HealerTimer[i].secondsynergy = "0"
+                end
             end
         end
     end
@@ -265,8 +310,9 @@ end
 ----------------------
 -- Supporting Functions
 ----------------------
-function AST.time(nd)
-	return math.floor((nd - GetGameTimeMilliseconds()/1000) * 10 + 0.5)/10
+function AST.time(nd, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+	return math.floor((nd - GetGameTimeMilliseconds()/1000) * mult + 0.5)/mult
 end
 
 function AST.RestorePosition()

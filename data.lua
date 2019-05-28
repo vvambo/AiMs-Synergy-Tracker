@@ -99,7 +99,35 @@ D.TrackerTimer = {
     [PURE_AGONY_SYNERGY]        = 0,
 }
 
-D.SynergyList = {"Blood Funnel", "Spawn Broodlings", "Bone Wall", "Combustion", "Conduit", "Harvest", "Purge", "Supernova"}
-D.SynergyListValues = {6, 7, 5, 1, 2, 4, 3, 12}
+D.SynergyList = {
+    "Blood Funnel", 
+    "Spawn Broodlings", 
+    "Bone Wall", 
+    "Combustion", 
+    "Conduit", 
+    "Harvest", 
+    "Purge", 
+    "Supernova",
+}
+
+D.SynergyListValues = {
+    6, 
+    7, 
+    5, 
+    1, 
+    2, 
+    4, 
+    3, 
+    12,
+}
 
 D.HealerTimer = {}
+
+D.UnitClasses = {
+    ["nightblade"]      = "art/icons/class/class_nightblade.dds",
+    ["templar"]         = "art/icons/class/class_templar.dds",
+    ["sorcerer"]        = "art/icons/class/class_sorcerer.dds",
+    ["dragonknight"]    = "art/icons/class/class_dragonknight.dds",
+    ["warden"]          = "art/icons/class/class_warden.dds",
+    ["necromancer"]     = "art/icons/class/class_necromancer.dds",
+}

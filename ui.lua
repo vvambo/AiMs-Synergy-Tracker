@@ -174,81 +174,116 @@ end
 function U.HealerUI(enabled)
     if not enabled then return; end
 
-    local tlw2 = wm:CreateTopLevelWindow("ASTHealerUI")
-    tlw2:SetResizeToFitDescendents(true)
-    tlw2:SetAnchor(CENTER, GuiRoot, CENTER, 0, 0)
-    tlw2:SetMovable(true)
-    tlw2:SetMouseEnabled(true)
+    local healerui = wm:CreateTopLevelWindow("ASTHealerUI")
+    healerui:SetResizeToFitDescendents(true)
+    healerui:SetAnchor(CENTER, GuiRoot, CENTER, 0, 0)
+    healerui:SetMovable(true)
+    healerui:SetMouseEnabled(true)
 
-    local bdBackdrop = wm:CreateControl("$(parent)bdBackDrop", tlw2, CT_BACKDROP)
-    bdBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
-    bdBackdrop:SetCenterColor(0, 0, 0)
-    bdBackdrop:SetAnchor(TOPLEFT, tlw2, TOPLEFT, 0, 0)
-    bdBackdrop:SetAlpha(0.8)
-    bdBackdrop:SetDrawLayer(0)
-    bdBackdrop:SetDimensions(205, 275)
+    local healeruiBackdrop = wm:CreateControl("$(parent)bdBackDrop", healerui, CT_BACKDROP)
+    healeruiBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
+    healeruiBackdrop:SetCenterColor(0, 0, 0)
+    healeruiBackdrop:SetAnchor(TOPLEFT, healerui, TOPLEFT, 0, 0)
+    healeruiBackdrop:SetAlpha(0.8)
+    healeruiBackdrop:SetDrawLayer(0)
+    healeruiBackdrop:SetDimensions(205, 40)
 
-    U.HealerUIGroup(tlw2, bdBackdrop)
-    U.HealerUISynergies(tlw2, bdBackdrop)
-    U.HealerUITimer(tlw2, bdBackdrop)
+    U.HealerUIGroup(healerui, healeruiBackdrop)
+    U.HealerUISynergies(healerui, healeruiBackdrop)
+    U.HealerUITimer(healerui, healeruiBackdrop)
     U.HealerUIUpdate()
 end
 
 function U.HealerUIUpdate()
+    AST.UpdateGroup()
     U.HealerUIGroupUpdate()
 end
 
-function U.HealerUIGroup(tlw2, bdBackdrop)
+function U.HealerUIVisibility(value)
+    ASTHealerUI:SetHidden(value)
+end
+
+function U.HealerUIGroup(healerui, healeruiBackdrop)
     for i = 1, 10 do
-        local SynergyTimer = wm:CreateControl("$(parent)UnitName"..i, tlw2, CT_LABEL)
-        SynergyTimer:SetColor(255, 255, 255, 1)
-        SynergyTimer:SetFont("ZoFontGameSmall")
-        SynergyTimer:SetScale(1.0)
-        SynergyTimer:SetWrapMode(TEX_MODE_CLAMP)
-        SynergyTimer:SetDrawLayer(1)
-        SynergyTimer:SetText("|t16:16:esoui/art/icons/ability_necromancer_004_b.dds|t Skaloria Tateri "..i)
-        SynergyTimer:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 5, 25 * i + 5)
-        SynergyTimer:SetDimensions(120, 20)
-        SynergyTimer:SetHidden(true)
+        local unit = wm:CreateControl("$(parent)UnitName"..i, healerui, CT_LABEL)
+        unit:SetColor(255, 255, 255, 1)
+        unit:SetFont("ZoFontGameSmall")
+        unit:SetScale(1.0)
+        unit:SetWrapMode(TEX_MODE_CLAMP)
+        unit:SetDrawLayer(1)
+        unit:SetText("")
+        unit:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 5, 25 * i + 5)
+        unit:SetDimensions(120, 20)
+        unit:SetHidden(true)
     end
 end
 
 function U.HealerUIGroupUpdate()
-    local group = AST.Data.HealerTimer
+    local units = 0
 
+    --unit labels
     for x = 1, 10 do
-        
         local unit = ASTHealerUI:GetNamedChild("UnitName"..x)
-        unit:SetText(group[x]["name"])
-        unit:SetHidden(false)
+
+        if AST.Data.HealerTimer[x].name then 
+            local unitclass = GetUnitClass(AST.Data.HealerTimer[x].name)
+            unit:SetText("|t16:16:"..AST.Data.UnitClasses[unitclass].."|t "..AST.Data.HealerTimer[x].name)
+            unit:SetHidden(false)
+            units = units + 1
+        else
+            unit:SetText("")
+            unit:SetHidden(true)
+        end
     end
+
+    units = units * 2
+    
+    --timer
+    if units > 0 then
+        for x = 1, units do
+            local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
+            timer:SetHidden(false)
+        end
+    end
+
+    local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy}
+
+    --synergy textures
+    for x = 1, 2 do
+        local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy")
+        healeruisynergy:SetTexture(D.SynergyTexture[synergies[x]])
+    end
+
+    --backdrop
+    local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
+    backdrop:SetDimensions(205, 40 + (20 * units))
 end
 
-function U.HealerUISynergies(tlw2, bdBackdrop)
+function U.HealerUISynergies(healerui, healeruiBackdrop)
     local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy}
     for i = 1, 2 do
-        local SynergyIcon = wm:CreateControl("$(parent)HealerSynergy"..i, tlw2, CT_TEXTURE)
-        SynergyIcon:SetScale(1)
-        SynergyIcon:SetDrawLayer(1)
-        SynergyIcon:SetTexture(D.SynergyTexture[synergies[i]])
-        SynergyIcon:SetDimensions(24,24)
-        SynergyIcon:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 105 + (35 * i), 5)
+        local healeruisynergy = wm:CreateControl("$(parent)HealerSynergy"..i, healerui, CT_TEXTURE)
+        healeruisynergy:SetScale(1)
+        healeruisynergy:SetDrawLayer(1)
+        healeruisynergy:SetTexture(D.SynergyTexture[synergies[i]])
+        healeruisynergy:SetDimensions(24,24)
+        healeruisynergy:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 105 + (35 * i), 5)
     end
 end
 
-function U.HealerUITimer(tlw2, bdBackdrop)
+function U.HealerUITimer(healerui, healeruiBackdrop)
     local counter = 1
     for i = 1, 10 do
         for z = 1, 2 do
-            local HealerTimer = wm:CreateControl("$(parent)HealerTimer"..counter, tlw2, CT_LABEL)
-            HealerTimer:SetColor(255, 255, 255, 1)
-            HealerTimer:SetFont("ZoFontGameSmall")
-            HealerTimer:SetScale(1.0)
-            HealerTimer:SetWrapMode(TEX_MODE_CLAMP)
-            HealerTimer:SetDrawLayer(1)
-            HealerTimer:SetText("0")
-            HealerTimer:SetAnchor(TOPLEFT, bdBackdrop, TOPLEFT, 114 + (35 * z), 25 * i + 5)
-            HealerTimer:SetHidden(true)
+            local healeruitimer = wm:CreateControl("$(parent)HealerTimer"..counter, healerui, CT_LABEL)
+            healeruitimer:SetColor(255, 255, 255, 1)
+            healeruitimer:SetFont("ZoFontGameSmall")
+            healeruitimer:SetScale(1.0)
+            healeruitimer:SetWrapMode(TEX_MODE_CLAMP)
+            healeruitimer:SetDrawLayer(1)
+            healeruitimer:SetText("0")
+            healeruitimer:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 114 + (35 * z), 25 * i + 5)
+            healeruitimer:SetHidden(true)
 
             counter = counter + 1
         end

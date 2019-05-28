@@ -30,7 +30,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 
 
 <br><br>
-#### Version 4.0 Alpha2
+#### Version 4.0 Alpha5
 ##### Changes:
 - Updated APIVersion to 100027 (Elsweyr)
 - Added Grave Robber and Pure Agony Synergies

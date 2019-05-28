@@ -322,17 +322,18 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healerui end,
                 setFunc = function(value)
                     AST.SV.healerui = value
-                    AST.UI.HealerUI(value)
+                    AST.UI.HealerUIUpdate()
+                    AST.UI.HealerUIVisibility(value)
                 end,
             },
             [3] = {
                 type = "checkbox",
                 name = "Track tanks only",
                 tooltip = "DDs won't appear in the healer frame.",
-                getFunc = function() return AST.SV.healerui end,
+                getFunc = function() return AST.SV.tanksonly end,
                 setFunc = function(value)
-                    AST.SV.healerui = value
-                    AST.UI.UpdateHealerElements()
+                    AST.SV.tanksonly = value
+                    AST.UI.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
@@ -350,8 +351,9 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healer.firstsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.firstsynergy = var 
-                    --AST.UI.UpdateElements()
+                    AST.UI.HealerUIUpdate()
                 end,
+                disabled = function() return not AST.SV.healerui end,
             },
             [6] = {
                 type = "dropdown",
@@ -362,10 +364,10 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healer.secondsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.secondsynergy = var
-                    --AST.UI.UpdateElements()
+                    AST.UI.HealerUIUpdate()
                 end,
+                disabled = function() return not AST.SV.healerui end,
             },
-            --disabled = function() return not AST.SV.healerui end,
         },
     })
 
