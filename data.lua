@@ -123,11 +123,7 @@ D.SynergyListValues = {
 
 D.HealerTimer = {}
 
-D.UnitClasses = {
-    ["Nightblade"]      = "art/icons/class/class_nightblade.dds",
-    ["Templar"]         = "art/icons/class/class_templar.dds",
-    ["Sorcerer"]        = "art/icons/class/class_sorcerer.dds",
-    ["Dragonknight"]    = "art/icons/class/class_dragonknight.dds",
-    ["Warden"]          = "art/icons/class/class_warden.dds",
-    ["Necromancer"]     = "art/icons/class/class_necromancer.dds",
+D.UnitType = {
+    [1]      = "art/tutorial/gamepad/gp_lfg_dps.dds",
+    [2]      = "art/tutorial/gamepad/gp_lfg_tank.dds",
 }

@@ -171,7 +171,7 @@ end
 -- Healer UI
 ----------------------
 
-function U.HealerUI(enabled)
+function U.HealerUI(enabled, settings)
     if not enabled then return; end
 
     local healerui = wm:CreateTopLevelWindow("ASTHealerUI")
@@ -200,7 +200,7 @@ function U.HealerUIUpdate()
 end
 
 function U.HealerUIVisibility(value)
-    ASTHealerUI:SetHidden(value)
+    ASTHealerUI:SetHidden(not value)
 end
 
 function U.HealerUIGroup(healerui, healeruiBackdrop)
@@ -231,7 +231,7 @@ function U.HealerUIGroupUpdate()
     for k, v in pairs(AST.Data.HealerTimer) do
         if k <= 10 then
             local unit = ASTHealerUI:GetNamedChild("UnitName"..k)
-            unit:SetText("|t16:16:"..AST.Data.UnitClasses[v.unitclass].."|t "..v.name)
+            unit:SetText("|t16:16:"..AST.Data.UnitType[v.role].."|t "..v.name)
             unit:SetHidden(false)
             units = units + 1
         end
@@ -281,7 +281,7 @@ function U.HealerUITimer(healerui, healeruiBackdrop)
         for z = 1, 2 do
             local healeruitimer = wm:CreateControl("$(parent)HealerTimer"..counter, healerui, CT_LABEL)
             healeruitimer:SetColor(255, 255, 255, 1)
-            healeruitimer:SetFont("ZoFontGameSmall")
+            healeruitimer:SetFont("ZoFontWinT2")
             healeruitimer:SetScale(1.0)
             healeruitimer:SetWrapMode(TEX_MODE_CLAMP)
             healeruitimer:SetDrawLayer(1)

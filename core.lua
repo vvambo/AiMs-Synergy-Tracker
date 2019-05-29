@@ -95,6 +95,7 @@ function AST:Initialize()
 
     wrapper = ASTGrid
     fragment = ZO_SimpleSceneFragment:New(wrapper)
+    fragment2 = ZO_SimpleSceneFragment:New(ASTHealerUI)
     AST.combatState()
 end
 
@@ -117,22 +118,22 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
         end
     end
 
-    if result == ACTION_RESULT_EFFECT_GAINED then
+    if result == ACTION_RESULT_EFFECT_GAINED and AST.SV.healerui then
         local usedBy = AST.GetUnitName(targetUnitId)
         local role = GetGroupMemberAssignedRole(usedBy)
 
-        --[[if AST.SV.healer.tanksonly then
+        if AST.SV.healer.tanksonly then
             if role ~= LFG_GROUP_TANK then return; end
-        end]]--
+        end
 
-        d("Synergy activated! ID: "..abilityId.." From: "..usedBy)
+        --d("Synergy activated! ID: "..abilityId.." From: "..usedBy)
 
         for k, v in ipairs(AST.Data.HealerTimer) do
             if v.name == usedBy then
                 if AST.Data.SynergyData[abilityId].group == AST.SV.healer.firstsynergy then
-                    v.firstsynergy = start + AST.Data.SynergyData[abilityId].cooldown
+                    AST.Data.HealerTimer[k].firstsynergy = start + AST.Data.SynergyData[abilityId].cooldown
                 elseif AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy then
-                    v.secondsynergy = start + AST.Data.SynergyData[abilityId].cooldown
+                    AST.Data.HealerTimer[k].secondsynergy = start + AST.Data.SynergyData[abilityId].cooldown
                 end
             end
         end
@@ -157,8 +158,12 @@ function AST.countDown()
 
                 counter = counter + 1
             else
-                --element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k])))
-                element:SetText(string.format("%.1f", AST.time(AST.Data.TrackerTimer[k], 1)))
+                if AST.SV.interval == 1000 then
+                    --string.format("%.1f", 
+                    element:SetText(AST.time(AST.Data.TrackerTimer[k], 0))
+                else
+                    element:SetText(AST.time(AST.Data.TrackerTimer[k], 1))
+                end
                 element:SetColor(255, 0, 0, 1)
                 icon:SetColor(0.5, 0.5, 0.5, 1)
 
@@ -184,12 +189,10 @@ function AST.countDown()
                     local element = ASTHealerUI:GetNamedChild("HealerTimer"..z)
                     element:SetText("0")
                     element:SetColor(255, 255, 255, 1)
-
                     count = count + 1
                 else
                     local element = ASTHealerUI:GetNamedChild("HealerTimer"..z)
                     element:SetText(AST.time(AST.Data.TrackerTimer[k], 0))
-                    --element:SetText(string.format("%.0f", AST.time(AST.Data.TrackerTimer[k])))
                     element:SetColor(255, 0, 0, 1)
                 end
 
@@ -197,12 +200,10 @@ function AST.countDown()
                     local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
                     element:SetText("0")
                     element:SetColor(255, 255, 255, 1)
-
                     count = count + 1
                 else
                     local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
                     element:SetText(AST.time(AST.Data.TrackerTimer[k], 0))
-                    --element:SetText(string.format("%.0f", AST.time(AST.Data.TrackerTimer[k])))
                     element:SetColor(255, 0, 0, 1)
                 end
 
@@ -220,14 +221,20 @@ function AST.windowState()
     if AST.SV.windowstate then
         AST.SV.windowstate = false
         ASTGrid:SetHidden(true)
+        ASTHealerUI:SetHidden(true)
         HUD_SCENE:RemoveFragment(fragment)
         HUD_UI_SCENE:RemoveFragment(fragment)
+        HUD_SCENE:AddFragment(fragment2)
+        HUD_UI_SCENE:AddFragment(fragment2)
         d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now <<1>> outside of combat|r", "|cdc143chidden|r"))
     else
         AST.SV.windowstate = true
         ASTGrid:SetHidden(false)
+        ASTHealerUI:SetHidden(false)
         HUD_SCENE:AddFragment(fragment)
         HUD_UI_SCENE:AddFragment(fragment)
+        HUD_SCENE:AddFragment(fragment2)
+        HUD_UI_SCENE:AddFragment(fragment2)
         d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTracker is now <<1>> outside of combat|r", "|c32cd32visible|r"))
     end
 end
@@ -236,24 +243,37 @@ function AST.combatState(event, inCombat)
     if AST.SV.windowstate then
         HUD_SCENE:AddFragment(fragment)
         HUD_UI_SCENE:AddFragment(fragment)
+        HUD_SCENE:AddFragment(fragment2)
+        HUD_UI_SCENE:AddFragment(fragment2)
     else
         if inCombat ~= combat then
             combat = inCombat
             if inCombat then
                 ASTGrid:SetHidden(false)
+                ASTHealerUI:SetHidden(false)
             else
                 ASTGrid:SetHidden(true)
+                ASTHealerUI:SetHidden(true)
             end
         end
         HUD_SCENE:RemoveFragment(fragment)
         HUD_UI_SCENE:RemoveFragment(fragment)
+        HUD_SCENE:RemoveFragment(fragment2)
+        HUD_UI_SCENE:RemoveFragment(fragment2)
     end
 
-    AST.UpdateGroup()
+    if AST.SV.healerui then
+        AST.UpdateGroup()
+        AST.UI.HealerUIUpdate()
+    end
 end
 
 function AST.LoadAlpha(value)
     ASTGridbdBackDrop:SetAlpha(value)
+
+    if AST.SV.healerui then
+        ASTHealerUIbdBackDrop:SetAlpha(value)
+    end
 
     if AST.SV.textures then
         for k, v in ipairs(AST.Data.TrackerTimer) do
@@ -284,25 +304,22 @@ function AST.UpdateGroup()
         for i = 1, gSize do
             local accName = GetUnitDisplayName("group" .. i)
             local role = GetGroupMemberAssignedRole("group" .. i)
-            local unitclass = GetUnitClass("group"..i)
-            if role ~= 4 then --healers will always be ignored
-                if  role ~= LFG_ROLE_INVALID then
-                    if not AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then
-                        AST.Data.HealerTimer[counter] = {}
-                        AST.Data.HealerTimer[counter].name = accName
-                        AST.Data.HealerTimer[counter].firstsynergy = "0"
-                        AST.Data.HealerTimer[counter].secondsynergy = "0"
-                        AST.Data.HealerTimer[counter].unitclass = unitclass
-                    else
-                        AST.Data.HealerTimer[counter] = {}
-                        AST.Data.HealerTimer[counter].name = accName
-                        AST.Data.HealerTimer[counter].firstsynergy = "0"
-                        AST.Data.HealerTimer[counter].secondsynergy = "0"
-                        AST.Data.HealerTimer[counter].unitclass = unitclass
-                    end
-
-                    counter = counter + 1
+            if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID) then --healers and offliner will be ignored
+                if not AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --only track tanks
+                    AST.Data.HealerTimer[counter] = {}
+                    AST.Data.HealerTimer[counter].name = accName
+                    AST.Data.HealerTimer[counter].firstsynergy = "0"
+                    AST.Data.HealerTimer[counter].secondsynergy = "0"
+                    AST.Data.HealerTimer[counter].role = role
+                else
+                    AST.Data.HealerTimer[counter] = {} 
+                    AST.Data.HealerTimer[counter].name = accName
+                    AST.Data.HealerTimer[counter].firstsynergy = "0"
+                    AST.Data.HealerTimer[counter].secondsynergy = "0"
+                    AST.Data.HealerTimer[counter].role = role
                 end
+
+                counter = counter + 1
             end
         end
     end

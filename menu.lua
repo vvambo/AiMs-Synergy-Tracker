@@ -322,7 +322,7 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healerui end,
                 setFunc = function(value)
                     AST.SV.healerui = value
-                    AST.UI.HealerUIUpdate()
+                    AST.UI.HealerUIUpdate(value)
                     AST.UI.HealerUIVisibility(value)
                 end,
             },

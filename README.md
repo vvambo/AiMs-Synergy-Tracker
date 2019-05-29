@@ -43,15 +43,14 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 - Added Checkboxes to deactivate/hide Tracker and Healer UI
 
 ##### ToDo-List
-- Rounding the remaining time of cooldowns correctly. e.g. 1000ms should display 18 seconds and not 11.9 or 9.0 seconds
 - Creating a Healer UI where your healers won't get eye cancer after a few minutes
 - Probably some additional adjustments to the menu
 
 ##### Untested Changes:
-- Everything apart from the menu settings
+- Everything from version Alpha7 onwards
 
 ##### Bugs known:
-- fortunately none yet
+- HealerUI countdowns don't seem to work yet
 
 
 #### Future Update
