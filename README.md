@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.0.0_alpha-green.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.0.0-blue.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.
@@ -30,7 +30,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 
 
 <br><br>
-#### Version 4.0 Alpha5
+#### Version 4.0.0
 ##### Changes:
 - Updated APIVersion to 100027 (Elsweyr)
 - Added Grave Robber and Pure Agony Synergies

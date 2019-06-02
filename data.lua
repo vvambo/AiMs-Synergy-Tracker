@@ -124,6 +124,6 @@ D.SynergyListValues = {
 D.HealerTimer = {}
 
 D.UnitType = {
-    [1]      = "art/tutorial/gamepad/gp_lfg_dps.dds",
-    [2]      = "art/tutorial/gamepad/gp_lfg_tank.dds",
+    [1]      = "/esoui/art/tutorial/gamepad/gp_lfg_dps.dds",
+    [2]      = "/esoui/art/tutorial/gamepad/gp_lfg_tank.dds",
 }

@@ -89,7 +89,7 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
-        name = "Show Tracker outside of Combat",
+        name = "Only shows in Combat",
         tooltip = "Toggles the tracker outside of fights",
         getFunc = function() return AST.SV.windowstate end,
         setFunc = function(value) 
@@ -124,8 +124,8 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.trackerui end,
                 setFunc = function(value)
                     AST.SV.trackerui = value
-                    AST.UI.EnableTracker(value)
                 end,
+                requiresReload = true,
             },
             [3] = {
                 type = "dropdown",
@@ -137,6 +137,7 @@ function AST.LoadSettings()
                     AST.SV.orientation = var 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [4] = {
                 type = "divider",
@@ -152,6 +153,7 @@ function AST.LoadSettings()
                     AST.SV.liq = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [6] = {
                 type = "checkbox",
@@ -162,6 +164,7 @@ function AST.LoadSettings()
                     AST.SV.pur = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [7] = {
                 type = "checkbox",
@@ -172,6 +175,7 @@ function AST.LoadSettings()
                     AST.SV.orb = value
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [8] = {
                 type = "checkbox",
@@ -182,6 +186,7 @@ function AST.LoadSettings()
                     AST.SV.bon = value
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [9] = {
                 type = "checkbox",
@@ -192,6 +197,7 @@ function AST.LoadSettings()
                     AST.SV.hea = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [10] = {
                 type = "checkbox",
@@ -202,6 +208,7 @@ function AST.LoadSettings()
                     AST.SV.blo = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [11] = {
                 type = "checkbox",
@@ -212,6 +219,7 @@ function AST.LoadSettings()
                     AST.SV.tra = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [12] = {
                 type = "checkbox",
@@ -222,6 +230,7 @@ function AST.LoadSettings()
                     AST.SV.cha = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [13] = {
                 type = "checkbox",
@@ -232,6 +241,7 @@ function AST.LoadSettings()
                     AST.SV.rad = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [14] = {
                 type = "checkbox",
@@ -242,6 +252,7 @@ function AST.LoadSettings()
                     AST.SV.sha = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [15] = {
                 type = "checkbox",
@@ -252,6 +263,7 @@ function AST.LoadSettings()
                     AST.SV.imp = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [16] = {
                 type = "checkbox",
@@ -262,6 +274,7 @@ function AST.LoadSettings()
                     AST.SV.gra = value 
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [17] = {
                 type = "checkbox",
@@ -272,6 +285,7 @@ function AST.LoadSettings()
                     AST.SV.hir = value
                     AST.UI.UpdateElements()
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [18] = {
                 type = "checkbox",
@@ -282,6 +296,7 @@ function AST.LoadSettings()
                     AST.SV.sol = value
                     AST.UI.UpdateElements() 
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [19] = {
                 type = "checkbox",
@@ -292,6 +307,7 @@ function AST.LoadSettings()
                     AST.SV.rob = value
                     AST.UI.UpdateElements() 
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
             [20] = {
                 type = "checkbox",
@@ -302,6 +318,7 @@ function AST.LoadSettings()
                     AST.SV.ago = value
                     AST.UI.UpdateElements() 
                 end,
+                disabled = function() return not AST.SV.trackerui end,
             },
         },
     })
@@ -322,9 +339,8 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healerui end,
                 setFunc = function(value)
                     AST.SV.healerui = value
-                    AST.UI.HealerUIUpdate(value)
-                    AST.UI.HealerUIVisibility(value)
                 end,
+                requiresReload = true,
             },
             [3] = {
                 type = "checkbox",

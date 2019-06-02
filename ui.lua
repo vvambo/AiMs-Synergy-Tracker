@@ -158,14 +158,6 @@ function U.SetBackgroundDimensions(TopLevelControl, windowscale, counter, bdBack
     end
 end
 
-function U.EnableTracker(enabled)
-    if not enabled then
-        ASTGrid:SetHidden(enabled)
-    else
-        ASTGrid:SetHidden(not enabled) --not entirely sure if this works or not
-    end
-end
-
 
 ----------------------
 -- Healer UI
@@ -174,11 +166,18 @@ end
 function U.HealerUI(enabled, settings)
     if not enabled then return; end
 
+    EVENT_MANAGER:RegisterForEvent(AST.name.."GroupUpdate",EVENT_GROUP_MEMBER_JOINED ,  AST.UI.HealerUIUpdate)
+    EVENT_MANAGER:RegisterForEvent(AST.name.."GroupUpdate",EVENT_GROUP_MEMBER_LEFT ,  AST.UI.HealerUIUpdate)
+    EVENT_MANAGER:RegisterForEvent(AST.name.."GroupUpdate",EVENT_GROUP_MEMBER_ROLE_CHANGED ,  AST.UI.HealerUIUpdate)
+
     local healerui = wm:CreateTopLevelWindow("ASTHealerUI")
     healerui:SetResizeToFitDescendents(true)
-    healerui:SetAnchor(RIGHT, GuiRoot, RIGHT, 0, 0)
     healerui:SetMovable(true)
     healerui:SetMouseEnabled(true)
+    healerui:SetHandler("OnMoveStop", function(control)
+        AST.SV.healer.left = ASTHealerUI:GetLeft()
+	    AST.SV.healer.top  = ASTHealerUI:GetTop()
+    end)
 
     local healeruiBackdrop = wm:CreateControl("$(parent)bdBackDrop", healerui, CT_BACKDROP)
     healeruiBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
@@ -197,10 +196,6 @@ end
 function U.HealerUIUpdate()
     AST.UpdateGroup()
     U.HealerUIGroupUpdate()
-end
-
-function U.HealerUIVisibility(value)
-    ASTHealerUI:SetHidden(not value)
 end
 
 function U.HealerUIGroup(healerui, healeruiBackdrop)
@@ -239,7 +234,7 @@ function U.HealerUIGroupUpdate()
 
     --backdrop
     local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
-    backdrop:SetDimensions(205, 35 + (25 * units))
+    backdrop:SetDimensions(205, 35 + (24 * units))
 
     units = units * 2
     
@@ -286,7 +281,7 @@ function U.HealerUITimer(healerui, healeruiBackdrop)
             healeruitimer:SetWrapMode(TEX_MODE_CLAMP)
             healeruitimer:SetDrawLayer(1)
             healeruitimer:SetText("0")
-            healeruitimer:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 114 + (35 * z), 25 * i + 5)
+            healeruitimer:SetAnchor(CENTER, healeruiBackdrop, TOPLEFT, 116 + (35 * z), 25 * i + 15)
             healeruitimer:SetHidden(true)
 
             counter = counter + 1
