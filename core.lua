@@ -260,7 +260,7 @@ function AST.HealerUIVisibility(value)
 end
 
 function AST.combatState(event, inCombat)
-    if AST.SV.windowstate then
+    if not AST.SV.windowstate then
         if AST.SV.trackerui then
             HUD_SCENE:AddFragment(fragment)
             HUD_UI_SCENE:AddFragment(fragment)
