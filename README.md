@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.0.0-blue.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.1.0-blue.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.
@@ -30,28 +30,21 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 
 
 <br><br>
-#### Version 4.0.0
+#### Version 4.1.0
 ##### Changes:
-- Updated APIVersion to 100027 (Elsweyr)
-- Added Grave Robber and Pure Agony Synergies
-- Added a UI for healers
-- Adjusted a lot of tooltips
-- Added an option to control time interval of update events
-- Added an option to let the slider "Tracker Transparency" affect Textures aswell
-- Added Checkboxes for Grave Robber and Pure Agony
-- Separated Tracker Settings and Healer Settings to ensure a better overview
-- Added Checkboxes to deactivate/hide Tracker and Healer UI
+- Mostly Bug Fixes and Code improvements
 
 ##### ToDo-List
-- Creating a Healer UI where your healers won't get eye cancer after a few minutes
-- Probably some additional adjustments to the menu
+- Fixing some more bugs
 
 ##### Untested Changes:
-- Everything from version Alpha7 onwards
+- 
 
 ##### Bugs known:
-- HealerUI countdowns don't seem to work yet
+- Charged Lightning Synergy doesn't seem to work atm
 
 
 #### Future Update
-- The possibility to move each element independently from each other (not sure wether I'm going to implement this one or not)
+- Making trackerui and healerui more modular:
+↳ putting them in separate files (trackerui.lua & healerui.lua)
+↳ Removing pretty much everything from core.lua except for AST.SynergyCheck, Support functions and Slash Commands and add them directly to their module. This way it will be way easier to fix bugs and add new things

@@ -45,7 +45,7 @@ function AST.LoadSettings()
     table.insert(optionsTable, {
         type = "slider",
         name = "Update Interval",
-        tooltip = "Defines the refresh rate in ms",
+        tooltip = "Defines the refresh rate with which the timers are to be updated.",
         min = 50,
         max = 1000,
         step = 50,
@@ -59,8 +59,8 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "slider",
-        name = "Window Scale",
-        tooltip = "Adjusts the scale of the tracker",
+        name = "Tracker UI Scale",
+        tooltip = "Defines the size of the Tracker UI.",
         min = 50,
         max = 200,
         step = 1,
@@ -79,7 +79,7 @@ function AST.LoadSettings()
     table.insert(optionsTable, {
         type = "checkbox",
         name = "Texture Transparency",
-        tooltip = "Makes the textures transparent as well",
+        tooltip = "The textures then have the same opacity as their background.",
         getFunc = function() return AST.SV.textures end,
         setFunc = function(value) 
             AST.SV.textures = value
@@ -89,8 +89,8 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
-        name = "Only shows in Combat",
-        tooltip = "Toggles the tracker outside of fights",
+        name = "Show the trackers only in combat",
+        tooltip = "If this function is activated, the tracker will only be visible in combat and will then be hidden again.",
         getFunc = function() return AST.SV.windowstate end,
         setFunc = function(value) 
             AST.SV.windowstate = value
@@ -101,7 +101,7 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
-        name = "Lock Tracker Window",
+        name = "Lock UI Elements",
         getFunc = function() return AST.SV.lockwindow end,
         setFunc = function(value) 
             AST.LockWindow(value)
