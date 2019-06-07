@@ -239,14 +239,15 @@ function U.HealerUIGroupUpdate()
     units = units * 2
     
     --timer
+    for x = 1, 20 do
+        local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
+        timer:SetHidden(true)
+    end
+
     if units > 0 then
-        for x = 1, 20 do
+        for x = 1, units do
             local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-            if x <= units then
-                timer:SetHidden(false)
-            else
-                timer:SetHidden(true)
-            end
+            timer:SetHidden(false)
         end
     end
 
