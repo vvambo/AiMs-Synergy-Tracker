@@ -66,6 +66,8 @@ AST.default = {
         ["left"]            = 500,
         ["top"]             = 500,
         ["tanksonly"]       = true,
+        ["ddsonly"]         = false,
+        ["onesynergy"]      = false,
         ["firstsynergy"]    = 1,
         ["secondsynergy"]   = 2,
     }
@@ -127,20 +129,24 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
             if role ~= LFG_GROUP_TANK then return; end
         end
 
+        if AST.SV.healer.ddsonly then
+            if role ~= LFG_GROUP_DD then return; end
+        end
+
         local usedBy = AST.GetUnitName(targetUnitId)
         local role = GetGroupMemberAssignedRole(usedBy)
 
         for k, v in ipairs(AST.Data.HealerTimer) do
             if v.name == usedBy then
                 if AST.Data.SynergyData[abilityId].group == AST.SV.healer.firstsynergy then
-                    AST.Data.HealerTimer[k].firstsynergy = start + 20
-                elseif AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy then
-                    AST.Data.HealerTimer[k].secondsynergy = start + 20
+                    AST.Data.HealerTimer[k].firstsynergy = start + AST.Data.SynergyData[abilityId].cooldown
+                elseif AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy and not AST.SV.healer.onesynergy then
+                    AST.Data.HealerTimer[k].secondsynergy = start + AST.Data.SynergyData[abilityId].cooldown
                 end
             end
         end
 
-        d("Synergy activated! ID: "..abilityId.." From: "..usedBy.." Result: "..result.." Source: "..sourceType)
+        --d("Synergy activated! ID: "..abilityId.." From: "..usedBy.." Result: "..result.." Source: "..sourceType)
     end
 
     em:RegisterForUpdate(AST.name.."Update", AST.SV.interval, AST.countDown)
@@ -185,7 +191,7 @@ function AST.countDown()
             local z = (k * 2 - 1)
             local x = k * 2
 
-            if k <= 10 then
+            if k <= 12 then
                 if AST.time(v.firstsynergy, 1) <= 0.1 then
                     local element = ASTHealerUI:GetNamedChild("HealerTimer"..z)
                     element:SetText("0")
@@ -197,15 +203,17 @@ function AST.countDown()
                     element:SetColor(255, 0, 0, 1)
                 end
 
-                if AST.time(v.secondsynergy, 1) <= 0.1 then
-                    local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-                    element:SetText("0")
-                    element:SetColor(255, 255, 255, 1)
-                    count = count + 1
-                else
-                    local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-                    element:SetText(AST.time(AST.Data.HealerTimer[k].secondsynergy, 0))
-                    element:SetColor(255, 0, 0, 1)
+                if not AST.SV.healer.onesynergy then
+                    if AST.time(v.secondsynergy, 1) <= 0.1 then
+                        local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
+                        element:SetText("0")
+                        element:SetColor(255, 255, 255, 1)
+                        count = count + 1
+                    else
+                        local element = ASTHealerUI:GetNamedChild("HealerTimer"..x)
+                        element:SetText(AST.time(AST.Data.HealerTimer[k].secondsynergy, 0))
+                        element:SetColor(255, 0, 0, 1)
+                    end
                 end
 
                 counttotal = counttotal + 2
@@ -357,8 +365,14 @@ function AST.UpdateGroup()
             local accName = GetUnitDisplayName("group" .. i)
             local role = GetGroupMemberAssignedRole("group" .. i)
             if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then --healers and offliner will be ignored
-                if not AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --only track tanks
+                if AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --only track tanks
                     AST.Data.HealerTimer[counter] = {}
+                    AST.Data.HealerTimer[counter].name = accName
+                    AST.Data.HealerTimer[counter].firstsynergy = "0"
+                    AST.Data.HealerTimer[counter].secondsynergy = "0"
+                    AST.Data.HealerTimer[counter].role = role
+                elseif AST.SV.healer.ddsonly and role == LFG_ROLE_DD then
+                    AST.Data.HealerTimer[counter] = {} 
                     AST.Data.HealerTimer[counter].name = accName
                     AST.Data.HealerTimer[counter].firstsynergy = "0"
                     AST.Data.HealerTimer[counter].secondsynergy = "0"

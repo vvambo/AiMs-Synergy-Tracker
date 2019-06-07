@@ -199,7 +199,7 @@ function U.HealerUIUpdate()
 end
 
 function U.HealerUIGroup(healerui, healeruiBackdrop)
-    for i = 1, 10 do
+    for i = 1, 12 do
         local unit = wm:CreateControl("$(parent)UnitName"..i, healerui, CT_LABEL)
         unit:SetColor(255, 255, 255, 1)
         unit:SetFont("ZoFontGameSmall")
@@ -217,14 +217,14 @@ function U.HealerUIGroupUpdate()
     local units = 0
 
     --unit labels
-    for x = 1, 10 do
+    for x = 1, 12 do
         local unit = ASTHealerUI:GetNamedChild("UnitName"..x)
         unit:SetText("")
         unit:SetHidden(true)
     end
 
     for k, v in pairs(AST.Data.HealerTimer) do
-        if k <= 10 then
+        if k <= 12 then
             local unit = ASTHealerUI:GetNamedChild("UnitName"..k)
             unit:SetText("|t16:16:"..AST.Data.UnitType[v.role].."|t "..v.name)
             unit:SetHidden(false)
@@ -239,7 +239,7 @@ function U.HealerUIGroupUpdate()
     units = units * 2
     
     --timer
-    for x = 1, 20 do
+    for x = 1, 24 do
         local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
         timer:SetHidden(true)
     end
@@ -247,7 +247,11 @@ function U.HealerUIGroupUpdate()
     if units > 0 then
         for x = 1, units do
             local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-            timer:SetHidden(false)
+            if x % 2 == 0 and AST.SV.healer.onesynergy then
+                timer:SetHidden(true)
+            else
+                timer:SetHidden(false)
+            end
         end
     end
 
@@ -260,6 +264,10 @@ function U.HealerUIGroupUpdate()
     for x = 1, 2 do
         local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy"..x)
         healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[x]])
+
+        if x == 2 and AST.SV.healer.onesynergy then
+            healeruisynergy:SetHidden(true)
+        end
     end
 end
 
@@ -277,7 +285,7 @@ end
 
 function U.HealerUITimer(healerui, healeruiBackdrop)
     local counter = 1
-    for i = 1, 10 do
+    for i = 1, 12 do
         for z = 1, 2 do
             local healeruitimer = wm:CreateControl("$(parent)HealerTimer"..counter, healerui, CT_LABEL)
             healeruitimer:SetColor(255, 255, 255, 1)

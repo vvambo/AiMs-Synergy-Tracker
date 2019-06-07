@@ -32,7 +32,13 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 <br><br>
 #### Version 4.1.0
 ##### Changes:
-- Mostly Bug Fixes and Code improvements
+- Fixed an issue where timers aren't being hidden if someone leaves the group or has an dc
+- Fixed an logic error where the ui is always hidden when doing a reloadui
+- Fixed an issue where Charged Lightning isn't being tracked correclty. Apparently this Synergy doesn't use COMBAT_UNIT_TYPE_PLAYER as it's sourceType but COMBAT_UNIT_TYPE_GROUP.
+- Replaced a few static values
+- Added an option to only track DDs in the HealerUI
+- Added an option to only track one Synergy at a time
+
 
 ##### ToDo-List
 - Fixing some more bugs
@@ -41,7 +47,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 - 
 
 ##### Bugs known:
-- Charged Lightning Synergy doesn't seem to work atm
+-
 
 
 #### Future Update

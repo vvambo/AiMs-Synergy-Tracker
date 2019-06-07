@@ -344,21 +344,43 @@ These setting to not affect the ones above.]],
             },
             [3] = {
                 type = "checkbox",
-                name = "Track tanks only",
+                name = "Only Track Tanks",
                 tooltip = "DDs won't appear in the healer frame.",
-                getFunc = function() return AST.SV.tanksonly end,
+                getFunc = function() return AST.SV.healer.tanksonly end,
                 setFunc = function(value)
-                    AST.SV.tanksonly = value
+                    AST.SV.healer.tanksonly = value
                     AST.UI.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
             [4] = {
+                type = "checkbox",
+                name = "Only Track DDs",
+                tooltip = "Tanks won't appear in the healer frame.",
+                getFunc = function() return AST.SV.healer.ddsonly end,
+                setFunc = function(value)
+                    AST.SV.healer.ddsonly = value
+                    AST.UI.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [5] = {
+                type = "checkbox",
+                name = "Only Track One Synergy",
+                tooltip = "It will disable all options for the second synergy.",
+                getFunc = function() return AST.SV.healer.onesynergy end,
+                setFunc = function(value)
+                    AST.SV.healer.onesynergy = value
+                    AST.UI.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [6] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [5] = {
+            [7] = {
                 type = "dropdown",
                 name = "First Synergy",
                 tooltip = "First trackable Synergy",
@@ -371,7 +393,7 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [6] = {
+            [8] = {
                 type = "dropdown",
                 name = "Second Synergy",
                 tooltip = "Second trackable Synergy",
@@ -382,7 +404,7 @@ These setting to not affect the ones above.]],
                     AST.SV.healer.secondsynergy = var
                     AST.UI.HealerUIUpdate()
                 end,
-                disabled = function() return not AST.SV.healerui end,
+                disabled = function() return not AST.SV.healerui or not AST.SV.healer.onesynergy end,
             },
         },
     })
