@@ -153,10 +153,8 @@ function AST.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType
 end
 
 function AST.countDown()
-    local count = 0
-    local counttotal = 0
-    local counter   = 0
-    local countAll  = 0
+    local count, counttotal, counter, countAll = 0, 0, 0, 0
+
     if AST.SV.trackerui then
         for k, v in ipairs(AST.Data.TrackerTimer) do
             local element   = ASTGrid:GetNamedChild("SynergyTimer"..k)
@@ -364,29 +362,17 @@ function AST.UpdateGroup()
         for i = 1, gSize do
             local accName = GetUnitDisplayName("group" .. i)
             local role = GetGroupMemberAssignedRole("group" .. i)
-            if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then --healers and offliner will be ignored
-                if AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --only track tanks
-                    AST.Data.HealerTimer[counter] = {}
-                    AST.Data.HealerTimer[counter].name = accName
-                    AST.Data.HealerTimer[counter].firstsynergy = "0"
-                    AST.Data.HealerTimer[counter].secondsynergy = "0"
-                    AST.Data.HealerTimer[counter].role = role
-                elseif AST.SV.healer.ddsonly and role == LFG_ROLE_DD then
-                    AST.Data.HealerTimer[counter] = {} 
-                    AST.Data.HealerTimer[counter].name = accName
-                    AST.Data.HealerTimer[counter].firstsynergy = "0"
-                    AST.Data.HealerTimer[counter].secondsynergy = "0"
-                    AST.Data.HealerTimer[counter].role = role
-                else
-                    AST.Data.HealerTimer[counter] = {} 
-                    AST.Data.HealerTimer[counter].name = accName
-                    AST.Data.HealerTimer[counter].firstsynergy = "0"
-                    AST.Data.HealerTimer[counter].secondsynergy = "0"
-                    AST.Data.HealerTimer[counter].role = role
-                end
+            if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then return; end --healers and offliner will be ignored
+            if AST.SV.healer.tanksonly and role ~= LFG_ROLE_TANK then return; end --only tracking tanks, everythin else will be ignored
+            if AST.SV.healer.ddsonly and role ~= LFG_ROLE_DD then return; end
 
-                counter = counter + 1
-            end
+            AST.Data.HealerTimer[counter] = {}
+            AST.Data.HealerTimer[counter].name = accName
+            AST.Data.HealerTimer[counter].firstsynergy = "0"
+            AST.Data.HealerTimer[counter].secondsynergy = "0"
+            AST.Data.HealerTimer[counter].role = role
+
+            counter = counter + 1
         end
     end
 end
