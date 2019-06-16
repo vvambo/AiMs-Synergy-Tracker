@@ -72,7 +72,7 @@ function AST.LoadSettings()
         setFunc = function(var) 
             local newWindowScale = var / 100
             AST.SV.windowscale = newWindowScale
-            AST.UI.UpdateElements()
+            AST.Tracker.UpdateElements()
         end,
     })
 
@@ -135,7 +135,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.orientation end,
                 setFunc = function(var) 
                     AST.SV.orientation = var 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -151,7 +151,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.liq end,
                 setFunc = function(value) 
                     AST.SV.liq = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -162,7 +162,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.pur end,
                 setFunc = function(value) 
                     AST.SV.pur = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -173,7 +173,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.orb end,
                 setFunc = function(value) 
                     AST.SV.orb = value
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -184,7 +184,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.bon end,
                 setFunc = function(value) 
                     AST.SV.bon = value
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -195,7 +195,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.hea end,
                 setFunc = function(value) 
                     AST.SV.hea = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -206,7 +206,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.blo end,
                 setFunc = function(value) 
                     AST.SV.blo = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -217,7 +217,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.tra end,
                 setFunc = function(value) 
                     AST.SV.tra = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -228,7 +228,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.cha end,
                 setFunc = function(value) 
                     AST.SV.cha = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -239,7 +239,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.rad end,
                 setFunc = function(value) 
                     AST.SV.rad = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -250,7 +250,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.sha end,
                 setFunc = function(value) 
                     AST.SV.sha = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -261,7 +261,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.imp end,
                 setFunc = function(value) 
                     AST.SV.imp = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -272,7 +272,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.gra end,
                 setFunc = function(value) 
                     AST.SV.gra = value 
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -283,7 +283,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.hir end,
                 setFunc = function(value) 
                     AST.SV.hir = value
-                    AST.UI.UpdateElements()
+                    AST.Tracker.UpdateElements()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -294,7 +294,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.sol end,
                 setFunc = function(value) 
                     AST.SV.sol = value
-                    AST.UI.UpdateElements() 
+                    AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -305,7 +305,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.rob end,
                 setFunc = function(value) 
                     AST.SV.rob = value
-                    AST.UI.UpdateElements() 
+                    AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -316,7 +316,7 @@ function AST.LoadSettings()
                 getFunc = function() return AST.SV.ago end,
                 setFunc = function(value) 
                     AST.SV.ago = value
-                    AST.UI.UpdateElements() 
+                    AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
@@ -344,43 +344,21 @@ These setting to not affect the ones above.]],
             },
             [3] = {
                 type = "checkbox",
-                name = "Only Track Tanks",
+                name = "Track tanks only",
                 tooltip = "DDs won't appear in the healer frame.",
-                getFunc = function() return AST.SV.healer.tanksonly end,
+                getFunc = function() return AST.SV.tanksonly end,
                 setFunc = function(value)
-                    AST.SV.healer.tanksonly = value
-                    AST.UI.HealerUIUpdate()
+                    AST.SV.tanksonly = value
+                    AST.Healer.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
             [4] = {
-                type = "checkbox",
-                name = "Only Track DDs",
-                tooltip = "Tanks won't appear in the healer frame.",
-                getFunc = function() return AST.SV.healer.ddsonly end,
-                setFunc = function(value)
-                    AST.SV.healer.ddsonly = value
-                    AST.UI.HealerUIUpdate()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [5] = {
-                type = "checkbox",
-                name = "Only Track One Synergy",
-                tooltip = "It will disable all options for the second synergy.",
-                getFunc = function() return AST.SV.healer.onesynergy end,
-                setFunc = function(value)
-                    AST.SV.healer.onesynergy = value
-                    AST.UI.HealerUIUpdate()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [6] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [7] = {
+            [5] = {
                 type = "dropdown",
                 name = "First Synergy",
                 tooltip = "First trackable Synergy",
@@ -389,11 +367,11 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healer.firstsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.firstsynergy = var 
-                    AST.UI.HealerUIUpdate()
+                    AST.Healer.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [8] = {
+            [6] = {
                 type = "dropdown",
                 name = "Second Synergy",
                 tooltip = "Second trackable Synergy",
@@ -402,9 +380,9 @@ These setting to not affect the ones above.]],
                 getFunc = function() return AST.SV.healer.secondsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.secondsynergy = var
-                    AST.UI.HealerUIUpdate()
+                    AST.Healer.HealerUIUpdate()
                 end,
-                disabled = function() return not AST.SV.healerui or not AST.SV.healer.onesynergy end,
+                disabled = function() return not AST.SV.healerui end,
             },
         },
     })

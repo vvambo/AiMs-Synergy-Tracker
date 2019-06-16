@@ -1,7 +1,7 @@
 ## Title: AiM's-Synergy-Tracker
 ## Description: Tracks the cooldown of Synergies
 ## Author: |cfd6a02AiMPlAyEr[EU]|r
-## Version: 4.0
+## Version: 4.1
 ## APIVersion: 100027
 ## SavedVariables: ASTSaved
 ## DependsOn: LibAddonMenu-2.0 LibStub
@@ -9,7 +9,8 @@
 libs/LibStub/LibStub.lua
 libs/LibUnits/LibUnits.lua
 
-core.lua
-menu.lua
-ui.lua
-data.lua
+Core.lua
+Menu.lua
+Tracker.lua
+Healer.lua
+Data.lua
