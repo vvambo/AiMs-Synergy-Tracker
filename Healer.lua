@@ -147,12 +147,14 @@ function H.UpdateGroup()
             local accName = GetUnitDisplayName("group" .. i)
             local role = GetGroupMemberAssignedRole("group" .. i)
             if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then --healers and offliner will be ignored
-                if not AST.SV.healer.tanksonly and role == LFG_GROUP_TANK then --only track tanks
-                    AST.Data.HealerTimer[counter] = {}
-                    AST.Data.HealerTimer[counter].name = accName
-                    AST.Data.HealerTimer[counter].firstsynergy = "0"
-                    AST.Data.HealerTimer[counter].secondsynergy = "0"
-                    AST.Data.HealerTimer[counter].role = role
+                if AST.SV.healer.tanksonly then --only track tanks
+                    if role == 2 then
+                        AST.Data.HealerTimer[counter] = {}
+                        AST.Data.HealerTimer[counter].name = accName
+                        AST.Data.HealerTimer[counter].firstsynergy = "0"
+                        AST.Data.HealerTimer[counter].secondsynergy = "0"
+                        AST.Data.HealerTimer[counter].role = role
+                    end
                 else
                     AST.Data.HealerTimer[counter] = {} 
                     AST.Data.HealerTimer[counter].name = accName

@@ -346,9 +346,9 @@ These setting to not affect the ones above.]],
                 type = "checkbox",
                 name = "Track tanks only",
                 tooltip = "DDs won't appear in the healer frame.",
-                getFunc = function() return AST.SV.tanksonly end,
+                getFunc = function() return AST.SV.healer.tanksonly end,
                 setFunc = function(value)
-                    AST.SV.tanksonly = value
+                    AST.SV.healer.tanksonly = value
                     AST.Healer.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
