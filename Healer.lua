@@ -154,6 +154,8 @@ function H.UpdateGroup()
                         AST.Data.HealerTimer[counter].firstsynergy = "0"
                         AST.Data.HealerTimer[counter].secondsynergy = "0"
                         AST.Data.HealerTimer[counter].role = role
+
+                        counter = counter + 1
                     end
                 else
                     AST.Data.HealerTimer[counter] = {} 
@@ -161,9 +163,9 @@ function H.UpdateGroup()
                     AST.Data.HealerTimer[counter].firstsynergy = "0"
                     AST.Data.HealerTimer[counter].secondsynergy = "0"
                     AST.Data.HealerTimer[counter].role = role
-                end
 
-                counter = counter + 1
+                    counter = counter + 1
+                end
             end
         end
     end

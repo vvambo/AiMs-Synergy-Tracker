@@ -83,7 +83,7 @@ function AST.LoadSettings()
         getFunc = function() return AST.SV.textures end,
         setFunc = function(value) 
             AST.SV.textures = value
-            AST.LoadAlpha(AST.SV.alpha)
+            AST.Tracker.SetTrackerAlpha(AST.SV.alpha)
         end,
     })
 
@@ -104,7 +104,7 @@ function AST.LoadSettings()
         name = "Lock Tracker Window",
         getFunc = function() return AST.SV.lockwindow end,
         setFunc = function(value) 
-            AST.LockWindow(value)
+            AST.Tracker.SetWindowLock(value)
             AST.SV.lockwindow = value 
         end,
     })

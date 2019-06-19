@@ -4,7 +4,7 @@
 AST                 = {}
 AST.name            = "AiMs-Synergy-Tracker"
 AST.author          = "AiMPlAyEr [EU]"
-AST.version         = "4.1"
+AST.version         = "4.1.1"
 AST.website         = "http://www.esoui.com/downloads/info2084-AiMsSynergyTracker.html"
 AST.menuname        = "AiMs Synergy Tracker"
 
@@ -59,7 +59,7 @@ AST.default = {
     ["alpha"]       = 0.8,
     ["lockwindow"]  = false,
     ["trackerui"]   = true,
-    ["healerui"]    = true,
+    ["healerui"]    = false,
     ["interval"]    = 50,
     ["textures"]    = false,
     ["healer"]      = {
@@ -85,13 +85,24 @@ function AST:Initialize()
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
+    if AST.SV.healer.firstsynergy == nil then
+        AST.SV.healer.firstsynergy = 1
+    end
+
+    if AST.SV.healer.secondsynergy == nil then
+        AST.SV.healer.secondsynergy = 2
+    end
+
     AST.Tracker:Initialize(AST.SV.trackerui)
     AST.Healer:Initialize(AST.SV.healerui)
 
     AST.LoadSettings()
 
-    wrapper = ASTGrid
-    fragment = ZO_SimpleSceneFragment:New(wrapper)
+
+    if AST.SV.trackerui then
+        wrapper = ASTGrid
+        fragment = ZO_SimpleSceneFragment:New(wrapper)
+    end
 
     if AST.SV.healerui then
         wrapper2 = ASTHealerUI
