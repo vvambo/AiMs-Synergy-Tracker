@@ -27,3 +27,6 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 | **Icy escape** (Frozen Retreat) | ❌ |
 | **Grave Robber** (Boneyard) | ✔️ |
 | **Pure Agony** (Agony Totem) | ✔️ |
+
+####  Informations
+-
