@@ -104,7 +104,7 @@ function AST.LoadSettings()
                 setFunc = function(var) 
                     local newAlpha = var / 100
                     AST.SV.alpha =newAlpha
-                    AST.LoadAlpha(newAlpha);
+                    AST.Tracker.SetTrackerAlpha(newAlpha);
                 end,
             },
             [5] = {

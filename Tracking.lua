@@ -19,6 +19,10 @@ function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, 
             if role ~= LFG_GROUP_TANK then return; end
         end
 
+        if AST.SV.healer.ddsonly then
+            if role ~= LFG_GROUP_DPS then return; end
+        end
+
         local usedBy    = AST.GetUnitName(targetUnitId)
         local role      = GetGroupMemberAssignedRole(usedBy)
 
@@ -85,14 +89,15 @@ function T.countDown()
                     firElement:SetText(AST.time(AST.Data.HealerTimer[k].firstsynergy, 0))
                     firElement:SetColor(255, 0, 0, 1)
                 end
-
-                if AST.time(v.secondsynergy, 1) <= 0.1 then
-                    secElement:SetText("0")
-                    secElement:SetColor(255, 255, 255, 1)
-                    count = count + 1
-                else
-                    secElement:SetText(AST.time(AST.Data.HealerTimer[k].secondsynergy, 0))
-                    secElement:SetColor(255, 0, 0, 1)
+                if not AST.SV.healer.ignoresynergy then
+                    if AST.time(v.secondsynergy, 1) <= 0.1 then
+                        secElement:SetText("0")
+                        secElement:SetColor(255, 255, 255, 1)
+                        count = count + 1
+                    else
+                        secElement:SetText(AST.time(AST.Data.HealerTimer[k].secondsynergy, 0))
+                        secElement:SetColor(255, 0, 0, 1)
+                    end
                 end
 
                 counttotal = counttotal + 2
