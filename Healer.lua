@@ -2,7 +2,6 @@ AST.Healer = {}
 
 local H = AST.Healer
 local wm = WINDOW_MANAGER
-local tlw = nil
 local hui = nil
 
 function H:Initialize(enabled)
@@ -57,13 +56,11 @@ end
 function H.HealerUIGroupUpdate()
     local units = 0
 
-    --unit labels
     for x = 1, 10 do
         local unit = ASTHealerUI:GetNamedChild("UnitName"..x)
         unit:SetText("")
         unit:SetHidden(true)
     end
-
 
     for k, v in pairs(AST.Data.HealerTimer) do
         if k <= 10 then
@@ -74,13 +71,11 @@ function H.HealerUIGroupUpdate()
         end
     end
 
-    --backdrop
     local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
     backdrop:SetDimensions(205, 35 + (24 * units))
 
     units = units * 2
-    
-    --timer
+
     for x = 1, 20 do
         local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
         timer:SetHidden(true)
@@ -146,8 +141,8 @@ function H.UpdateGroup()
         for i = 1, gSize do
             local accName = GetUnitDisplayName("group" .. i)
             local role = GetGroupMemberAssignedRole("group" .. i)
-            if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then --healers and offliner will be ignored
-                if AST.SV.healer.tanksonly then --only track tanks
+            if (role ~= LFG_ROLE_HEAL and role ~= LFG_ROLE_INVALID and accName ~= "") then
+                if AST.SV.healer.tanksonly then
                     if role == 2 then
                         AST.Data.HealerTimer[counter] = {}
                         AST.Data.HealerTimer[counter].name = accName

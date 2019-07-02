@@ -8,12 +8,10 @@ local tlw = nil
 function T:Initialize(enabled)
     if not enabled then return; end
 
-    --call all necessary build functions
     T.TopLevelControl()
     T.BackdropControl()
     T.TrackerElements()
 
-    --update them
     T.UpdateElements()
     T.SetTrackerPosition()
     T.SetTrackerAlpha(AST.SV.alpha)

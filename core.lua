@@ -1,37 +1,20 @@
-----------------------
--- AST namespace and settings related variables
-----------------------
 AST                 = {}
 AST.name            = "AiMs-Synergy-Tracker"
 AST.author          = "AiMPlAyEr [EU]"
-AST.version         = "4.1.1"
+AST.version         = "4.2"
 AST.website         = "http://www.esoui.com/downloads/info2084-AiMsSynergyTracker.html"
 AST.menuname        = "AiMs Synergy Tracker"
-
-----------------------
--- saved variables
-----------------------
 AST.varVersion      = 7
 AST.default         = nil
 AST.varName         = "ASTSaved"
 
-----------------------
--- Managing Events and Stuff
-----------------------
 local em            = EVENT_MANAGER
 local LibUnit       = LibStub:GetLibrary("LibUnits")
 
-----------------------
--- other variables
-----------------------
 local combat                = IsUnitInCombat("player")
 local wrapper, wrapper2     = nil, nil
 local fragment, fragment2   = nil, nil
-AST.tanks           = {}
 
-----------------------
--- default savedvariables table
-----------------------
 
 AST.default = {
     ["orb"]         = true,
@@ -64,16 +47,16 @@ AST.default = {
     ["healer"]      = {
         ["left"]            = 500,
         ["top"]             = 500,
-        ["tanksonly"]       = true,
+        ["tanksonly"]       = false,
         ["firstsynergy"]    = 1,
         ["secondsynergy"]   = 2,
+        ["alpha"]           = 0.8,
+        ["windowscale"]     = 1,
+        ["ddsonly"]         = false,
+        ["ignoresynergy"]   = false,
     }
 }
 
-
-----------------------
--- AddOn Initialize
-----------------------
 function AST:Initialize()
     em:RegisterForEvent(AST.name.."Combat", EVENT_PLAYER_COMBAT_STATE, AST.combatState)
 
@@ -86,8 +69,8 @@ function AST:Initialize()
 
     --workaround
     --they will be removed as soon as a new major patch arrives
-    if AST.SV.healer.firstsynergy == nil then AST.SV.healer.firstsynergy = 1 end
-    if AST.SV.healer.secondsynergy == nil then AST.SV.healer.secondsynergy = 2 end
+    if not AST.SV.healer.firstsynergy then AST.SV.healer.firstsynergy = 1 end
+    if not AST.SV.healer.secondsynergy then AST.SV.healer.secondsynergy = 2 end
 
     AST.Tracker:Initialize(AST.SV.trackerui)
     AST.Healer:Initialize(AST.SV.healerui)
@@ -98,10 +81,6 @@ function AST:Initialize()
     AST.LoadSettings()
     AST.combatState()
 end
-
-----------------------
--- Main Functions
-----------------------
 
 function AST.windowState()
     if AST.SV.windowstate then
@@ -131,18 +110,6 @@ function AST.windowState()
             HUD_UI_SCENE:AddFragment(fragment2)
         end
         d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTrackers are now <<1>> outside of combat", "|c32cd32visible|r"))
-    end
-end
-
-function AST.HealerUIVisibility(value)
-    if not value then
-        ASTHealerUI:SetHidden(true)
-        HUD_SCENE:RemoveFragment(fragment2)
-        HUD_UI_SCENE:RemoveFragment(fragment2)
-    else 
-        ASTHealerUI:SetHidden(false)
-        HUD_SCENE:AddFragment(fragment2)
-        HUD_UI_SCENE:AddFragment(fragment2)
     end
 end
 
@@ -179,9 +146,6 @@ function AST.combatState(event, inCombat)
     end
 end
 
-----------------------
--- Supporting Functions
-----------------------
 function AST.time(nd, numDecimalPlaces)
     local mult = 10^(numDecimalPlaces or 0)
 	return math.floor((nd - GetGameTimeMilliseconds()/1000) * mult + 0.5)/mult
@@ -197,21 +161,12 @@ function AST.GetUnitName(unitId)
     end
 end
 
-----------------------
--- Slash Commands
-----------------------
 SLASH_COMMANDS["/asttoggle"]   = AST.windowState
 
-----------------------
--- AddOn Loaded
-----------------------
 function AST.OnAddOnLoaded(event, addonName)
     if addonName ~= AST.name then return end
     em:UnregisterForEvent(AST.name, EVENT_ADD_ON_LOADED)
     AST:Initialize()
 end
 
-----------------------
--- OnAddOnLoaded Event
-----------------------
 em:RegisterForEvent(AST.name, EVENT_ADD_ON_LOADED, AST.OnAddOnLoaded)

@@ -25,25 +25,6 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "slider",
-        name = "Tracker Transparency",
-        tooltip = "Defines the transparency of the tracker's background.",
-        min = 0,
-        max = 100,
-        step = 1,
-        getFunc = function() 
-            if AST.SV.alpha ~= nil then
-                return math.floor(AST.SV.alpha*100) 
-            end
-        end,
-        setFunc = function(var) 
-            local newAlpha = var / 100
-            AST.SV.alpha =newAlpha
-            AST.LoadAlpha(newAlpha);
-        end,
-    })
-
-    table.insert(optionsTable, {
-        type = "slider",
         name = "Update Interval",
         tooltip = "Defines the refresh rate in ms",
         min = 50,
@@ -54,36 +35,6 @@ function AST.LoadSettings()
         end,
         setFunc = function(var) 
             AST.SV.interval = var
-        end,
-    })
-
-    table.insert(optionsTable, {
-        type = "slider",
-        name = "Window Scale",
-        tooltip = "Adjusts the scale of the tracker",
-        min = 50,
-        max = 200,
-        step = 1,
-        getFunc = function() 
-            if AST.SV.windowscale ~= nil then
-                return math.floor(AST.SV.windowscale*100) 
-            end
-        end,
-        setFunc = function(var) 
-            local newWindowScale = var / 100
-            AST.SV.windowscale = newWindowScale
-            AST.Tracker.UpdateElements()
-        end,
-    })
-
-    table.insert(optionsTable, {
-        type = "checkbox",
-        name = "Texture Transparency",
-        tooltip = "Makes the textures transparent as well",
-        getFunc = function() return AST.SV.textures end,
-        setFunc = function(value) 
-            AST.SV.textures = value
-            AST.Tracker.SetTrackerAlpha(AST.SV.alpha)
         end,
     })
 
@@ -101,7 +52,7 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
-        name = "Lock Tracker Window",
+        name = "Lock UI Elements",
         getFunc = function() return AST.SV.lockwindow end,
         setFunc = function(value) 
             AST.Tracker.SetWindowLock(value)
@@ -140,11 +91,57 @@ function AST.LoadSettings()
                 disabled = function() return not AST.SV.trackerui end,
             },
             [4] = {
+                type = "slider",
+                name = "Tracker Transparency",
+                tooltip = "Defines the transparency of the tracker's background.",
+                min = 0,
+                max = 100,
+                step = 1,
+                getFunc = function() 
+                    if AST.SV.alpha ~= nil then
+                        return math.floor(AST.SV.alpha*100) 
+                    end
+                end,
+                setFunc = function(var) 
+                    local newAlpha = var / 100
+                    AST.SV.alpha =newAlpha
+                    AST.LoadAlpha(newAlpha);
+                end,
+            },
+            [5] = {
+                type = "checkbox",
+                name = "Texture Transparency",
+                tooltip = "Makes the textures transparent as well",
+                getFunc = function() return AST.SV.textures end,
+                setFunc = function(value) 
+                    AST.SV.textures = value
+                    AST.Tracker.SetTrackerAlpha(AST.SV.alpha)
+                end,
+            },
+            [6] = {
+                type = "slider",
+                name = "Tracker Scale",
+                tooltip = "Allows to adjust the size of the Frame",
+                min = 50,
+                max = 200,
+                step = 1,
+                getFunc = function() 
+                    if AST.SV.windowscale ~= nil then
+                        return math.floor(AST.SV.windowscale*100) 
+                    end
+                end,
+                setFunc = function(var) 
+                    local newWindowScale = var / 100
+                    AST.SV.windowscale = newWindowScale
+                    AST.Tracker.UpdateElements()
+                end,
+            },
+            [7] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [5] = {
+            [8] = {
                 type = "checkbox",
                 name = "Conduit",
                 tooltip = "Synergy of Liquid Lightning",
@@ -155,7 +152,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [6] = {
+            [9] = {
                 type = "checkbox",
                 name = "Purify",
                 tooltip = "Synergy of Cleansing Ritual",
@@ -166,7 +163,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [7] = {
+            [10] = {
                 type = "checkbox",
                 name = "Combustion/Blessed Shard",
                 tooltip = "Synergy of Energy Orb/Spear Shard",
@@ -177,7 +174,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [8] = {
+            [11] = {
                 type = "checkbox",
                 name = "Bone Wall",
                 tooltip = "Synergy of Bone Shield",
@@ -188,7 +185,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [9] = {
+            [12] = {
                 type = "checkbox",
                 name = "Harvest",
                 tooltip = "Synergy of Healing Seed",
@@ -199,7 +196,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [10] = {
+            [13] = {
                 type = "checkbox",
                 name = "Blood Funnel",
                 tooltip = "Synergy of Blood Altar",
@@ -210,7 +207,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [11] = {
+            [14] = {
                 type = "checkbox",
                 name = "Spawn Broodlings",
                 tooltip = "Synergy of Trapping Webs",
@@ -221,7 +218,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [12] = {
+            [15] = {
                 type = "checkbox",
                 name = "Charged Lightning",
                 tooltip = "Synergy of Summon Storm Atronach",
@@ -232,7 +229,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [13] = {
+            [16] = {
                 type = "checkbox",
                 name = "Radiate",
                 tooltip = "Synergy of Inner Fire",
@@ -243,7 +240,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [14] = {
+            [17] = {
                 type = "checkbox",
                 name = "Shackle",
                 tooltip = "Synergy of Dragonknight Standard",
@@ -254,7 +251,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [15] = {
+            [18] = {
                 type = "checkbox",
                 name = "Impale",
                 tooltip = "Synergy of Dark Talons",
@@ -265,7 +262,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [16] = {
+            [19] = {
                 type = "checkbox",
                 name = "Supernova",
                 tooltip = "Synergy of Nova",
@@ -276,7 +273,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [17] = {
+            [20] = {
                 type = "checkbox",
                 name = "Hidden Refresh",
                 tooltip = "Synergy of Consuming Darkness",
@@ -287,7 +284,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [18] = {
+            [21] = {
                 type = "checkbox",
                 name = "Soul Leech",
                 tooltip = "Synergy of Soul Shred",
@@ -298,7 +295,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [19] = {
+            [22] = {
                 type = "checkbox",
                 name = "Grave Robber",
                 tooltip = "Synergy of Boneyard",
@@ -309,7 +306,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [20] = {
+            [23] = {
                 type = "checkbox",
                 name = "Pure Agony",
                 tooltip = "Synergy of Agony Totem",
@@ -343,8 +340,45 @@ These setting to not affect the ones above.]],
                 requiresReload = true,
             },
             [3] = {
+                type = "slider",
+                name = "Healer UI Transparency",
+                tooltip = "Defines the transparency of the tracker's background.",
+                min = 0,
+                max = 100,
+                step = 1,
+                getFunc = function() 
+                    if AST.SV.healer.alpha ~= nil then
+                        return math.floor(AST.SV.healer.alpha*100) 
+                    end
+                end,
+                setFunc = function(var) 
+                    local newAlpha = var / 100
+                    AST.SV.healer.alpha =newAlpha
+                    AST.Healer.LoadAlpha(newAlpha);
+                end,
+            },
+            [4] = {
+                type = "slider",
+                name = "Tracker Scale",
+                tooltip = "Allows to adjust the size of the Frame",
+                min = 50,
+                max = 200,
+                step = 1,
+                getFunc = function() 
+                    if AST.SV.healer.windowscale ~= nil then
+                        return math.floor(AST.SV.healer.windowscale*100) 
+                    end
+                end,
+                setFunc = function(var) 
+                    local newWindowScale = var / 100
+                    AST.SV.healer.windowscale = newWindowScale
+                    AST.Healer.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [5] = {
                 type = "checkbox",
-                name = "Track tanks only",
+                name = "Only Track tanks",
                 tooltip = "DDs won't appear in the healer frame.",
                 getFunc = function() return AST.SV.healer.tanksonly end,
                 setFunc = function(value)
@@ -353,12 +387,34 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [4] = {
+            [6] = {
+                type = "checkbox",
+                name = "Only Track DDs",
+                tooltip = "Tanks won't appear in the healer frame.",
+                getFunc = function() return AST.SV.healer.ddsonly end,
+                setFunc = function(value)
+                    AST.SV.healer.ddsonly = value
+                    AST.Healer.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [7] = {
+                type = "checkbox",
+                name = "Disable Second Synergy",
+                tooltip = "If this option is active, the second Synergy is hidden.",
+                getFunc = function() return AST.SV.healer.ignoresynergy end,
+                setFunc = function(value)
+                    AST.SV.healer.ignoresynergy = value
+                    AST.Healer.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },
+            [8] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [5] = {
+            [9] = {
                 type = "dropdown",
                 name = "First Synergy",
                 tooltip = "First trackable Synergy",
@@ -371,7 +427,7 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [6] = {
+            [10] = {
                 type = "dropdown",
                 name = "Second Synergy",
                 tooltip = "Second trackable Synergy",

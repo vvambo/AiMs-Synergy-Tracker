@@ -6,18 +6,14 @@ function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, 
     local start = GetFrameTimeSeconds()
 
     if (sourceType == COMBAT_UNIT_TYPE_PLAYER or sourceType == COMBAT_UNIT_TYPE_GROUP) and AST.SV.trackerui then
-
         if AST.Data.SynergyData[abilityId].group == 1 then
-
             if result == 2240 then AST.Data.TrackerTimer[1] = start + AST.Data.SynergyData[abilityId].cooldown end
         else
-            
             AST.Data.TrackerTimer[AST.Data.SynergyData[abilityId].group] = start + AST.Data.SynergyData[abilityId].cooldown
         end
     end
 
     if result == ACTION_RESULT_EFFECT_GAINED and AST.SV.healerui then
-
         if AST.SV.healer.tanksonly then
             if role ~= LFG_GROUP_TANK then return; end
         end
@@ -34,7 +30,6 @@ function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, 
                 end
             end
         end
-
         --d("Synergy activated! ID: "..abilityId.." From: "..usedBy.." Result: "..result.." Source: "..sourceType)
     end
 
