@@ -24,7 +24,7 @@ function H:Initialize(enabled)
     healeruiBackdrop:SetEdgeColor(0.4,0.4,0.4, 0)
     healeruiBackdrop:SetCenterColor(0, 0, 0)
     healeruiBackdrop:SetAnchor(TOPLEFT, healerui, TOPLEFT, 0, 0)
-    healeruiBackdrop:SetAlpha(0.8)
+    healeruiBackdrop:SetAlpha(AST.SV.healer.alpha)
     healeruiBackdrop:SetDrawLayer(0)
     healeruiBackdrop:SetDimensions(205, 40)
 
@@ -34,7 +34,6 @@ function H:Initialize(enabled)
 
     H.HealerUIUpdate()
     H.SetHealerPosition()
-    H.SetHealerAlpha(AST.SV.alpha)
     H.SetWindowLock(AST.SV.lockwindow)
 end
 
@@ -72,7 +71,13 @@ function H.HealerUIGroupUpdate()
     end
 
     local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
-    backdrop:SetDimensions(205, 35 + (24 * units))
+    backdrop:SetAlpha(AST.SV.healer.alpha)
+
+    if AST.SV.healer.ignoresynergy then
+        backdrop:SetDimensions(170, 35 + (24 * units))
+    else
+        backdrop:SetDimensions(205, 35 + (24 * units))
+    end
 
     units = units * 2
 
@@ -84,7 +89,11 @@ function H.HealerUIGroupUpdate()
     if units > 0 then
         for x = 1, units do
             local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-            timer:SetHidden(false)
+            if (AST.SV.healer.ignoresynergy and x % 2 == 0) then
+                timer:SetHidden(true)
+            else
+                timer:SetHidden(false)
+            end
         end
     end
 
@@ -95,6 +104,12 @@ function H.HealerUIGroupUpdate()
 
     --synergy textures
     for x = 1, 2 do
+        if (AST.SV.healer.ignoresynergy and x == 2) then
+            ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(true)
+        else
+            ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(false)
+        end
+
         local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy"..x)
         healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[x]])
     end
@@ -152,6 +167,16 @@ function H.UpdateGroup()
 
                         counter = counter + 1
                     end
+                elseif AST.SV.healer.ddsonly then
+                    if role == 1 then
+                        AST.Data.HealerTimer[counter] = {}
+                        AST.Data.HealerTimer[counter].name = accName
+                        AST.Data.HealerTimer[counter].firstsynergy = "0"
+                        AST.Data.HealerTimer[counter].secondsynergy = "0"
+                        AST.Data.HealerTimer[counter].role = role
+
+                        counter = counter + 1
+                    end
                 else
                     AST.Data.HealerTimer[counter] = {} 
                     AST.Data.HealerTimer[counter].name = accName
@@ -177,10 +202,6 @@ function H.SetHealerPosition()
 
     ASTHealerUI:ClearAnchors()
     ASTHealerUI:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
-end
-
-function H.SetHealerAlpha(value)
-    ASTHealerUIbdBackDrop:SetAlpha(value)
 end
 
 function H.SetWindowLock()

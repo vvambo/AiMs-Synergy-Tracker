@@ -26,7 +26,7 @@ function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, 
             if v.name == usedBy then
                 if AST.Data.SynergyData[abilityId].group == AST.SV.healer.firstsynergy then
                     AST.Data.HealerTimer[k].firstsynergy = start + AST.Data.SynergyData[abilityId].cooldown
-                elseif AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy then
+                elseif (AST.Data.SynergyData[abilityId].group == AST.SV.healer.secondsynergy and not AST.SV.healer.ignoresynergy) then
                     AST.Data.HealerTimer[k].secondsynergy = start + AST.Data.SynergyData[abilityId].cooldown
                 end
             end

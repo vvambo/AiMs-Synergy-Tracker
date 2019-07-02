@@ -351,7 +351,7 @@ These setting to not affect the ones above.]],
             },
             [3] = {
                 type = "slider",
-                name = "Healer UI Transparency",
+                name = "Transparency",
                 tooltip = "Defines the transparency of the tracker's background.",
                 min = 0,
                 max = 100,
@@ -363,13 +363,13 @@ These setting to not affect the ones above.]],
                 end,
                 setFunc = function(var) 
                     local newAlpha = var / 100
-                    AST.SV.healer.alpha =newAlpha
-                    AST.Healer.LoadAlpha(newAlpha);
+                    AST.SV.healer.alpha = newAlpha
+                    AST.Healer.HealerUIUpdate()
                 end,
             },
-            [4] = {
+            --[[[4] = {
                 type = "slider",
-                name = "Tracker Scale",
+                name = "Scale",
                 tooltip = "Allows to adjust the size of the Frame",
                 min = 50,
                 max = 200,
@@ -385,8 +385,8 @@ These setting to not affect the ones above.]],
                     AST.Healer.HealerUIUpdate()
                 end,
                 disabled = function() return not AST.SV.healerui end,
-            },
-            [5] = {
+            },]]
+            [4] = {
                 type = "checkbox",
                 name = "Only Track tanks",
                 tooltip = "DDs won't appear in the healer frame.",
@@ -397,7 +397,7 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [6] = {
+            [5] = {
                 type = "checkbox",
                 name = "Only Track DDs",
                 tooltip = "Tanks won't appear in the healer frame.",
@@ -408,7 +408,7 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [7] = {
+            [6] = {
                 type = "checkbox",
                 name = "Disable Second Synergy",
                 tooltip = "If this option is active, the second Synergy is hidden.",
@@ -419,12 +419,12 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [8] = {
+            [7] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [9] = {
+            [8] = {
                 type = "dropdown",
                 name = "First Synergy",
                 tooltip = "First trackable Synergy",
@@ -437,7 +437,7 @@ These setting to not affect the ones above.]],
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [10] = {
+            [9] = {
                 type = "dropdown",
                 name = "Second Synergy",
                 tooltip = "Second trackable Synergy",
@@ -448,7 +448,7 @@ These setting to not affect the ones above.]],
                     AST.SV.healer.secondsynergy = var
                     AST.Healer.HealerUIUpdate()
                 end,
-                disabled = function() return not AST.SV.healerui end,
+                disabled = function() return not (AST.SV.healerui and not AST.SV.healer.ignoresynergy) end,
             },
         },
     })
