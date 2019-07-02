@@ -67,8 +67,6 @@ function AST:Initialize()
 
     AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.default)
 
-    --workaround
-    --they will be removed as soon as a new major patch arrives
     if not AST.SV.healer.firstsynergy then AST.SV.healer.firstsynergy = 1 end
     if not AST.SV.healer.secondsynergy then AST.SV.healer.secondsynergy = 2 end
 
