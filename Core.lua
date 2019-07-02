@@ -11,9 +11,11 @@ AST.varName         = "ASTSaved"
 local em            = EVENT_MANAGER
 local LibUnit       = LibStub:GetLibrary("LibUnits")
 
-local combat                = IsUnitInCombat("player")
-local wrapper, wrapper2     = nil, nil
-local fragment, fragment2   = nil, nil
+local combat        = IsUnitInCombat("player")
+local wrapper       = nil
+local wrapper2      = nil
+local fragment      = nil
+local fragment2     = nil
 
 
 AST.default = {
@@ -33,6 +35,7 @@ AST.default = {
     ["sol"]         = false,
     ["rob"]         = false,
     ["ago"]         = false,
+    ["icy"]         = false,
     ["windowstate"] = false,
     ["windowscale"] = 1,
     ["left"]        = 500,
@@ -73,8 +76,14 @@ function AST:Initialize()
     AST.Tracker:Initialize(AST.SV.trackerui)
     AST.Healer:Initialize(AST.SV.healerui)
 
-    if AST.SV.trackerui then wrapper, fragment = ASTGrid, ZO_SimpleSceneFragment:New(wrapper) end
-    if AST.SV.healerui then wrapper2, fragment2 = ASTHealerUI, ZO_SimpleSceneFragment:New(wrapper2) end
+    if AST.SV.trackerui then 
+        wrapper = ASTGrid
+        fragment = ZO_SimpleSceneFragment:New(wrapper) 
+    end
+    if AST.SV.healerui then 
+        wrapper2 = ASTHealerUI
+        fragment2 = ZO_SimpleSceneFragment:New(wrapper2) 
+    end
 
     AST.LoadSettings()
     AST.combatState()
@@ -108,6 +117,18 @@ function AST.windowState()
             HUD_UI_SCENE:AddFragment(fragment2)
         end
         d(zo_strformat("|cfd6a02[AiMs Synergy Tracker]|r |cffffffTrackers are now <<1>> outside of combat", "|c32cd32visible|r"))
+    end
+end
+
+function AST.HealerUIVisibility(value)
+    if not value then
+        ASTHealerUI:SetHidden(true)
+        HUD_SCENE:RemoveFragment(fragment2)
+        HUD_UI_SCENE:RemoveFragment(fragment2)
+    else 
+        ASTHealerUI:SetHidden(false)
+        HUD_SCENE:AddFragment(fragment2)
+        HUD_UI_SCENE:AddFragment(fragment2)
     end
 end
 

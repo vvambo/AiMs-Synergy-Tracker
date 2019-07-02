@@ -1,6 +1,7 @@
 AST.Tracking = {}
 
 T = AST.Tracking
+local em = EVENT_MANAGER
 
 function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, targetType, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
     local start = GetFrameTimeSeconds()

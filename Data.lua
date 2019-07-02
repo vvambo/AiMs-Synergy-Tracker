@@ -18,6 +18,7 @@ local HIDDEN_REFRESH_SYNERGY    = 13    -- Consuming Darkness
 local SOUL_LEECH_SYNERGY        = 14    -- Soul Shred
 local GRAVE_ROBBER_SYNERGY      = 15    -- Grave Robber
 local PURE_AGONY_SYNERGY        = 16    -- Pure Agony
+local ICY_ESCAPE                = 17    -- Icy Escape
 
 D.SynergyData = {
     [108782]    = { cooldown = 20,   group = BLOOD_SYNERGY },                -- Blood Funnel Synergy     (Blood Altar)
@@ -45,6 +46,7 @@ D.SynergyData = {
     [115567]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Boneyard Synergy         (Grave Robber)
     [115571]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Avid Boneyard Synergy    (Grave Robber)
     [118610]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },           -- Agony Totem Synergy      (Pure Agony)
+    [000000]    = { cooldown = 20,   group = ICY_ESCAPE },                   -- 
 
 }
 
@@ -65,6 +67,7 @@ D.SynergyTexture = {
     [SOUL_LEECH_SYNERGY]     = "/esoui/art/icons/ability_nightblade_018.dds",
     [GRAVE_ROBBER_SYNERGY]   = "/esoui/art/icons/ability_necromancer_004_b.dds",
     [PURE_AGONY_SYNERGY]     = "/esoui/art/icons/ability_necromancer_010_b.dds",
+    [ICY_ESCAPE]             = "/esoui/art/icons/ability_warden_005_b.dds",
 }
 
 D.TrackerTimer = {
@@ -84,6 +87,7 @@ D.TrackerTimer = {
     [SOUL_LEECH_SYNERGY]        = 0,
     [GRAVE_ROBBER_SYNERGY]      = 0,
     [PURE_AGONY_SYNERGY]        = 0,
+    [ICY_ESCAPE]                = 0,
 }
 
 D.SynergyList = {

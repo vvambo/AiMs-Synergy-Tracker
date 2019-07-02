@@ -24,7 +24,7 @@ Furthermore as of Version 3.8 the core of this Addon has been pretty much entier
 | **Supernova** (Nova) | ✔️ |
 | **Hidden Refresh** (Consuming Darkness) | ✔️ |
 | **Soul Leech** (Soul Shred) | ✔️ |
-| **Icy escape** (Frozen Retreat) | ❌ |
+| **Icy escape** (Frozen Retreat) | ⚠️ |
 | **Grave Robber** (Boneyard) | ✔️ |
 | **Pure Agony** (Agony Totem) | ✔️ |
 
