@@ -39,12 +39,16 @@ function T.BackdropControl()
     bdBackdrop:SetDrawLayer(0)
 end
 
-function T.TrackerElements()
-    local windowscale   = AST.SV.windowscale
-    local fontSize      = 18
+function T.Font(scale)
+    local fontSize      = math.floor(18 * scale)
     local fontStyle     = "MEDIUM_FONT"        
     local fontWeight    = "thick-outline" 
-    local astFont       = string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSize, fontWeight)
+    return string.format("$(%s)|$(KB_%s)|%s", fontStyle, fontSize, fontWeight)
+end
+
+function T.TrackerElements()
+    local windowscale   = AST.SV.windowscale
+    local astFont       = T.Font(windowscale)
 
     for k, v in ipairs(AST.Data.TrackerTimer) do
         local SynergyIcon = wm:CreateControl("$(parent)SynergyIcon"..k, tlw, CT_TEXTURE)
@@ -130,7 +134,8 @@ function T.SetTimerPosition(TopLevelControl, windowscale, counter, SynergyTimer,
         SynergyTimer:SetAnchor(CENTER, SynergyIcon, CENTER, 45 * windowscale, 0)
     end
 
-    SynergyTimer:SetScale(windowscale)
+    local astFont = T.Font(windowscale)
+    SynergyTimer:SetFont(astFont)
 end
 
 function T.SetBackgroundDimensions(TopLevelControl, windowscale, counter, bdBackDrop)

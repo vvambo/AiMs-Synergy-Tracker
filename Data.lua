@@ -46,7 +46,7 @@ D.SynergyData = {
     [115567]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Boneyard Synergy         (Grave Robber)
     [115571]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Avid Boneyard Synergy    (Grave Robber)
     [118610]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },           -- Agony Totem Synergy      (Pure Agony)
-    [000000]    = { cooldown = 20,   group = ICY_ESCAPE },                   -- 
+    [108950]    = { cooldown = 20,   group = ICY_ESCAPE },                   -- Icy Escape Synergy       (Frozen Retreat)
 
 }
 

@@ -16,12 +16,6 @@ function AST.LoadSettings()
 
     local optionsTable = {}
 
-    --elements
-    table.insert(optionsTable, {
-        type = "header",
-        name = "Tracker Settings",
-    })
-
     table.insert(optionsTable, {
         type = "slider",
         name = "Update Interval",
@@ -39,7 +33,7 @@ function AST.LoadSettings()
 
     table.insert(optionsTable, {
         type = "checkbox",
-        name = "Only shows in Combat",
+        name = "Show Only In Combat",
         tooltip = "Toggles the tracker outside of fights",
         getFunc = function() return AST.SV.windowstate end,
         setFunc = function(value) 
@@ -65,7 +59,8 @@ function AST.LoadSettings()
         controls = {
             [1] = {
                 type = "description",
-                text = [[The |cff0000Tracker UI|r shows you your synergies and their cooldown.]],               
+                text = [[The |cff0000Tracker UI|r shows you your synergies and their cooldown.
+                ]],               
             },
             [2] = {
                 type = "checkbox",
@@ -92,7 +87,6 @@ function AST.LoadSettings()
             [4] = {
                 type = "slider",
                 name = "Tracker Transparency",
-                tooltip = "Defines the transparency of the tracker's background.",
                 min = 0,
                 max = 100,
                 step = 1,
@@ -110,7 +104,7 @@ function AST.LoadSettings()
             [5] = {
                 type = "checkbox",
                 name = "Texture Transparency",
-                tooltip = "Makes the textures transparent as well",
+                tooltip = "Textures will be a affected by the Tracker Transparency option as well",
                 getFunc = function() return AST.SV.textures end,
                 setFunc = function(value) 
                     AST.SV.textures = value
@@ -120,7 +114,6 @@ function AST.LoadSettings()
             [6] = {
                 type = "slider",
                 name = "Tracker Scale",
-                tooltip = "Allows to adjust the size of the Frame",
                 min = 50,
                 max = 200,
                 step = 1,
@@ -337,7 +330,8 @@ function AST.LoadSettings()
             [1] = {
                 type = "description",
                 text = [[The |c32cd32Healer UI|r tracks Synergies being used by your tanks and dds.
-These setting to not affect the ones above.]],               
+These setting to not affect the ones above.
+]],               
             },
             [2] = {
                 type = "checkbox",
@@ -352,7 +346,6 @@ These setting to not affect the ones above.]],
             [3] = {
                 type = "slider",
                 name = "Transparency",
-                tooltip = "Defines the transparency of the tracker's background.",
                 min = 0,
                 max = 100,
                 step = 1,
@@ -367,29 +360,9 @@ These setting to not affect the ones above.]],
                     AST.Healer.HealerUIUpdate()
                 end,
             },
-            --[[[4] = {
-                type = "slider",
-                name = "Scale",
-                tooltip = "Allows to adjust the size of the Frame",
-                min = 50,
-                max = 200,
-                step = 1,
-                getFunc = function() 
-                    if AST.SV.healer.windowscale ~= nil then
-                        return math.floor(AST.SV.healer.windowscale*100) 
-                    end
-                end,
-                setFunc = function(var) 
-                    local newWindowScale = var / 100
-                    AST.SV.healer.windowscale = newWindowScale
-                    AST.Healer.HealerUIUpdate()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },]]
             [4] = {
                 type = "checkbox",
-                name = "Only Track tanks",
-                tooltip = "DDs won't appear in the healer frame.",
+                name = "Only Track Tanks",
                 getFunc = function() return AST.SV.healer.tanksonly end,
                 setFunc = function(value)
                     AST.SV.healer.tanksonly = value
@@ -400,7 +373,6 @@ These setting to not affect the ones above.]],
             [5] = {
                 type = "checkbox",
                 name = "Only Track DDs",
-                tooltip = "Tanks won't appear in the healer frame.",
                 getFunc = function() return AST.SV.healer.ddsonly end,
                 setFunc = function(value)
                     AST.SV.healer.ddsonly = value
@@ -411,7 +383,6 @@ These setting to not affect the ones above.]],
             [6] = {
                 type = "checkbox",
                 name = "Disable Second Synergy",
-                tooltip = "If this option is active, the second Synergy is hidden.",
                 getFunc = function() return AST.SV.healer.ignoresynergy end,
                 setFunc = function(value)
                     AST.SV.healer.ignoresynergy = value
@@ -427,7 +398,6 @@ These setting to not affect the ones above.]],
             [8] = {
                 type = "dropdown",
                 name = "First Synergy",
-                tooltip = "First trackable Synergy",
                 choices = D.SynergyList,
                 choicesValues = D.SynergyListValues,
                 getFunc = function() return AST.SV.healer.firstsynergy end,
@@ -440,7 +410,6 @@ These setting to not affect the ones above.]],
             [9] = {
                 type = "dropdown",
                 name = "Second Synergy",
-                tooltip = "Second trackable Synergy",
                 choices = D.SynergyList,
                 choicesValues = D.SynergyListValues,
                 getFunc = function() return AST.SV.healer.secondsynergy end,
