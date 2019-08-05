@@ -309,7 +309,7 @@ function AST.LoadSettings()
                 end,
                 disabled = function() return not AST.SV.trackerui end,
             },
-            [24] = {
+            --[[[24] = {
                 type = "checkbox",
                 name = "Icy Escape",
                 tooltip = "Synergy of Frozen Retreat",
@@ -319,7 +319,7 @@ function AST.LoadSettings()
                     AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
-            },
+            },]]--
         },
     })
 

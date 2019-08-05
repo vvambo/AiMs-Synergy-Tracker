@@ -85,7 +85,7 @@ function T.UpdateElements()
         [14] = AST.SV.sol,
         [15] = AST.SV.rob,
         [16] = AST.SV.ago,
-        [17] = AST.SV.icy,
+        --[[[17] = AST.SV.icy,]]--
     }
     local windowscale   = AST.SV.windowscale
     local counter       = 0

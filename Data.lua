@@ -87,7 +87,7 @@ D.TrackerTimer = {
     [SOUL_LEECH_SYNERGY]        = 0,
     [GRAVE_ROBBER_SYNERGY]      = 0,
     [PURE_AGONY_SYNERGY]        = 0,
-    [ICY_ESCAPE]                = 0,
+    --[[[ICY_ESCAPE]                = 0,]]--
 }
 
 D.SynergyList = {
@@ -99,6 +99,8 @@ D.SynergyList = {
     "Harvest", 
     "Purge", 
     "Supernova",
+    "Grave Robber",
+    "Pure Agony",
 }
 
 D.SynergyListValues = {
@@ -110,6 +112,8 @@ D.SynergyListValues = {
     4, 
     3, 
     12,
+    15,
+    16,
 }
 
 D.HealerTimer = {}
