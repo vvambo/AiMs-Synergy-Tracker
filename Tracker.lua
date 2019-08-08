@@ -69,25 +69,7 @@ function T.TrackerElements()
 end
 
 function T.UpdateElements()
-    local check = {
-        [1] = AST.SV.orb,
-        [2] = AST.SV.liq,
-        [3] = AST.SV.pur,
-        [4] = AST.SV.hea,
-        [5] = AST.SV.bon,
-        [6] = AST.SV.blo,
-        [7] = AST.SV.tra,
-        [8] = AST.SV.rad,
-        [9] = AST.SV.cha,
-        [10] = AST.SV.sha,
-        [11] = AST.SV.imp,
-        [12] = AST.SV.gra,
-        [13] = AST.SV.hir,
-        [14] = AST.SV.sol,
-        [15] = AST.SV.rob,
-        [16] = AST.SV.ago,
-        --[[[17] = AST.SV.icy,]]--
-    }
+    local check         = UpdateElementSettings()
     local windowscale   = AST.SV.windowscale
     local counter       = 0
     
@@ -178,4 +160,26 @@ function T.SetWindowLock(value)
     else
         ASTGrid:SetMovable(false)
     end
+end
+
+local function UpdateElementSettings()
+    return {
+        [1] = AST.SV.orb,
+        [2] = AST.SV.liq,
+        [3] = AST.SV.pur,
+        [4] = AST.SV.hea,
+        [5] = AST.SV.bon,
+        [6] = AST.SV.blo,
+        [7] = AST.SV.tra,
+        [8] = AST.SV.rad,
+        [9] = AST.SV.cha,
+        [10] = AST.SV.sha,
+        [11] = AST.SV.imp,
+        [12] = AST.SV.gra,
+        [13] = AST.SV.hir,
+        [14] = AST.SV.sol,
+        [15] = AST.SV.rob,
+        [16] = AST.SV.ago,
+        [17] = AST.SV.icy,
+    }
 end
