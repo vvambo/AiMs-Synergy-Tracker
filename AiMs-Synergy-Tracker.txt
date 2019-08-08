@@ -4,9 +4,8 @@
 ## Version: 4.2
 ## APIVersion: 100028
 ## SavedVariables: ASTSaved
-## DependsOn: LibAddonMenu-2.0 LibStub
+## DependsOn: LibAddonMenu-2.0
 
-libs/LibStub/LibStub.lua
 libs/LibUnits/LibUnits.lua
 
 Core.lua

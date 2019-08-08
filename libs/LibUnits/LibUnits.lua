@@ -1,6 +1,8 @@
-local MAJOR, MINOR = "LibUnits", 3
+local MAJOR, MINOR = "LibUnits", 4
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end	--the same or newer version of this lib is already loaded into memory
+
+LibUnits4 = lib 
 
 local function Log(message, ...)
 	--df("[LibUnits] %s", message:format(...))
