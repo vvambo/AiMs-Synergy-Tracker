@@ -1,3 +1,4 @@
+AST         = AST or {}
 AST.Tracker = {}
 
 local T = AST.Tracker

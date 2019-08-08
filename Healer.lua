@@ -1,4 +1,5 @@
-AST.Healer = {}
+AST         = AST or {}
+AST.Healer  = {}
 
 local H = AST.Healer
 local wm = WINDOW_MANAGER

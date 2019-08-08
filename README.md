@@ -1,4 +1,4 @@
-﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.2.0-blue.svg)
+﻿# AiMs-Synergy-Tracker ![release](https://img.shields.io/badge/release-v4.3.0-blue.svg)
 
 #### Description
 The purpose of this Addon is to show if there currently is a synergy cooldown active and how long it takes to run out.

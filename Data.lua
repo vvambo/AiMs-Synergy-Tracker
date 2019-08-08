@@ -1,4 +1,5 @@
-AST.Data = {}
+AST         = AST or {}
+AST.Data    = {}
 
 D = AST.Data
 
@@ -121,4 +122,46 @@ D.HealerTimer = {}
 D.UnitType = {
     [1]      = "/esoui/art/tutorial/gamepad/gp_lfg_dps.dds",
     [2]      = "/esoui/art/tutorial/gamepad/gp_lfg_tank.dds",
+}
+
+D.default = {
+    ["orb"]         = true,
+    ["liq"]         = true,
+    ["pur"]         = true,
+    ["hea"]         = true,
+    ["bon"]         = false,
+    ["blo"]         = false,
+    ["tra"]         = false,
+    ["rad"]         = false,
+    ["cha"]         = false,
+    ["sha"]         = false,
+    ["imp"]         = false,
+    ["gra"]         = false,
+    ["hir"]         = false,
+    ["sol"]         = false,
+    ["rob"]         = false,
+    ["ago"]         = false,
+    ["icy"]         = false,
+    ["windowstate"] = false,
+    ["windowscale"] = 1,
+    ["left"]        = 500,
+    ["top"]         = 500,
+    ["orientation"] = "horizontal",
+    ["alpha"]       = 0.8,
+    ["lockwindow"]  = false,
+    ["trackerui"]   = true,
+    ["healerui"]    = false,
+    ["interval"]    = 50,
+    ["textures"]    = false,
+    ["healer"]      = {
+        ["left"]            = 500,
+        ["top"]             = 500,
+        ["tanksonly"]       = false,
+        ["firstsynergy"]    = 1,
+        ["secondsynergy"]   = 2,
+        ["alpha"]           = 0.8,
+        ["windowscale"]     = 1,
+        ["ddsonly"]         = false,
+        ["ignoresynergy"]   = false,
+    }
 }
