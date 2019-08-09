@@ -48,7 +48,12 @@ function AST.LoadSettings()
         name = "Lock UI Elements",
         getFunc = function() return AST.SV.lockwindow end,
         setFunc = function(value) 
-            AST.Tracker.SetWindowLock(value)
+            if AST.TRACKER_LOCKED then
+                AST.Tracker.SetWindowLock(value)
+            end
+            if AST.HEALER_LOCKED then
+                AST.Healer.SetWindowLock(value)
+            end
             AST.SV.lockwindow = value 
         end,
     })

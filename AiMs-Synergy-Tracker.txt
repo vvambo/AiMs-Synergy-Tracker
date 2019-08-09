@@ -2,9 +2,9 @@
 ## Description: Tracks the cooldown of Synergies
 ## Author: |cfd6a02AiMPlAyEr[EU]|r
 ## Version: 4.3
-## APIVersion: 100028
+## APIVersion: 100027 100028
 ## SavedVariables: ASTSaved
-## DependsOn: LibAddonMenu-2.0
+## DependsOn: LibAddonMenu-2.0 LibUnits
 
 libs/LibUnits/LibUnits.lua
 

@@ -2,7 +2,24 @@ AST             = AST or {}
 AST.Tracking    = {}
 
 T = AST.Tracking
-local em = EVENT_MANAGER
+local em            = EVENT_MANAGER
+local LIBUNIT     = LibUnits4
+
+--support functions
+local function ConvertTime(nd, numDecimalPlaces)
+    local mult = 10^(numDecimalPlaces or 0)
+	return math.floor((nd - GetGameTimeMilliseconds()/1000) * mult + 0.5)/mult
+end
+
+local function GetUnitName(unitId)
+    local unit = LIBUNIT:GetDisplayNameForUnitId(unitId)
+
+    if unit ~= "" or unit ~= nil then
+        return zo_strformat("<<1>>", unit)
+    else
+        return ""
+    end
+end
 
 function T.synergyCheck(eventCode, result, _, abilityName, _, _, _, sourceType, _, targetType, _, _, _, _, sourceUnitId, targetUnitId, abilityId)
     local start = GetFrameTimeSeconds()
@@ -107,20 +124,4 @@ function T.countDown()
     end
 
     if counter == countAll and count == counttotal then em:UnregisterForUpdate(AST.name.."Update") end
-end
-
---support functions
-local function ConvertTime(nd, numDecimalPlaces)
-    local mult = 10^(numDecimalPlaces or 0)
-	return math.floor((nd - GetGameTimeMilliseconds()/1000) * mult + 0.5)/mult
-end
-
-local function GetUnitName(unitId)
-    local unit = LIBUNIT:GetDisplayNameForUnitId(unitId)
-
-    if unit ~= "" or unit ~= nil then
-        return zo_strformat("<<1>>", unit)
-    else
-        return ""
-    end
 end

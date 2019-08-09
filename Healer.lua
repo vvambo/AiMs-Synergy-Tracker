@@ -205,7 +205,7 @@ function H.SetHealerPosition()
     ASTHealerUI:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
-function H.SetWindowLock()
+function H.SetWindowLock(value)
     if not value then
         if AST.SV.healerui then
             ASTHealerUI:SetMovable(true)
