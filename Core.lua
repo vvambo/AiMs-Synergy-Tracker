@@ -26,7 +26,7 @@ function AST:Initialize()
         EM:AddFilterForEvent(AST.name.."Synergy"..k, EVENT_COMBAT_EVENT, REGISTER_FILTER_ABILITY_ID, k)
     end
 
-    AST.SV = ZO_SavedVars:New(AST.varName, AST.varVersion, nil, AST.Data.default)
+    AST.SV = ZO_SavedVars:NewCharacterIdSettings(AST.varName, AST.varVersion, nil, AST.Data.default)
 
     AST.TRACKER_LOCKED  = AST.SV.trackerui
     AST.HEALER_LOCKED   = AST.SV.healerui
