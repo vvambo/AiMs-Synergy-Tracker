@@ -193,8 +193,10 @@ function H.UpdateGroup()
 end
 
 function H.HealerUIUpdate()
-    H.UpdateGroup()
-    H.HealerUIGroupUpdate()
+    if AST.IS_HEALER_UI_ACTIVE then
+        H.UpdateGroup()
+        H.HealerUIGroupUpdate()
+    end
 end
 
 function H.SetHealerPosition()

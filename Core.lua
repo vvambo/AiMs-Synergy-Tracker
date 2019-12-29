@@ -15,6 +15,7 @@ local TRACKER_WRAPPER       = nil
 local TRACKER_FRAGMENT      = nil
 local HEALER_WRAPPER        = nil
 local HEALER_FRAGMENT       = nil
+AST.IS_HEALER_UI_ACTIVE     = nil
 AST.TRACKER_LOCKED          = nil
 AST.HEALER_LOCKED           = nil
 
@@ -31,6 +32,8 @@ function AST:Initialize()
     AST.TRACKER_LOCKED  = AST.SV.trackerui
     AST.HEALER_LOCKED   = AST.SV.healerui
 
+    IS_HEALER_UI_ACTIVE = AST.SV.healerui
+
     if not AST.SV.healer.firstsynergy then AST.SV.healer.firstsynergy = 1 end
     if not AST.SV.healer.secondsynergy then AST.SV.healer.secondsynergy = 2 end
 
@@ -41,6 +44,7 @@ function AST:Initialize()
         TRACKER_WRAPPER     = ASTGrid
         TRACKER_FRAGMENT    = ZO_SimpleSceneFragment:New(TRACKER_WRAPPER) 
     end
+
     if AST.SV.healerui then 
         HEALER_WRAPPER  = ASTHealerUI
         HEALER_FRAGMENT = ZO_SimpleSceneFragment:New(HEALER_WRAPPER) 

@@ -9,7 +9,7 @@ function AST.LoadSettings()
         version = AST.version,
         slashCommand = "/astmenu",
         website = AST.website,
-        registerForRefresh = false,
+        registerForRefresh = true,
         registerForDefaults = true,
     }
     LAM:RegisterAddonPanel(AST.menuname, panelData)
