@@ -3,7 +3,7 @@ AST.Tracking    = {}
 
 T = AST.Tracking
 local em            = EVENT_MANAGER
-local LIBUNIT     = LibUnits4
+local LIBUNIT     = LibStub:GetLibrary("LibUnits")
 
 --support functions
 local function ConvertTime(nd, numDecimalPlaces)
