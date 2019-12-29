@@ -196,9 +196,6 @@ function H.HealerUIUpdate()
     if AST.IS_HEALER_UI_ACTIVE then
         H.UpdateGroup()
         H.HealerUIGroupUpdate()
-        d(true)
-    else
-        d(false)
     end
 end
 
