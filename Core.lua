@@ -29,10 +29,9 @@ function AST:Initialize()
 
     AST.SV = ZO_SavedVars:NewCharacterIdSettings(AST.varName, AST.varVersion, nil, AST.Data.default)
 
-    AST.TRACKER_LOCKED  = AST.SV.trackerui
-    AST.HEALER_LOCKED   = AST.SV.healerui
-
-    IS_HEALER_UI_ACTIVE = AST.SV.healerui
+    AST.TRACKER_LOCKED          = AST.SV.trackerui
+    AST.HEALER_LOCKED           = AST.SV.healerui
+    AST.IS_HEALER_UI_ACTIVE     = AST.SV.healerui
 
     if not AST.SV.healer.firstsynergy then AST.SV.healer.firstsynergy = 1 end
     if not AST.SV.healer.secondsynergy then AST.SV.healer.secondsynergy = 2 end
