@@ -335,7 +335,7 @@ function AST.LoadSettings()
             [1] = {
                 type = "description",
                 text = [[The |c32cd32Healer UI|r tracks Synergies being used by your tanks and dds.
-These setting to not affect the ones above.
+These setting do not affect the ones above.
 ]],               
             },
             [2] = {
