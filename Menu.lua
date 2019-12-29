@@ -403,8 +403,8 @@ These setting do not affect the ones above.
             [8] = {
                 type = "dropdown",
                 name = "First Synergy",
-                choices = D.SynergyList,
-                choicesValues = D.SynergyListValues,
+                choices = AST.Data.SynergyList,
+                choicesValues = AST.Data.SynergyListValues,
                 getFunc = function() return AST.SV.healer.firstsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.firstsynergy = var 
@@ -415,8 +415,8 @@ These setting do not affect the ones above.
             [9] = {
                 type = "dropdown",
                 name = "Second Synergy",
-                choices = D.SynergyList,
-                choicesValues = D.SynergyListValues,
+                choices = AST.Data.SynergyList,
+                choicesValues = AST.Data.SynergyListValues,
                 getFunc = function() return AST.SV.healer.secondsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.secondsynergy = var
