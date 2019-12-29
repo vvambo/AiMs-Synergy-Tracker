@@ -122,7 +122,7 @@ function H.HealerUISynergies(healerui, healeruiBackdrop)
         local healeruisynergy = wm:CreateControl("$(parent)HealerSynergy"..i, healerui, CT_TEXTURE)
         healeruisynergy:SetScale(1)
         healeruisynergy:SetDrawLayer(1)
-        healeruisynergy:SetTexture(D.SynergyTexture[synergies[i]])
+        healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[i]])
         healeruisynergy:SetDimensions(24,24)
         healeruisynergy:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 105 + (35 * i), 5)
     end

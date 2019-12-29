@@ -9,7 +9,7 @@ function AST.LoadSettings()
         version = AST.version,
         slashCommand = "/astmenu",
         website = AST.website,
-        registerForRefresh = true,
+        registerForRefresh = false,
         registerForDefaults = true,
     }
     LAM:RegisterAddonPanel(AST.menuname, panelData)
@@ -335,7 +335,7 @@ function AST.LoadSettings()
             [1] = {
                 type = "description",
                 text = [[The |c32cd32Healer UI|r tracks Synergies being used by your tanks and dds.
-These setting do not affect the ones above.
+These settings do not affect the ones above.
 ]],               
             },
             [2] = {
@@ -364,6 +364,7 @@ These setting do not affect the ones above.
                     AST.SV.healer.alpha = newAlpha
                     AST.Healer.HealerUIUpdate()
                 end,
+                disabled = function() return not AST.SV.healerui end,
             },
             [4] = {
                 type = "checkbox",
