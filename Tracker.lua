@@ -1,4 +1,3 @@
-AST         = AST or {}
 AST.Tracker = {}
 
 local T = AST.Tracker
@@ -16,7 +15,6 @@ function T:Initialize(enabled)
     T.UpdateElements()
     T.SetTrackerPosition()
     T.SetTrackerAlpha(AST.SV.alpha)
-    T.SetWindowLock(AST.SV.lockwindow)
 end
 
 function T.TopLevelControl()
@@ -68,8 +66,8 @@ function T.TrackerElements()
     end
 end
 
-local function UpdateElementSettings()
-    return {
+function T.UpdateElements()
+    local check = {
         [1] = AST.SV.orb,
         [2] = AST.SV.liq,
         [3] = AST.SV.pur,
@@ -86,12 +84,10 @@ local function UpdateElementSettings()
         [14] = AST.SV.sol,
         [15] = AST.SV.rob,
         [16] = AST.SV.ago,
-        [17] = AST.SV.icy,
+        [17] = AST.SV.sab
+        --[[[18] = AST.SV.icy,]]--
+		
     }
-end
-
-function T.UpdateElements()
-    local check         = UpdateElementSettings()
     local windowscale   = AST.SV.windowscale
     local counter       = 0
     
@@ -173,13 +169,5 @@ function T.SetTrackerAlpha(value)
             local icon = ASTGrid:GetNamedChild("SynergyIcon"..k)
             icon:SetAlpha(1.0)
         end
-    end
-end
-
-function T.SetWindowLock(value)
-    if not value then
-        ASTGrid:SetMovable(true)
-    else
-        ASTGrid:SetMovable(false)
     end
 end

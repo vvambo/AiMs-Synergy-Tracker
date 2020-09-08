@@ -1,5 +1,5 @@
 function AST.LoadSettings()
-    local LAM = LibAddonMenu2
+    local LAM = LibStub("LibAddonMenu-2.0")
 
     local panelData = {
         type = "panel",
@@ -48,12 +48,7 @@ function AST.LoadSettings()
         name = "Lock UI Elements",
         getFunc = function() return AST.SV.lockwindow end,
         setFunc = function(value) 
-            if AST.TRACKER_LOCKED then
-                AST.Tracker.SetWindowLock(value)
-            end
-            if AST.HEALER_LOCKED then
-                AST.Healer.SetWindowLock(value)
-            end
+            AST.SetWindowLock(value)
             AST.SV.lockwindow = value 
         end,
     })
@@ -313,8 +308,19 @@ function AST.LoadSettings()
                     AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
+            },            
+			[24] = {
+                type = "checkbox",
+                name = "Sanguine Burst",
+                tooltip = "Synergy of Lady Thorn Set",
+                getFunc = function() return AST.SV.sab end,
+                setFunc = function(value) 
+                    AST.SV.sab = value
+                    AST.Tracker.UpdateElements() 
+                end,
+                disabled = function() return not AST.SV.trackerui end,
             },
-            [24] = {
+			--[[[25] = {
                 type = "checkbox",
                 name = "Icy Escape",
                 tooltip = "Synergy of Frozen Retreat",
@@ -324,7 +330,7 @@ function AST.LoadSettings()
                     AST.Tracker.UpdateElements() 
                 end,
                 disabled = function() return not AST.SV.trackerui end,
-            },
+            },]]--
         },
     })
 
@@ -335,7 +341,7 @@ function AST.LoadSettings()
             [1] = {
                 type = "description",
                 text = [[The |c32cd32Healer UI|r tracks Synergies being used by your tanks and dds.
-These settings do not affect the ones above.
+These setting to not affect the ones above.
 ]],               
             },
             [2] = {
@@ -364,7 +370,6 @@ These settings do not affect the ones above.
                     AST.SV.healer.alpha = newAlpha
                     AST.Healer.HealerUIUpdate()
                 end,
-                disabled = function() return not AST.SV.healerui end,
             },
             [4] = {
                 type = "checkbox",
@@ -387,25 +392,15 @@ These settings do not affect the ones above.
                 disabled = function() return not AST.SV.healerui end,
             },
             [6] = {
-                type = "checkbox",
-                name = "Disable Second Synergy",
-                getFunc = function() return AST.SV.healer.ignoresynergy end,
-                setFunc = function(value)
-                    AST.SV.healer.ignoresynergy = value
-                    AST.Healer.HealerUIUpdate()
-                end,
-                disabled = function() return not AST.SV.healerui end,
-            },
-            [7] = {
                 type = "divider",
                 height = 15,
                 alpha = 1,
             },
-            [8] = {
+            [7] = {
                 type = "dropdown",
                 name = "First Synergy",
-                choices = AST.Data.SynergyList,
-                choicesValues = AST.Data.SynergyListValues,
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
                 getFunc = function() return AST.SV.healer.firstsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.firstsynergy = var 
@@ -413,18 +408,42 @@ These settings do not affect the ones above.
                 end,
                 disabled = function() return not AST.SV.healerui end,
             },
-            [9] = {
+            [8] = {
                 type = "dropdown",
                 name = "Second Synergy",
-                choices = AST.Data.SynergyList,
-                choicesValues = AST.Data.SynergyListValues,
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
                 getFunc = function() return AST.SV.healer.secondsynergy end,
                 setFunc = function(var) 
                     AST.SV.healer.secondsynergy = var
                     AST.Healer.HealerUIUpdate()
                 end,
-                disabled = function() return not (AST.SV.healerui and not AST.SV.healer.ignoresynergy) end,
+                disabled = function() return not AST.SV.healerui end,
             },
+            [9] = {
+                type = "dropdown",
+                name = "Third Synergy",
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
+                getFunc = function() return AST.SV.healer.thirdsynergy end,
+                setFunc = function(var) 
+                    AST.SV.healer.thirdsynergy = var
+                    AST.Healer.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },		
+            [10] = {
+                type = "dropdown",
+                name = "Fourth Synergy",
+                choices = D.SynergyList,
+                choicesValues = D.SynergyListValues,
+                getFunc = function() return AST.SV.healer.fourthsynergy end,
+                setFunc = function(var) 
+                    AST.SV.healer.fourthsynergy = var
+                    AST.Healer.HealerUIUpdate()
+                end,
+                disabled = function() return not AST.SV.healerui end,
+            },					
         },
     })
 

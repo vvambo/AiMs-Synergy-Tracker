@@ -1,5 +1,4 @@
-AST         = AST or {}
-AST.Healer  = {}
+AST.Healer = {}
 
 local H = AST.Healer
 local wm = WINDOW_MANAGER
@@ -73,75 +72,91 @@ function H.HealerUIGroupUpdate()
 
     local backdrop = ASTHealerUI:GetNamedChild("bdBackDrop")
     backdrop:SetAlpha(AST.SV.healer.alpha)
+	
+	local synergies = {
+        [1] = AST.SV.healer.firstsynergy, 
+        [2] = AST.SV.healer.secondsynergy,
+		[3] = AST.SV.healer.thirdsynergy,
+		[4] = AST.SV.healer.fourthsynergy,
+    }
 
-    if AST.SV.healer.ignoresynergy then
-        backdrop:SetDimensions(170, 35 + (24 * units))
-    else
-        backdrop:SetDimensions(205, 35 + (24 * units))
-    end
+	local activeCount = 0
+	for i=1,#synergies do
+		if (synergies[i] ~= 99) then
+			activeCount = activeCount + 1
+		end	
+	end
 
-    units = units * 2
+    backdrop:SetDimensions(135 + activeCount * 35, 35 + (24 * units))
 
-    for x = 1, 20 do
-        local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-        timer:SetHidden(true)
+
+    units = units * 4
+
+    for x = 1, 40 do
+       local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
+       timer:SetHidden(true)
     end
 
     if units > 0 then
+		local synTimer = 1
         for x = 1, units do
+			--TODO: Ugly, refactor synTimer
             local timer = ASTHealerUI:GetNamedChild("HealerTimer"..x)
-            if (AST.SV.healer.ignoresynergy and x % 2 == 0) then
-                timer:SetHidden(true)
-            else
-                timer:SetHidden(false)
-            end
+			if (synergies[synTimer]) == 99 then
+				timer:SetHidden(true)
+			else
+				timer:SetHidden(false)	
+			end	
+			
+			synTimer = synTimer +1
+			if synTimer >= 5 then
+				synTimer = 1
+			end
+
         end
     end
-
-    local synergies = {
-        [1] = AST.SV.healer.firstsynergy, 
-        [2] = AST.SV.healer.secondsynergy,
-    }
-
-    --synergy textures
-    for x = 1, 2 do
-        if (AST.SV.healer.ignoresynergy and x == 2) then
-            ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(true)
-        else
-            ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(false)
-        end
-
-        local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy"..x)
-        healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[x]])
+	
+    for x = 1, 4 do
+		if (synergies[x] ~= 99) then
+			ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(false)
+			local healeruisynergy = ASTHealerUI:GetNamedChild("HealerSynergy"..x)
+			healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[x]])
+		else
+			ASTHealerUI:GetNamedChild("HealerSynergy"..x):SetHidden(true)
+		end
     end
 end
 
 function H.HealerUISynergies(healerui, healeruiBackdrop)
-    local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy}
-    for i = 1, 2 do
-        local healeruisynergy = wm:CreateControl("$(parent)HealerSynergy"..i, healerui, CT_TEXTURE)
-        healeruisynergy:SetScale(1)
-        healeruisynergy:SetDrawLayer(1)
-        healeruisynergy:SetTexture(AST.Data.SynergyTexture[synergies[i]])
-        healeruisynergy:SetDimensions(24,24)
-        healeruisynergy:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 105 + (35 * i), 5)
+    local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy, AST.SV.healer.thirdsynergy, AST.SV.healer.fourthsynergy}
+    for i = 1, 4 do
+		--if (synergies[i] ~= 99) then
+			local healeruisynergy = wm:CreateControl("$(parent)HealerSynergy"..i, healerui, CT_TEXTURE)
+			healeruisynergy:SetScale(1)
+			healeruisynergy:SetDrawLayer(1)
+			healeruisynergy:SetTexture(D.SynergyTexture[synergies[i]])
+			healeruisynergy:SetDimensions(24,24)
+			healeruisynergy:SetAnchor(TOPLEFT, healeruiBackdrop, TOPLEFT, 105 + (35 * i), 5)
+		--end
     end
 end
 
 function H.HealerUITimer(healerui, healeruiBackdrop)
     local counter = 1
+	local synergies = {AST.SV.healer.firstsynergy, AST.SV.healer.secondsynergy, AST.SV.healer.thirdsynergy, AST.SV.healer.fourthsynergy}
     for i = 1, 10 do
-        for z = 1, 2 do
-            local healeruitimer = wm:CreateControl("$(parent)HealerTimer"..counter, healerui, CT_LABEL)
-            healeruitimer:SetColor(255, 255, 255, 1)
-            healeruitimer:SetFont("ZoFontWinT2")
-            healeruitimer:SetScale(1.0)
-            healeruitimer:SetWrapMode(TEX_MODE_CLAMP)
-            healeruitimer:SetDrawLayer(1)
-            healeruitimer:SetText("0")
-            healeruitimer:SetAnchor(CENTER, healeruiBackdrop, TOPLEFT, 116 + (35 * z), 25 * i + 15)
-            healeruitimer:SetHidden(true)
-
+        for z = 1, 4 do
+			--if (synergies[i] ~= 99) then
+				local healeruitimer = wm:CreateControl("$(parent)HealerTimer"..counter, healerui, CT_LABEL)
+				healeruitimer:SetColor(255, 255, 255, 1)
+				healeruitimer:SetFont("ZoFontWinT2")
+				healeruitimer:SetScale(1.0)
+				healeruitimer:SetWrapMode(TEX_MODE_CLAMP)
+				healeruitimer:SetDrawLayer(1)
+				healeruitimer:SetText("0")
+				healeruitimer:SetAnchor(CENTER, healeruiBackdrop, TOPLEFT, 116 + (35 * z), 25 * i + 15)
+				healeruitimer:SetHidden(true)
+			--end
             counter = counter + 1
         end
     end
@@ -164,6 +179,8 @@ function H.UpdateGroup()
                         AST.Data.HealerTimer[counter].name = accName
                         AST.Data.HealerTimer[counter].firstsynergy = "0"
                         AST.Data.HealerTimer[counter].secondsynergy = "0"
+						AST.Data.HealerTimer[counter].thirdsynergy = "0"
+						AST.Data.HealerTimer[counter].fourthsynergy = "0"
                         AST.Data.HealerTimer[counter].role = role
 
                         counter = counter + 1
@@ -174,6 +191,8 @@ function H.UpdateGroup()
                         AST.Data.HealerTimer[counter].name = accName
                         AST.Data.HealerTimer[counter].firstsynergy = "0"
                         AST.Data.HealerTimer[counter].secondsynergy = "0"
+						AST.Data.HealerTimer[counter].thirdsynergy = "0"
+						AST.Data.HealerTimer[counter].fourthsynergy = "0"
                         AST.Data.HealerTimer[counter].role = role
 
                         counter = counter + 1
@@ -183,6 +202,8 @@ function H.UpdateGroup()
                     AST.Data.HealerTimer[counter].name = accName
                     AST.Data.HealerTimer[counter].firstsynergy = "0"
                     AST.Data.HealerTimer[counter].secondsynergy = "0"
+					AST.Data.HealerTimer[counter].thirdsynergy = "0"
+					AST.Data.HealerTimer[counter].fourthsynergy = "0"
                     AST.Data.HealerTimer[counter].role = role
 
                     counter = counter + 1
@@ -193,10 +214,8 @@ function H.UpdateGroup()
 end
 
 function H.HealerUIUpdate()
-    if AST.IS_HEALER_UI_ACTIVE then
-        H.UpdateGroup()
-        H.HealerUIGroupUpdate()
-    end
+    H.UpdateGroup()
+    H.HealerUIGroupUpdate()
 end
 
 function H.SetHealerPosition()
@@ -207,7 +226,7 @@ function H.SetHealerPosition()
     ASTHealerUI:SetAnchor(TOPLEFT, GuiRoot, TOPLEFT, left, top)
 end
 
-function H.SetWindowLock(value)
+function H.SetWindowLock()
     if not value then
         if AST.SV.healerui then
             ASTHealerUI:SetMovable(true)

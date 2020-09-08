@@ -1,7 +1,7 @@
-AST         = AST or {}
-AST.Data    = {}
+AST.Data = {}
 
 D = AST.Data
+
 
 local COMBUSTION_SYNERGY        = 1     -- orb and shard
 local CONDUIT_SYNERGY           = 2     -- liquid lightning
@@ -19,7 +19,9 @@ local HIDDEN_REFRESH_SYNERGY    = 13    -- Consuming Darkness
 local SOUL_LEECH_SYNERGY        = 14    -- Soul Shred
 local GRAVE_ROBBER_SYNERGY      = 15    -- Grave Robber
 local PURE_AGONY_SYNERGY        = 16    -- Pure Agony
-local ICY_ESCAPE                = 17    -- Icy Escape
+local SANGUINE_BURST_SYNERGY	= 17	-- Sanguine Burst from Lady Thorn Monsterset
+local ICY_ESCAPE                = 18    -- Icy Escape
+local NO_SYNERGY        		= 99     -- Nothing, used to determine whether to track 2,3,4 synergies in healer UI
 
 D.SynergyData = {
     [108782]    = { cooldown = 20,   group = BLOOD_SYNERGY },                -- Blood Funnel Synergy     (Blood Altar)
@@ -47,8 +49,8 @@ D.SynergyData = {
     [115567]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Boneyard Synergy         (Grave Robber)
     [115571]    = { cooldown = 20,   group = GRAVE_ROBBER_SYNERGY },         -- Avid Boneyard Synergy    (Grave Robber)
     [118610]    = { cooldown = 20,   group = PURE_AGONY_SYNERGY },           -- Agony Totem Synergy      (Pure Agony)
-    [88887]    = { cooldown = 20,   group = ICY_ESCAPE },                   -- Icy Escape Synergy       (Frozen Retreat)
-
+    [108950]    = { cooldown = 20,   group = ICY_ESCAPE },                   -- Icy Escape Synergy       (Frozen Retreat)
+	[142318]	= { cooldown = 20,   group = SANGUINE_BURST_SYNERGY },		 -- Sanguine Burst Synergy 	 (Lady Thorn Monsterset)
 }
 
 D.SynergyTexture = {
@@ -69,6 +71,8 @@ D.SynergyTexture = {
     [GRAVE_ROBBER_SYNERGY]   = "/esoui/art/icons/ability_necromancer_004_b.dds",
     [PURE_AGONY_SYNERGY]     = "/esoui/art/icons/ability_necromancer_010_b.dds",
     [ICY_ESCAPE]             = "/esoui/art/icons/ability_warden_005_b.dds",
+	[SANGUINE_BURST_SYNERGY] = "/esoui/art/icons/ability_u23_bloodball_chokeonit.dds",
+	[NO_SYNERGY]             = "/esoui/art/icons/ability_legerdemain_salesman.dds",
 }
 
 D.TrackerTimer = {
@@ -88,10 +92,13 @@ D.TrackerTimer = {
     [SOUL_LEECH_SYNERGY]        = 0,
     [GRAVE_ROBBER_SYNERGY]      = 0,
     [PURE_AGONY_SYNERGY]        = 0,
-    [ICY_ESCAPE]                = 0,
+	[SANGUINE_BURST_SYNERGY] 	= 0,
+	--[NO_SYNERGY]           		= 0, 
+    --[[[ICY_ESCAPE]                = 0,]]--
 }
 
 D.SynergyList = {
+	"Nothing",
     "Blood Funnel", 
     "Spawn Broodlings", 
     "Bone Wall", 
@@ -102,9 +109,11 @@ D.SynergyList = {
     "Supernova",
     "Grave Robber",
     "Pure Agony",
+	"Sanguine Burst",
 }
 
 D.SynergyListValues = {
+	99,
     6, 
     7, 
     5, 
@@ -115,6 +124,7 @@ D.SynergyListValues = {
     12,
     15,
     16,
+	17,
 }
 
 D.HealerTimer = {}
@@ -122,46 +132,4 @@ D.HealerTimer = {}
 D.UnitType = {
     [1]      = "/esoui/art/tutorial/gamepad/gp_lfg_dps.dds",
     [2]      = "/esoui/art/tutorial/gamepad/gp_lfg_tank.dds",
-}
-
-D.default = {
-    ["orb"]         = true,
-    ["liq"]         = true,
-    ["pur"]         = true,
-    ["hea"]         = true,
-    ["bon"]         = false,
-    ["blo"]         = false,
-    ["tra"]         = false,
-    ["rad"]         = false,
-    ["cha"]         = false,
-    ["sha"]         = false,
-    ["imp"]         = false,
-    ["gra"]         = false,
-    ["hir"]         = false,
-    ["sol"]         = false,
-    ["rob"]         = false,
-    ["ago"]         = false,
-    ["icy"]         = false,
-    ["windowstate"] = false,
-    ["windowscale"] = 1,
-    ["left"]        = 500,
-    ["top"]         = 500,
-    ["orientation"] = "horizontal",
-    ["alpha"]       = 0.8,
-    ["lockwindow"]  = false,
-    ["trackerui"]   = true,
-    ["healerui"]    = false,
-    ["interval"]    = 50,
-    ["textures"]    = false,
-    ["healer"]      = {
-        ["left"]            = 500,
-        ["top"]             = 500,
-        ["tanksonly"]       = false,
-        ["firstsynergy"]    = 1,
-        ["secondsynergy"]   = 2,
-        ["alpha"]           = 0.8,
-        ["windowscale"]     = 1,
-        ["ddsonly"]         = false,
-        ["ignoresynergy"]   = false,
-    }
 }
